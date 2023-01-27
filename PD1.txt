@@ -1,0 +1,22 @@
+Task Scheduler/Event Manager
+1. Functional Requirements
+    - 
+
+
+2. Non-Functional Requirements
+
+3. Data Dictionary
+
+4. Initial User Interface Mockups
+
+5 Initial Use Case Model
+ a. Use Case Diagram
+
+ b. Use Case Descriptions
+
+
+6. Project Plan
+ a. Work Breakdown Structure (WBS)
+ b. Gantt chart
+
+
