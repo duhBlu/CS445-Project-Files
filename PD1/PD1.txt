@@ -62,23 +62,7 @@ Implementation options:
     - Compliance: The application should comply with relevant regulations and standards, such as data privacy laws and industry-specific standards.
 
 3. Data Dictionary
-    - Event ID: A unique identifier for each event.
-    - Title: The title of the event.
-    - Description: A detailed description of the event.
-    - Start Date: The start date and time of the event.
-    - End Date: The end date and time of the event.
-    - Reminders: The reminder settings for the event, including the date and time of the reminders and the method of delivery (email, SMS, or pop-up).
-    - Recurrence: The recurrence pattern of the event (daily, weekly, monthly, yearly).
-    - Category: The category or categories that the event belongs to, such as personal, work, etc.
-    - Completed: A flag indicating whether the event has been completed.
-    - Created By: The user who created the event.
-    - Assigned To: The user or users responsible for completing the event.
-    - User ID: A unique identifier for each user.
-    - User Name: The name of the user.
-    - User Email: The email address of the user.
-    - User Role: The role or roles of the user, such as admin or regular user.
-    - User Password: The encrypted password of the user.
-    - User Permissions: The permissions of the user, such as edit, delete, and export events.
+    - In another file
 
 4. Initial User Interface Mockups
     
