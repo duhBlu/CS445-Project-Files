@@ -1,13 +1,89 @@
 Task Scheduler/Event Manager
+
+Implementation options:
+    - Platform and best frameworks for each: 
+        - Desktop
+            - Electron: popular framework for building cross-platform desktop applications using web technologies such as HTML, CSS, and JavaScript.
+            - .NET Framework: popular for building desktop applications on Windows,with a rich set of libraries and tools for developing Windows applications.
+            - JavaFX: framework for building rich and visually appealing desktop applications using Java.
+            - PyQt: popular choice for building desktop applications using Python.
+            - GTK: popular toolkit for building desktop applications on Linux and Unix-like systems.
+        - Mobile
+            - React Native: allows developers to build mobile applications using JavaScript and the React library. \
+                - It provides a single codebase for both Android and iOS platforms.
+            - Flutter: open-source framework for building high-performance, high-fidelity, and beautiful mobile applications for both Android and iOS.
+            - Xamarin: framework for building cross-platform mobile applications using C# and the .NET framework.
+            - Ionic: popular open-source framework for building cross-platform mobile applications using web technologies such as HTML, CSS, and JavaScript.
+            - NativeScript: allows developers to build native mobile applications using JavaScript and Angular, Vue.js, or TypeScript.
+        - Web
+            - Ruby on Rails: Ruby on Rails is a popular framework for building web applications using the Ruby programming language. 
+                - It is known for its rapid development and conventions-based approach.
+
+            - Django: Django is a high-level Python web framework for building secure and scalable web applications. 
+                - It provides a rich set of features for building complex applications.
+                
+            - Express: Express is a popular minimal and flexible Node.js framework for building web applications. 
+                - It is often used as the foundation for building server-side applications.
+
+            - Laravel: Laravel is a popular PHP framework for building web applications. 
+                - It is known for its elegant syntax and tools for common web application tasks.
+
+            - ASP.NET Core: ASP.NET Core is a cross-platform, high-performance framework for building web applications using .NET. 
+                - It is suitable for building both server-side and client-side applications.
+
+            - Spring: popular Java framework for building enterprise-level web applications. 
+                - It provides a comprehensive set of features for building complex, large-scale applications.
+
+
+
+
 1. Functional Requirements
-    - 
+    - Event Creation: Ability for users to create tasks/events with title, description, date, time, and reminder options.
+    - Event Management: Ability to edit, delete, or mark events as completed.
+    - Event categories: Assign an event to categories(Personal, work, etc.).
+    - Calendar View: A visual calander representation of all events.
+    - Reminders: Ability to set reminders via pop-ups, email, or sms.
+    - Recurring Events: Ability to set tasks that recur daily/weekely/monthly/yearly
+    - Data export: Ability to export event data to external formats such as CSV.
+    - Data import/merge: Ability to import a file, and merge the file's events with your events. For team collaboration/planning purposes.
+    - User Management: Ability to add and manage multiple users, with options for setting different levels of permissions and access.
+    - Security: Implement security measures to protect sensitive data, such as encryption and secure storage of passwords.
 
 
-2. Non-Functional Requirements
+2. Non-Functional Requirements - 
+    - Performance: The application should be responsive and efficiently handle large amounts of data.
+    - User Experience/Usability: The application should have a user-friendly interface, with clear navigation and intuitive controls.
+    - Compatibility: The application should be compatible with multiple operating systems, such as Windows, macOS, and Linux.
+    - Scalability: The application should be designed to scale to accommodate increasing numbers of users and tasks/events.
+    - Reliability: The application should be designed to minimize downtime and ensure data integrity and consistency.
+    - Maintainability: The code should be well-documented, maintainable, and easily extensible for future updates and features.
+    - Security: The application should be secure against potential threats such as data breaches, unauthorized access, and malware attacks.
+    - Accessibility: The application should be accessible to users with disabilities and comply with relevant accessibility standards.
+    - Compliance: The application should comply with relevant regulations and standards, such as data privacy laws and industry-specific standards.
 
 3. Data Dictionary
+    - Event ID: A unique identifier for each event.
+    - Title: The title of the event.
+    - Description: A detailed description of the event.
+    - Start Date: The start date and time of the event.
+    - End Date: The end date and time of the event.
+    - Reminders: The reminder settings for the event, including the date and time of the reminders and the method of delivery (email, SMS, or pop-up).
+    - Recurrence: The recurrence pattern of the event (daily, weekly, monthly, yearly).
+    - Category: The category or categories that the event belongs to, such as personal, work, etc.
+    - Completed: A flag indicating whether the event has been completed.
+    - Created By: The user who created the event.
+    - Assigned To: The user or users responsible for completing the event.
+    - User ID: A unique identifier for each user.
+    - User Name: The name of the user.
+    - User Email: The email address of the user.
+    - User Role: The role or roles of the user, such as admin or regular user.
+    - User Password: The encrypted password of the user.
+    - User Permissions: The permissions of the user, such as edit, delete, and export events.
 
 4. Initial User Interface Mockups
+    
+
+
 
 5 Initial Use Case Model
  a. Use Case Diagram
