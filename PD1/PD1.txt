@@ -1,7 +1,8 @@
 Task Scheduler/Event Manager
 
 Implementation options:
-    - Platform Options and Popular frameworks for each: 
+    - What Platform will we develop for: Desktop/Web/Mobile
+    - Popular frameworks for each platform: 
         - Desktop
             - Electron: popular framework for building cross-platform desktop applications using web technologies such as HTML, CSS, and JavaScript.
             
