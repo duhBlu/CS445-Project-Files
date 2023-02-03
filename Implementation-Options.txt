@@ -1,0 +1,46 @@
+GOAL: We need to decide what platform we want to develop on, and a framework that would work best for our needs.
+
+Implementation options:
+    - What Platform will we develop for: Desktop/Web/Mobile
+    - Popular frameworks for each platform: 
+        - Desktop
+            - Electron: popular framework for building cross-platform desktop applications using web technologies such as HTML, CSS, and JavaScript.
+            
+            - .NET Framework: popular for building desktop applications on Windows,with a rich set of libraries and tools for developing Windows applications.
+            
+            - JavaFX: framework for building rich and visually appealing desktop applications using Java.
+            
+            - PyQt: popular choice for building desktop applications using Python.
+            
+            - GTK: popular toolkit for building desktop applications on Linux and Unix-like systems.
+            
+        - Mobile
+            - React Native: allows developers to build mobile applications using JavaScript and the React library. \
+                - It provides a single codebase for both Android and iOS platforms.
+                
+            - Flutter: open-source framework for building high-performance, high-fidelity, and beautiful mobile applications for both Android and iOS.
+            
+            - Xamarin: framework for building cross-platform mobile applications using C# and the .NET framework.
+            
+            - Ionic: popular open-source framework for building cross-platform mobile applications using web technologies such as HTML, CSS, and JavaScript.
+            
+            - NativeScript: allows developers to build native mobile applications using JavaScript and Angular, Vue.js, or TypeScript.
+            
+        - Web
+            - Ruby on Rails: Ruby on Rails is a popular framework for building web applications using the Ruby programming language. 
+                - It is known for its rapid development and conventions-based approach.
+
+            - Django: Django is a high-level Python web framework for building secure and scalable web applications. 
+                - It provides a rich set of features for building complex applications.
+                
+            - Express: Express is a popular minimal and flexible Node.js framework for building web applications. 
+                - It is often used as the foundation for building server-side applications.
+
+            - Laravel: Laravel is a popular PHP framework for building web applications. 
+                - It is known for its elegant syntax and tools for common web application tasks.
+
+            - ASP.NET Core: ASP.NET Core is a cross-platform, high-performance framework for building web applications using .NET. 
+                - It is suitable for building both server-side and client-side applications.
+
+            - Spring: popular Java framework for building enterprise-level web applications. 
+                - It provides a comprehensive set of features for building complex, large-scale applications.
