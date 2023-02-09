@@ -31,16 +31,9 @@
 
 5 Initial Use Case Model
  a. Use Case Diagram
-    Steps:
-        1. Identify the actors: The actors in this case can be individual users, teams, and managers.
-        2. Identify the use cases: Personal task management, Team project management, Event planning, Meeting management, Task delegation.
-        3. Draw the diagram: Use case diagrams are usually created using UML (Unified Modeling Language) notation. Start by drawing a rounded rectangle representing the system, then draw arrows to represent the interactions between the system and the actors. Each use case can be represented as an oval with the name of the use case inside it.
-        4. Connect actors and use cases: Connect the actors to the relevant use cases with lines to indicate their interactions. For example, an individual user can interact with the personal task management use case, and a team can interact with the team project management use case.
-
-
+    
  b. Use Case Descriptions
-        - Personal task management: 
-            A user can create, edit, and track their personal to-do tasks, set due dates and reminders, categorize and prioritize them for better organization.
+        
         
 
 6. Project Plan
