@@ -7,7 +7,6 @@
     - Recurring Events: Ability to set tasks that recur daily/weekely/monthly/yearly
     - Data export: Ability to export event data to external formats such as CSV.
     - Data import/merge: Ability to import a file, and merge the file's events with your events. For team collaboration/planning purposes.
-    - User Management: Ability to add and manage multiple users, with options for setting different levels of permissions and access.
     - Security: Implement security measures to protect sensitive data, such as encryption and secure storage of passwords.
 
 
@@ -42,14 +41,7 @@
  b. Use Case Descriptions
         - Personal task management: 
             A user can create, edit, and track their personal to-do tasks, set due dates and reminders, categorize and prioritize them for better organization.
-        - Team project management: 
-            A team can use the app to assign tasks to team members, track progress, communicate and collaborate, and maintain transparency and accountability.
-        - Event planning: 
-            Users can create and manage events, invite attendees, schedule appointments and tasks leading up to the event, and share information with attendees.
-        - Meeting management: 
-            Users can schedule meetings and assign tasks to employees.
-        - Task delegation: 
-            Managers can delegate tasks to subordinates, track progress, give feedback, and ensure that tasks are completed on time and within the expected quality standards.
+        
 
 6. Project Plan
  a. Work Breakdown Structure (WBS)
