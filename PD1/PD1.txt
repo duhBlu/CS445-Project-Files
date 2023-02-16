@@ -1,24 +1,75 @@
 1. Functional Requirements
-    - Event Creation: Ability for users to create tasks/events with title, description, date, time, and reminder options.
-    - Event Management: Ability to edit, delete, or mark events as completed.
-    - Event categories: Assign an event to categories(Personal, work, etc.).
-    - Calendar View: A visual calander representation of all events.
+    - Task Creation: Ability for users to create tasks with title, description, date, time, category, color, priority, and reminder options.
+   
+    - Task Management: Ability to edit, delete, or mark events as completed.
+        - Completed tasks are removed from the main list, and sent to a 'completed' category, where the user can un-complete the task, or even look back at the tasks they've accomplished 
+    
+    - Task categories: Assign an event to categories(Personal/work or user defined categories).
+        - Users can define their own categories
+        - Users can assign color's to categories to differentiate the tasks withing the weekly/calendar views.
+   
+    - Weekly view: Users can quickly see a list of their tasks for the current week. Task cards include: task name, completion status, priority, category/color, and time of task if applicable.
+        - From this screen users can:
+            - mark tasks as completed
+            - Tap on the task card to open a page with all the tasks information
+                - This page should allow the user to modify or delete the task as needed and save when complete
+            - Tap on the ... button in the task card for more quick options including:
+                - Change category
+                - Delete
+                - Modify, etc.
+            - Cycle through upcoming weeks, where the list of task cards will update to the selected week.
+        
+    - Calendar View: A visual calendar representation of all events.
+        - Days should have some sort of visible input indicating the number of tasks for the day, as well as the the color of the category.
+        - User should be able to filter tasks by category and/or priority.
+        - User can tap on a day to bring up the tasks for that day
     - Reminders: Ability to set reminders via pop-ups, email, or sms.
-    - Recurring Events: Ability to set tasks that recur daily/weekely/monthly/yearly
+        - Users have the option to select the notification type. This could be implemented in a user's settings page
+
+    - User settings:
+        - General user defined preferences including: Notification type, light/dark mode, default path to exported items.
+    
     - Data export: Ability to export event data to external formats such as CSV.
+        - Should include an option to password protect exported files, to further increase security.
+
     - Data import/merge: Ability to import a file, and merge the file's events with your events. For team collaboration/planning purposes.
-    - Security: Implement security measures to protect sensitive data, such as encryption and secure storage of passwords.
+        - Application should have the ability to overlap separate task lists, so that multiple users with the app can coordinate times they're free
+
+    - Security: Implement security measures to protect sensitive data, such as encryption and secure storage of user data.
+
 
 
 2. Non-Functional Requirements  
     - Performance: The application should be responsive and efficiently handle large amounts of data.
+        - Should be able to transition between different screens smoothly, without stuttering.
+        - System should be able to load user data quickly, we aim to keep load times to a maximum of less than ~3-4 seconds, since we are only handling a single users data stored locally.
+    
     - User Experience/Usability: The application should have a user-friendly interface, with clear navigation and intuitive controls.
-    - Compatibility: The application should be compatible with multiple operating systems, such as Windows, macOS, and Linux.
-    - Scalability: The application should be designed to scale to accommodate increasing numbers of users and tasks/events.
+        - Any controls using icons should be generally understandable to anyone using it for the first time, i.e. a plus icon generally means to add or create data
+
+    - Compatibility: The application should be compatible with multiple operating systems and device types.
+        - Should support both IOS and Android platforms 
+        - The UI should appear the same across different devices with different screen sizes
+    
     - Reliability: The application should be designed to minimize downtime and ensure data integrity and consistency.
+        - For our case, the data should be stored locally. The lack of networking capabilities should alleviate any accessability concerns
+
     - Maintainability: The code should be well-documented, maintainable, and easily extensible for future updates and features.
+        - Code should have comments describing what each section does
+        - Code should be readable, and easy to understand
+        - Additional documentation explaining the different functionalities available to users should be kept. 
+
     - Security: The application should be secure against potential threats such as data breaches, unauthorized access, and malware attacks.
+        - Any user data, i.e. passwords, task details, etc., stored locally should be encrypted by some secure algorithm that's TBD.
+        - Exported files should get the same treatment, and should be automatically decrypted by the application when imported.
+        - Application should implement password protection for user defined sensitive data, i.e. a 'my eyes only' section of tasks.
+
     - Accessibility: The application should be accessible to users with disabilities and comply with relevant accessibility standards.
+        - The lack of remotely stored data should alleviate any accessability concerns.
+        - Application should provide a optional 'tutorial' feature for users, to assist new friends to the app.
+        - UI should aim to make the application accessible to those with various disabilities, including the ability to:
+            - Modify the size of text, zoom in/out, choose from multiple font options, as well as the color choices and contrast levels.
+
     - Compliance: The application should comply with relevant regulations and standards, such as data privacy laws and industry-specific standards.
 
 3. Data Dictionary
