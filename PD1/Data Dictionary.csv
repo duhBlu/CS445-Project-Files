@@ -1,5 +1,5 @@
 ﻿Variable,Type,Description
-Event ID,Integer,unique identifier of event
+Task ID,Integer,unique identifier of event
 Title,String,a short text description
 Description,String,a longer text description
 Start Date,Date and time,the start date and time of the event
@@ -15,3 +15,9 @@ User Phone #,String,"the phone number of the user, if applicable"
 Export Format,String,"the format used to export event data (CSV, Excel, etc.)."
 Import File,File,the file containing events to be imported into the system
 Import File Format,String,"the format of the imported file (CSV, Excel, etc.)"
+Calendar Objects List,List,list of calendar objects available to the user
+True/False settings,Boolean,settings that have only one or two options
+Calendar Objects,File,"file containing task data(CSV, Excel, etc)"
+Task Color,Hex,hex value for task colors
+Calendar Object ID,Integer,unique identifier for calendar objects
+Multi-option settings,Integer,settings that have more than one possible selections
