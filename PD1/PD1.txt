@@ -1,3 +1,30 @@
+1. Task Management
+	1.1 Create task
+	1.2 Modify task
+	1.3 Delete task
+	1.4 Categorize task
+	1.5 Set due date for task
+	1.6 Set reminder for task
+	1.7 Mark task as Complete
+	1.8 Assign color to task
+	1.9 Set priority of task
+2. Task Viewing
+	2.1 Weekly view
+	2.2 Calendar view
+	2.3 Filter Tasks by category
+	2.4 Filter Tasks by priority
+3. Calendar Objects
+	3.1 Export Calendar
+	3.2 Import Calendar
+	3.3 Merge Calendar
+	3.4 Manage Calendar List
+4. Security
+    4.1 User Data encryption
+    4.2 Exported files Password protection
+    4.3 Exported files encryption
+    4.4 Password protected task list
+
+
 1. Functional Requirements
     - Task Creation: Ability for users to create tasks with title, description, date, time, category, color, priority, and reminder options.
         - Option should be indicated with some type of plus symbol, and available on both the Weekly and Monthly views
