@@ -18,6 +18,6 @@ Import File Format,String,"the format of the imported file (CSV, Excel, etc.)"
 Calendar Objects List,List,list of calendar objects available to the user
 True/False settings,Boolean,settings that have only one or two options
 Calendar Objects,File,"file containing task data(CSV, Excel, etc)"
-Task Color,Hex,hex value for task colors
+Category Color,Hex,hex value for task colors
 Calendar Object ID,Integer,unique identifier for calendar objects
 Multi-option settings,Integer,settings that have more than one possible selections
