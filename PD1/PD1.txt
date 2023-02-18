@@ -116,6 +116,7 @@
         1.10 Create Category
         1.11 Modify Category
         1.12 Delete Category
+        1.13 Set recurrance for task
     2. Task Viewing
         2.1 Weekly view
         2.2 Calendar view
