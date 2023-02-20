@@ -3,7 +3,8 @@
 #
 
 ### Project Name: Task Hawk
-### Project Introduction: 
+### Link to Project Files on Github:
+### Project Introduction:  https://github.com/duhBlu/CS445-Project-Files/
 Task Hawk is a personal task manager, where users can: create and modify tasks, lists of tasks, and view their tasks either in a weekly view, or in a monthly calendar view.
 
 ### Project Members: Cheri Fisher, Andrew Crenshaw, Sam Gullett, Jacob Thieret, and Adam Bowles
