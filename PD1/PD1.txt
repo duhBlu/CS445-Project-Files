@@ -1,3 +1,6 @@
+Created and edited by Jacob Thieret 
+
+
 1. Functional Requirements
     - Task Creation: Ability for users to create tasks with title, description, date, time, category, color, priority, and reminder options.
         - Option should be indicated with some type of plus symbol, and available on both the Weekly and Monthly views
@@ -57,7 +60,7 @@
 
 
 
-2. Non-Functional Requirements  
+2. Non-Functional Requirements
     - Performance: The application should be responsive and efficiently handle large amounts of data.
         - Should be able to transition between different screens smoothly, without stuttering.
         - System should be able to load user data quickly, we aim to keep load times to a maximum of less than ~3-4 seconds, since we are only handling a single users data stored locally.
@@ -94,49 +97,53 @@
     - Data Dictionary.csv
 
 4. Initial User Interface Mockups
-
+    - Initial UI Mockup.mp4
 
 
 
 5 Initial Use Case Model
  a. Use Case Diagram
-    
- b. Use Case Descriptions Outline
-    Use case document: Use_Cases-Task_Hawk.docx
-    1. Task Management
-        1.1 Create Task
-        1.2 Modify Task
-        1.3 Delete Task
-        1.4 Categorize Task
-        1.5 Set due date for Task
-        1.6 Set reminder for Task
-        1.7 Mark task as Complete
-        1.8 Assign Color to Category
-        1.9 Set Priority of Task
-        1.10 Create Category
-        1.11 Modify Category
-        1.12 Delete Category
-        1.13 Set Recurrence for Task
-    2. Task Viewing
-        2.1 Weekly View
-        2.2 Calendar View
-        2.3 Filter Tasks by Category
-        2.4 Filter Tasks by Priority
-    3. Calendar Objects
-        3.1 Export Calendar
-        3.2 Import Calendar
-        3.3 Merge Calendar
-        3.4 Manage Calendar List
-    4. Security
-        4.1 User Data Encryption
-        4.2 Exported Files Password Protection
-        4.3 Exported Files Encryption
-        4.4 Password Protected Task List
+    - Use Case Diagram.JPG
+ b. Use Case Descriptions 
+    - Use_Cases-Task_Hawk.docx
+
+    Outline for document listed above:
+        1. Task Management
+            1.1 Create Task
+            1.2 Modify Task
+            1.3 Delete Task
+            1.4 Categorize Task
+            1.5 Set due date for Task
+            1.6 Set reminder for Task
+            1.7 Mark task as Complete
+            1.8 Assign Color to Category
+            1.9 Set Priority of Task
+            1.10 Create Category
+            1.11 Modify Category
+            1.12 Delete Category
+            1.13 Set Recurrence for Task
+        2. Task Viewing
+            2.1 Weekly View
+            2.2 Calendar View
+            2.3 Filter Tasks by Category
+            2.4 Filter Tasks by Priority
+        3. Calendar Objects
+            3.1 Export Calendar
+            3.2 Import Calendar
+            3.3 Merge Calendar
+            3.4 Manage Calendar List
+        4. Security
+            4.1 User Data Encryption
+            4.2 Exported Files Password Protection
+            4.3 Exported Files Encryption
+            4.4 Password Protected Task List
     
         
 
 6. Project Plan
  a. Work Breakdown Structure (WBS)
+    - Work Breakdown Structure.pdf
  b. Gantt chart
+    - 
 
 
