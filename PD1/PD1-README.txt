@@ -56,7 +56,7 @@ Created and edited by Jacob Thieret
 
     - Security: Implement security measures to protect sensitive data, such as encryption and secure storage of user data.
         - Any physical data that will be stored locally should be encrypted.
-        - Source code shouldn't store any private keys in plain text, or any sensitive data for that matter.
+        - User can add optionally add passwords to selected files or task lists 
 
 
 
@@ -66,14 +66,16 @@ Created and edited by Jacob Thieret
         - System should be able to load user data quickly, we aim to keep load times to a maximum of less than ~3-4 seconds, since we are only handling a single users data stored locally.
     
     - User Experience/Usability: The application should have a user-friendly interface, with clear navigation and intuitive controls.
-        - Any controls using icons should be generally understandable to anyone using it for the first time, i.e. a plus icon generally means to add or create data
+        - Any controls using icons should be either labeled or, easily understandable to anyone using it for the first time
 
     - Compatibility: The application should be compatible with multiple operating systems and device types.
         - Should support both IOS and Android platforms 
+            - Flutter has some built in features to help with cross compatibility
         - The UI should appear the same across different devices with different screen sizes
     
     - Reliability: The application should be designed to minimize downtime and ensure data integrity and consistency.
         - For our case, the data should be stored locally. The lack of networking capabilities should alleviate any accessability concerns
+        - The time from the user opens the app to the time they have access to their task data should be kept under 3-5 seconds
 
     - Maintainability: The code should be well-documented, maintainable, and easily extensible for future updates and features.
         - Code should have comments describing what each section does
@@ -92,6 +94,7 @@ Created and edited by Jacob Thieret
             - Modify the size of text, zoom in/out, choose from multiple font options, as well as the color choices and contrast levels.
 
     - Compliance: The application should comply with relevant regulations and standards, such as data privacy laws and industry-specific standards.
+        - ISO 27001: This is a widely recognize set of standards for applications that process personal data.
 
 3. Data Dictionary
     - Data Dictionary.csv
