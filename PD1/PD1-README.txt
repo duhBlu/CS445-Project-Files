@@ -108,7 +108,7 @@ Created and edited by Jacob Thieret
  a. Use Case Diagram
     - Use Case Diagram.JPG
  b. Use Case Descriptions 
-    - Use_Cases-Task_Hawk.docx
+    - Use Cases Descriptions.pdf
 
     Outline for document listed above:
         1. Task Management
