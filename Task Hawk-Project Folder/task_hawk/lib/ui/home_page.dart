@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_hawk/services/notification_services.dart';
+import 'package:task_hawk/ui/theme.dart';
 import '../services/theme_services.dart';
 
 class HomePage extends StatefulWidget {
@@ -49,10 +50,10 @@ _appBar() {
                 ? "Activated Light Theme"
                 : "Activated Dark Theme");
       },
-      child: const Icon(
-        Icons.nightlight_round_outlined,
-        size: 20,
-      ),
+      child: Icon(
+          Get.isDarkMode ? Icons.wb_sunny_rounded : Icons.nightlife_rounded,
+          size: 20,
+          color: Get.isDarkMode ? Colors.white : Colors.black),
     ),
     actions: const [
       CircleAvatar(
