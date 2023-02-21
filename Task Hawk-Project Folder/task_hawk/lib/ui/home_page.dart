@@ -55,9 +55,8 @@ _appBar() {
       ),
     ),
     actions: const [
-      Icon(
-        Icons.menu_rounded,
-        size: 20,
+      CircleAvatar(
+        backgroundImage: AssetImage("images/appicon.png"),
       ),
       SizedBox(
         width: 20,
