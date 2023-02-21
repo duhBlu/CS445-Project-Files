@@ -1,5 +1,3 @@
-Changes :)
-
 ### Hello, thanks for reading me.
 
 #
