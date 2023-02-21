@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:task_hawk/services/notification_services.dart';
+import '../services/theme_services.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,23 +11,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // ignore: prefer_typing_uninitialized_variables
+  var notifyHelper;
+  @override
+  void initState() {
+    super.initState();
+    notifyHelper = NotifyHelper();
+    notifyHelper.initializeNotification();
+    notifyHelper.requestIOSPermissions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        primary: true,
-        centerTitle: true,
-        title: const Text("Task Hawk"),
-        shadowColor: const Color.fromARGB(0, 255, 47, 0),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(0),
-            topRight: Radius.circular(0),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
-        ),
-      ),
+      appBar: _appBar(),
       body: Column(
         children: const [
           Text(
@@ -35,4 +35,33 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+_appBar() {
+  return AppBar(
+    leading: GestureDetector(
+      onTap: () {
+        ThemeService().switchTheme();
+        NotifyHelper notifyHelper = NotifyHelper();
+        notifyHelper.displayNotification(
+            title: "Theme Changed",
+            body: Get.isDarkMode
+                ? "Activated Light Theme"
+                : "Activated Dark Theme");
+      },
+      child: const Icon(
+        Icons.nightlight_round_outlined,
+        size: 20,
+      ),
+    ),
+    actions: const [
+      Icon(
+        Icons.menu_rounded,
+        size: 20,
+      ),
+      SizedBox(
+        width: 20,
+      ),
+    ],
+  );
 }

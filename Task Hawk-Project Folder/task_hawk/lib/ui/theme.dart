@@ -22,15 +22,15 @@ class Themes {
     colorScheme: const ColorScheme(
       background: color10,
       onBackground: color3,
-      primary: color8,
+      primary: color9,
       onPrimary: color3,
-      secondary: color7,
+      secondary: color9,
       onSecondary: color3,
-      surface: color9,
-      onSurface: color3,
-      error: color9,
-      onError: color3,
-      brightness: Brightness.dark,
+      surface: color3,
+      onSurface: color9,
+      error: color3,
+      onError: color9,
+      brightness: Brightness.light,
     ),
   );
 
