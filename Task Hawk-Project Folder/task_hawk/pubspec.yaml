@@ -43,6 +43,8 @@ dependencies:
   get_storage:
   # Getx is helpful for easy sql CRUD
   get:
+  intl:
+  google_fonts:
   flutter_local_notifications:
   flutter_native_timezone:
 dev_dependencies:

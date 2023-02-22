@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:task_hawk/services/notification_services.dart';
+import 'package:task_hawk/ui/theme.dart';
 import '../services/theme_services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'complex_example.dart';
@@ -25,10 +27,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String? str;
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
+          // refreshes the page state on tap, so pages react dynamically
           onTap: () {
             setState(() {
               ThemeService().switchTheme();
@@ -41,11 +43,14 @@ class _HomePageState extends State<HomePage> {
                     ? "Activated Light Theme"
                     : "Activated Dark Theme");
           },
+          // dark/light mode change icon logic
           // ignore: sort_child_properties_last
           child: Icon(
-            Get.isDarkMode ? Icons.nightlight_rounded : Icons.wb_sunny_rounded,
-            color: Get.isDarkMode ? Colors.white : Colors.black,
-            size: 20,
+            Get.isDarkMode
+                ? Icons.nightlight_outlined
+                : Icons.wb_sunny_outlined,
+            color: Get.isDarkMode ? Colors.white : Colors.white,
+            size: 25,
           ),
         ),
         actions: const [
@@ -57,12 +62,37 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Center(
+      body: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      DateFormat.yMMMMd().format(DateTime.now()),
+                      style: subHeadingStyle,
+                    ),
+                    Text(
+                      "Upcoming Tasks",
+                      style: headingStyle,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+
+        /*
         child: Column(
           children: [
             const SizedBox(height: 20.0),
             const SizedBox(height: 12.0),
-            ElevatedButton(
+            constr ElevatedButton(
               child: Text('Sign Up'),
               onPressed: null,
             ),
@@ -76,7 +106,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20.0),
           ],
-        ),
+        ),*/
       ),
     );
   }

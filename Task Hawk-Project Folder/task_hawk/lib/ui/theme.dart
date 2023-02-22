@@ -1,55 +1,69 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-const Color color1 = Color.fromARGB(255, 255, 255, 255);
-const Color color2 = Color.fromARGB(255, 245, 243, 244);
-const Color color3 = Color.fromARGB(255, 211, 211, 211);
-const Color color4 = Color.fromARGB(255, 177, 167, 166);
-const Color color5 = Color.fromARGB(255, 229, 56, 59);
-const Color color6 = Color.fromARGB(255, 186, 24, 27);
-const Color color7 = Color.fromARGB(255, 164, 22, 27);
-const Color color8 = Color.fromARGB(255, 102, 7, 9);
-const Color color9 = Color.fromARGB(255, 22, 26, 29);
-const Color color10 = Color.fromARGB(255, 11, 9, 10);
-
-const Color darkAppBarClr = color8;
-const Color lightAppBarClr = color5;
+const Color color1 = Color.fromARGB(255, 196, 196, 196);
+const Color color2 = Color.fromARGB(255, 33, 33, 33);
+const Color appbarcolor = Color.fromARGB(255, 114, 20, 20);
 
 class Themes {
   static final light = ThemeData(
     appBarTheme: const AppBarTheme(
-      color: lightAppBarClr,
+      color: appbarcolor,
     ),
     colorScheme: const ColorScheme(
-      background: color10,
-      onBackground: color3,
-      primary: color9,
-      onPrimary: color3,
-      secondary: color9,
-      onSecondary: color3,
-      surface: color3,
-      onSurface: color9,
-      error: color3,
-      onError: color9,
+      background: color1,
+      onBackground: color2,
+      primary: color1,
+      onPrimary: color2,
+      secondary: color1,
+      onSecondary: color2,
+      surface: color1,
+      onSurface: color2,
+      error: color1,
+      onError: color2,
       brightness: Brightness.light,
     ),
   );
 
   static final dark = ThemeData(
     appBarTheme: const AppBarTheme(
-      color: darkAppBarClr,
+      color: appbarcolor,
     ),
     colorScheme: const ColorScheme(
-      background: color1,
-      onBackground: color3,
-      primary: color8,
-      onPrimary: color3,
-      secondary: color7,
-      onSecondary: color3,
-      surface: color9,
-      onSurface: color3,
-      error: color9,
-      onError: color3,
+      background: color2,
+      onBackground: color1,
+      primary: color2,
+      onPrimary: color1,
+      secondary: color2,
+      onSecondary: color1,
+      surface: color2,
+      onSurface: color1,
+      error: color2,
+      onError: color1,
       brightness: Brightness.dark,
     ),
+  );
+}
+
+// Text style for header date
+TextStyle get subHeadingStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: Get.isDarkMode ? Colors.black : Colors.white),
+  );
+}
+
+// Text style for header text
+TextStyle get headingStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+        fontSize: 30,
+        color: Get.isDarkMode
+            ? const Color.fromARGB(255, 61, 0, 0)
+            : const Color.fromARGB(255, 135, 10, 10),
+        fontWeight: FontWeight.bold),
   );
 }
