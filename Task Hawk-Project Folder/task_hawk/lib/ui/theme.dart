@@ -67,3 +67,12 @@ TextStyle get headingStyle {
         fontWeight: FontWeight.bold),
   );
 }
+
+TextStyle get titleStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+        fontSize: 16,
+        color: Get.isDarkMode ? color1 : color2,
+        fontWeight: FontWeight.bold),
+  );
+}

@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   
   # Calendar
-  table_calendar: ^3.0.9
+  table_calendar: ^3.0.8
 
   # Helpful for getting/storing data within the phone
   get_storage:
@@ -45,6 +45,7 @@ dependencies:
   get:
   intl:
   google_fonts:
+  date_picker_timeline: ^1.2.3
   flutter_local_notifications:
   flutter_native_timezone:
 dev_dependencies:
