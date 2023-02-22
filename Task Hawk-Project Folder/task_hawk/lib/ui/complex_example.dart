@@ -9,7 +9,19 @@ class TableComplexExample extends StatefulWidget {
   _TableComplexExampleState createState() => _TableComplexExampleState();
 }
 
+class Event {
+  final String title;
+  final DateTime date;
+
+  Event(this.title, this.date);
+}
+
 class _TableComplexExampleState extends State<TableComplexExample> {
+  List<Event> events = [
+    Event('Event 1', DateTime.now()),
+    Event('Event 2', DateTime.now()),
+    Event('Event 3', DateTime.now()),
+  ];
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
@@ -17,6 +29,12 @@ class _TableComplexExampleState extends State<TableComplexExample> {
   DateTime? _selectedDay;
 
   late PageController _pageController;
+
+  get kEvents => null;
+
+  get kFirstDay => DateTime(1, 1, 2000);
+
+  get kLastDay => DateTime(30, 31, 2050);
 
   @override
   void initState() {
@@ -26,12 +44,12 @@ class _TableComplexExampleState extends State<TableComplexExample> {
     _selectedDay = _focusedDay.value;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
 
-    //   _selectedEvents = ValueNotifier(_getEventsForDay(_focusedDay.value));
+    _selectedEvents = ValueNotifier(_getEventsForDay(_focusedDay.value));
   }
 
   @override
   void dispose() {
-//    _focusedDay.dispose();
+    // _focusedDay.dispose();
     _selectedEvents.dispose();
     super.dispose();
   }
@@ -112,7 +130,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
             headerVisible: false,
             selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
             calendarFormat: _calendarFormat,
-            eventLoader: _getEventsForDay,
+            //eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
               // Use `CalendarStyle` to customize the UI
@@ -122,7 +140,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
               // Every 20th day of the month will be treated as a holiday
               return day.day == 20;
             },
-            onDaySelected: _onDaySelected,
+            //onDaySelected: _onDaySelected,
             onCalendarCreated: (controller) => _pageController = controller,
             onPageChanged: (focusedDay) => _focusedDay.value = focusedDay,
             onFormatChanged: (format) {
