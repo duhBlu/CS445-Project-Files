@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task_hawk/ui/theme.dart';
+import 'package:task_hawk/ui/widgets/add_task_button.dart';
 import 'package:task_hawk/ui/widgets/input_field.dart';
 
 import '../services/notification_services.dart';
@@ -15,9 +16,27 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _noteController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   String _endTime = "9:30 PM";
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+  int _selectedRemind = 5;
+  List<int> remindList = [
+    5,
+    10,
+    15,
+    20,
+  ];
+  String _selectedRepeat = "None";
+  List<String> repeatList = [
+    "None",
+    "Daily",
+    "Weekly",
+    "Monthly",
+  ];
+
+  int _selectedColor = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +55,16 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
-              const TaskInputField(title: "Title", hint: "Enter title of task"),
-              const TaskInputField(title: "Note", hint: "Enter notes for task"),
+              TaskInputField(
+                title: "Title",
+                hint: "Enter title of task",
+                controller: _titleController,
+              ),
+              TaskInputField(
+                title: "Note",
+                hint: "Enter notes for task",
+                controller: _noteController,
+              ),
               TaskInputField(
                 title: "Date",
                 hint: DateFormat.yMd().format(_selectedDate),
@@ -78,11 +105,130 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     ),
                   ),
                 ],
-              )
+              ),
+              TaskInputField(
+                title: "Remind",
+                hint: "$_selectedRemind minutes early",
+                widget: DropdownButton(
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Get.isDarkMode ? color1 : color2,
+                  ),
+                  underline: Container(height: 0),
+                  iconSize: 30,
+                  elevation: 4,
+                  items: remindList.map<DropdownMenuItem<String>>((int value) {
+                    return DropdownMenuItem<String>(
+                        value: value.toString(), child: Text(value.toString()));
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedRemind = int.parse(newValue!);
+                    });
+                  },
+                ),
+              ),
+              TaskInputField(
+                title: "Repeat",
+                hint: "$_selectedRepeat",
+                widget: DropdownButton(
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Get.isDarkMode ? color1 : color2,
+                  ),
+                  underline: Container(height: 0),
+                  iconSize: 30,
+                  elevation: 4,
+                  items:
+                      repeatList.map<DropdownMenuItem<String>>((String? value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value!,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedRepeat = newValue!;
+                    });
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    __colorPalette(),
+                    CreateTaskButton(
+                      label: "Create Task",
+                      onTap: () => __validateData(),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  __validateData() {
+    if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
+      //add to database
+      Get.back();
+    } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
+      Get.snackbar(
+        "Required",
+        "All fields are required!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor:
+            Get.isDarkMode ? const Color.fromARGB(255, 39, 39, 39) : color1,
+        icon: const Icon(Icons.warning),
+      );
+    }
+  }
+
+  __colorPalette() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Color",
+        ),
+        Wrap(
+          children: List<Widget>.generate(3, (int index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _selectedColor = index;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0, bottom: 8.0, top: 5),
+                child: CircleAvatar(
+                  radius: 14,
+                  backgroundColor: index == 0
+                      ? appbarcolor
+                      : index == 1
+                          ? color1
+                          : color2,
+                  child: _selectedColor == index
+                      ? const Icon(
+                          Icons.done,
+                          color: Colors.white,
+                          size: 16,
+                        )
+                      : Container(),
+                ),
+              ),
+            );
+          }),
+        )
+      ],
     );
   }
 
