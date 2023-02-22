@@ -12,6 +12,7 @@ class CreateTaskButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.only(top: 20),
         width: 120,
         height: 60,
         decoration: BoxDecoration(

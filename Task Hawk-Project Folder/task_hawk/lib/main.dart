@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:task_hawk/controllers/db/db_helper.dart';
 import 'package:task_hawk/services/theme_services.dart';
 import 'package:task_hawk/ui/home_page.dart';
 import 'package:task_hawk/ui/theme.dart';
@@ -9,6 +10,7 @@ Future<void> main() async {
   // Error checking
   WidgetsFlutterBinding.ensureInitialized();
   // Get the Storage before running app
+  await DBHelper.initDb();
   await GetStorage.init();
   runApp(const MyApp());
 }
