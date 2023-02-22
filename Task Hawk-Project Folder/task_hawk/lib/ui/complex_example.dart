@@ -22,7 +22,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
     Event('Event 2', DateTime.now()),
     Event('Event 3', DateTime.now()),
   ];
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  late ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
   final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
@@ -57,6 +57,7 @@ class _TableComplexExampleState extends State<TableComplexExample> {
   bool get canClearSelection => _selectedEvents.value.isNotEmpty;
 
   List<Event> _getEventsForDay(DateTime day) {
+    if (kEvents == null) return [];
     return kEvents[day] ?? [];
   }
 
@@ -144,9 +145,9 @@ class _TableComplexExampleState extends State<TableComplexExample> {
             onCalendarCreated: (controller) => _pageController = controller,
             onPageChanged: (focusedDay) => _focusedDay.value = focusedDay,
             onFormatChanged: (format) {
-              //if (_calendarFormat != format) {
-              //   setState(() => _calendarFormat = format);
-              //}
+              if (_calendarFormat != format) {
+                setState(() => _calendarFormat = format);
+              }
             },
           ),
           const SizedBox(height: 8.0),
