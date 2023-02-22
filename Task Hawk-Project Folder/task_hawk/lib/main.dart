@@ -6,7 +6,9 @@ import 'package:task_hawk/ui/home_page.dart';
 import 'package:task_hawk/ui/theme.dart';
 
 Future<void> main() async {
+  // Error checking
   WidgetsFlutterBinding.ensureInitialized();
+  // Get the Storage before running app
   await GetStorage.init();
   runApp(const MyApp());
 }

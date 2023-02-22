@@ -43,6 +43,7 @@ _appBar() {
     leading: GestureDetector(
       onTap: () {
         ThemeService().switchTheme();
+
         NotifyHelper notifyHelper = NotifyHelper();
         notifyHelper.displayNotification(
             title: "Theme Changed",
@@ -50,10 +51,14 @@ _appBar() {
                 ? "Activated Light Theme"
                 : "Activated Dark Theme");
       },
+      // ignore: sort_child_properties_last
       child: Icon(
-          Get.isDarkMode ? Icons.wb_sunny_rounded : Icons.nightlife_rounded,
-          size: 20,
-          color: Get.isDarkMode ? Colors.white : Colors.black),
+        //Get.isDarkMode ? Icons.nightlife_rounded : Icons.wb_sunny_rounded,
+        Icons.nightlife_rounded,
+        color: Get.isDarkMode ? Colors.white : Colors.black,
+
+        size: 20,
+      ),
     ),
     actions: const [
       CircleAvatar(

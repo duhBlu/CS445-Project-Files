@@ -39,7 +39,7 @@ class Themes {
       color: darkAppBarClr,
     ),
     colorScheme: const ColorScheme(
-      background: color10,
+      background: color1,
       onBackground: color3,
       primary: color8,
       onPrimary: color3,
