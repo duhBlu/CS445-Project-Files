@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_hawk/services/notification_services.dart';
-import 'package:task_hawk/ui/theme.dart';
 import '../services/theme_services.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'complex_example.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,49 +25,59 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String? str;
     return Scaffold(
-      appBar: _appBar(),
-      body: Column(
-        children: const [
-          Text(
-            "Theme Data",
-            style: TextStyle(fontSize: 30),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            setState(() {
+              ThemeService().switchTheme();
+            });
+
+            NotifyHelper notifyHelper = NotifyHelper();
+            notifyHelper.displayNotification(
+                title: "Theme Changed",
+                body: Get.isDarkMode
+                    ? "Activated Light Theme"
+                    : "Activated Dark Theme");
+          },
+          // ignore: sort_child_properties_last
+          child: Icon(
+            Get.isDarkMode ? Icons.nightlight_rounded : Icons.wb_sunny_rounded,
+            color: Get.isDarkMode ? Colors.white : Colors.black,
+            size: 20,
+          ),
+        ),
+        actions: const [
+          CircleAvatar(
+            backgroundImage: AssetImage("images/appicon.png"),
+          ),
+          SizedBox(
+            width: 20,
           ),
         ],
       ),
+      body: Center(
+        child: Column(
+          children: [
+            const SizedBox(height: 20.0),
+            const SizedBox(height: 12.0),
+            ElevatedButton(
+              child: Text('Sign Up'),
+              onPressed: null,
+            ),
+            const SizedBox(height: 12.0),
+            ElevatedButton(
+              child: Text('Sign In'),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => TableComplexExample()),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+          ],
+        ),
+      ),
     );
   }
-}
-
-_appBar() {
-  return AppBar(
-    leading: GestureDetector(
-      onTap: () {
-        ThemeService().switchTheme();
-
-        NotifyHelper notifyHelper = NotifyHelper();
-        notifyHelper.displayNotification(
-            title: "Theme Changed",
-            body: Get.isDarkMode
-                ? "Activated Light Theme"
-                : "Activated Dark Theme");
-      },
-      // ignore: sort_child_properties_last
-      child: Icon(
-        //Get.isDarkMode ? Icons.nightlife_rounded : Icons.wb_sunny_rounded,
-        Icons.nightlife_rounded,
-        color: Get.isDarkMode ? Colors.white : Colors.black,
-
-        size: 20,
-      ),
-    ),
-    actions: const [
-      CircleAvatar(
-        backgroundImage: AssetImage("images/appicon.png"),
-      ),
-      SizedBox(
-        width: 20,
-      ),
-    ],
-  );
 }
