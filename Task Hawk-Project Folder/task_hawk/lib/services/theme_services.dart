@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+// handling the boolean logic data to keep track of light/dark mode.
+// please don't modify this
 class ThemeService {
   final _box = GetStorage();
   final _key = 'isDarkMode';

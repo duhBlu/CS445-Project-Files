@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_hawk/ui/theme.dart';
 
+// defines input field class
 class TaskInputField extends StatelessWidget {
   final String title;
   final String hint;
   final TextEditingController? controller;
   final Widget? widget;
+
+  // constructor for the text input fields in the create task page
   const TaskInputField(
       {super.key,
       required this.title,
@@ -15,6 +18,7 @@ class TaskInputField extends StatelessWidget {
       this.controller,
       this.widget});
 
+  // definition of style/format of the text input fields
   @override
   Widget build(BuildContext context) {
     return Container(

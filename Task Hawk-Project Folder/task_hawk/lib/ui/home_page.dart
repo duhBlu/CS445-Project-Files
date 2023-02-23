@@ -22,6 +22,8 @@ class _HomePageState extends State<HomePage> {
   // ignore: prefer_typing_uninitialized_variables
   DateTime __selectedDate = DateTime.now();
   var notifyHelper;
+
+  // Initialize the Notification services
   @override
   void initState() {
     super.initState();
@@ -30,14 +32,15 @@ class _HomePageState extends State<HomePage> {
     notifyHelper.requestIOSPermissions();
   }
 
+  // Home Page contents
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: __addAppBar(),
+      appBar: __addAppBar(), // custom app bar
       body: Column(
         children: [
-          __addTaskBar(),
-          __addDateBar(),
+          __addTaskBar(), // custom header bar
+          __addDateBar(), // custom widget that adds the sliding calendar
         ],
 
         /*
@@ -64,6 +67,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // custom function returns DatePicker widget within a Container
   __addDateBar() {
     return Container(
       margin: const EdgeInsets.only(
@@ -78,6 +82,8 @@ class _HomePageState extends State<HomePage> {
         initialSelectedDate: DateTime.now(),
         selectionColor: appbarcolor,
         selectedTextColor: Colors.white,
+
+        // Date bar text style
         dateTextStyle: GoogleFonts.lato(
           fontSize: 25,
           fontWeight: FontWeight.w600,
@@ -93,6 +99,7 @@ class _HomePageState extends State<HomePage> {
           fontWeight: FontWeight.normal,
           color: Colors.grey,
         ),
+        // logic for handling selected dates
         onDateChange: (date) {
           __selectedDate = date;
         },
@@ -100,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // container including current date and the task button
   __addTaskBar() {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 5),
@@ -123,13 +131,15 @@ class _HomePageState extends State<HomePage> {
           ),
           CreateTaskButton(
             label: "+ Add Task",
-            onTap: () => Get.to(AddTaskPage()),
+            onTap: () => Get.to(
+                AddTaskPage()), // on tap, opens new page defined in /lib/ui/widgets/add_task_page.dart
           )
         ],
       ),
     );
   }
 
+// returns an AppBar widget containing dark/light mode button, and a sample user avatar
   __addAppBar() {
     return AppBar(
       leading: GestureDetector(
@@ -138,7 +148,7 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             ThemeService().switchTheme();
           });
-
+          // initialize notifications, call NotifyHelper defined in /lib/services/notification_services.dart
           NotifyHelper notifyHelper = NotifyHelper();
           notifyHelper.displayNotification(
               title: "Theme Changed",
@@ -146,8 +156,8 @@ class _HomePageState extends State<HomePage> {
                   ? "Activated Light Theme"
                   : "Activated Dark Theme");
         },
+
         // dark/light mode change icon logic
-        // ignore: sort_child_properties_last
         child: Icon(
           Get.isDarkMode ? Icons.nightlight_outlined : Icons.wb_sunny_outlined,
           color: Get.isDarkMode ? Colors.white : Colors.white,

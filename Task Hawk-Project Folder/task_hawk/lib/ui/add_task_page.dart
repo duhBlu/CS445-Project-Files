@@ -18,13 +18,17 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
+  // Initialize the text field controllers, for data storage/update/n'stuff
   final TaskController _taskController = Get.put(TaskController());
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+
+  // initialize private variables
   DateTime _selectedDate = DateTime.now();
   String _endTime = "9:30 PM";
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   int _selectedRemind = 5;
+  // initial list of reminder options
   List<int> remindList = [
     5,
     10,
@@ -32,6 +36,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     20,
   ];
   String _selectedRepeat = "None";
+  // initial list of repetition options
   List<String> repeatList = [
     "None",
     "Daily",
@@ -179,6 +184,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 
+  // task input data validation
   __validateData() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
       //add to database

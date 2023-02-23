@@ -9,9 +9,12 @@ import 'package:task_hawk/ui/theme.dart';
 Future<void> main() async {
   // Error checking
   WidgetsFlutterBinding.ensureInitialized();
-  // Get the Storage before running app
+
+  // Database Initialization
   await DBHelper.initDb();
   await GetStorage.init();
+
+  // App Initialization
   runApp(const MyApp());
 }
 
@@ -26,8 +29,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: Themes.light,
       darkTheme: Themes.dark,
-      themeMode: ThemeService().theme,
-      home: HomePage(),
+      themeMode:
+          ThemeService().theme, // pulls theme object from ...lib/ui/theme.dart
+      home:
+          HomePage(), //Initial screen opened when running app from home_page.dart
     );
   }
 }
