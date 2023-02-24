@@ -1,3 +1,5 @@
+// This class created the contructor for a Task Object, where we can store the tasks info from the users entries in the task create page
+
 class Task {
   int? id;
   String? title;
