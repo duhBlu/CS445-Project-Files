@@ -1,3 +1,4 @@
+
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
@@ -530,6 +531,8 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
               return cell;
             },
             dowBuilder: (BuildContext context, DateTime day) {
+              if (widget.calendarFormat == CalendarFormat.week) return null;
+
               Widget? dowCell =
                   widget.calendarBuilders.dowBuilder?.call(context, day);
 
@@ -556,11 +559,13 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
               return dowCell;
             },
             dayBuilder: (context, day, focusedMonth) {
+              if (widget.calendarFormat == CalendarFormat.week)
+                return GestureDetector();
               return GestureDetector(
                 behavior: widget.dayHitTestBehavior,
                 onTap: () => _onDayTapped(day),
                 onLongPress: () => _onDayLongPressed(day),
-                child: _buildCell(day, focusedMonth),
+                child: (_buildCell(day, focusedMonth)),
               );
             },
           ),
