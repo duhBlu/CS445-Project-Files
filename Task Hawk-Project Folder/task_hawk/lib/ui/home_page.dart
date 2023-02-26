@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:task_hawk/controllers/task_controller.dart';
 import 'package:task_hawk/services/notification_services.dart';
 import 'package:task_hawk/ui/add_task_page.dart';
 import 'package:task_hawk/ui/theme.dart';
@@ -27,6 +28,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // ignore: prefer_typing_uninitialized_variables
+  final _taskController = Get.put(TaskController());
   DateTime __selectedDate = DateTime.now();
   var notifyHelper;
 
@@ -80,7 +82,7 @@ class _HomePageState extends State<HomePage> {
 
           // hiding datebar when in calendar mode
           if (_calendarFormat == CalendarFormat.week) (__addDateBar()),
-
+          if (_calendarFormat == CalendarFormat.week) (__showTasks()),
           // calendar junk
           ValueListenableBuilder<DateTime>(
             valueListenable: _focusedDay,
@@ -202,6 +204,25 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20.0),
           ],
         ),*/
+      ),
+    );
+  }
+
+  __showTasks() {
+    return Expanded(
+      child: Obx(
+        () {
+          return ListView.builder(
+            itemCount: _taskController.taskList.length,
+            itemBuilder: (_, context) {
+              return Container(
+                  width: 100,
+                  height: 50,
+                  color: Colors.green,
+                  margin: const EdgeInsets.only(bottom: 10));
+            },
+          );
+        },
       ),
     );
   }
