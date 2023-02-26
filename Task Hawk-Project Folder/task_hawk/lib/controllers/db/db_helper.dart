@@ -38,4 +38,9 @@ class DBHelper {
     print("insert function called");
     return await _db?.insert(_tableName, task!.toJson()) ?? 69;
   }
+
+  static Future<List<Map<String, dynamic>>> query() async {
+    print("querry function called");
+    return await _db!.query(_tableName);
+  }
 }
