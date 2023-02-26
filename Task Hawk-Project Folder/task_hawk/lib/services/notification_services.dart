@@ -59,7 +59,7 @@ class NotifyHelper {
   displayNotification({required String title, required String body}) async {
     // ignore: prefer_const_constructors
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
+        'your channel id', 'your channel name',
         importance: Importance.max, priority: Priority.high);
     var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
