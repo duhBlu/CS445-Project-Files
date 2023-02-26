@@ -43,4 +43,16 @@ class DBHelper {
     print("querry function called");
     return await _db!.query(_tableName);
   }
+
+  static delete(Task task) async {
+    await _db!.delete(_tableName, where: 'id=?', whereArgs: [task.id]);
+  }
+
+  static update(int id) async {
+    return await _db!.rawUpdate('''
+      UPDATE tasks
+      SET isCompleted = ?
+      WHERE id = ?
+    ''', [1, id]);
+  }
 }

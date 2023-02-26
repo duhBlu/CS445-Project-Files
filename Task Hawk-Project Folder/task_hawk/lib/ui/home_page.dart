@@ -1,13 +1,16 @@
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:task_hawk/controllers/task_controller.dart';
+import 'package:task_hawk/models/task.dart';
 import 'package:task_hawk/services/notification_services.dart';
 import 'package:task_hawk/ui/add_task_page.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/add_task_button.dart';
+import 'package:task_hawk/ui/widgets/task_tile.dart';
 import '../services/theme_services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 //import 'complex_example.dart';
@@ -29,7 +32,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // ignore: prefer_typing_uninitialized_variables
   final _taskController = Get.put(TaskController());
-  DateTime __selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.now();
   var notifyHelper;
 
   // Initialize the Notification services
@@ -73,16 +76,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: __addAppBar(), // custom app bar
+      appBar: _addAppBar(), // custom app bar
       body: Column(
         children: [
-          __addTaskBar(), // custom header bar
+          _addTaskBar(), // custom header bar
 
-          //__addDateBar(), // custom widget that adds the sliding calendar
+          //_addDateBar(), // custom widget that adds the sliding calendar
 
           // hiding datebar when in calendar mode
-          if (_calendarFormat == CalendarFormat.week) (__addDateBar()),
-          if (_calendarFormat == CalendarFormat.week) (__showTasks()),
+          if (_calendarFormat == CalendarFormat.week) (_addDateBar()),
+
+          if (_calendarFormat == CalendarFormat.week) (_showTasks()),
           // calendar junk
           ValueListenableBuilder<DateTime>(
             valueListenable: _focusedDay,
@@ -208,18 +212,55 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  __showTasks() {
+  _showTasks() {
     return Expanded(
+      flex: 50,
       child: Obx(
         () {
           return ListView.builder(
             itemCount: _taskController.taskList.length,
-            itemBuilder: (_, context) {
-              return Container(
-                  width: 100,
-                  height: 50,
-                  color: Colors.green,
-                  margin: const EdgeInsets.only(bottom: 10));
+            //itemCount: 9,
+            itemBuilder: (_, index) {
+              print(_taskController.taskList.length);
+              Task task = _taskController.taskList[index];
+              if (task.repeat == 'Daily') {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                _showBottomSheet(context, task);
+                              },
+                              child: TaskTile(task)),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+              if (task.date == DateFormat.yMd().format(_selectedDate)) {
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                _showBottomSheet(context, task);
+                              },
+                              child: TaskTile(task)),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return Container();
+              }
             },
           );
         },
@@ -227,8 +268,101 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  _showBottomSheet(BuildContext context, Task task) {
+    Get.bottomSheet(
+      Container(
+        color: Get.isDarkMode ? color2 : color1,
+        padding: const EdgeInsets.only(top: 4),
+        height: task.isCompleted == 1
+            ? MediaQuery.of(context).size.height * 0.26
+            : MediaQuery.of(context).size.height * 0.38,
+        child: Column(
+          children: [
+            Container(
+              height: 6,
+              width: 120,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Get.isDarkMode
+                    ? const Color.fromARGB(255, 176, 176, 176)
+                    : const Color.fromARGB(255, 60, 60, 60),
+              ),
+            ),
+            Spacer(),
+            task.isCompleted == 1
+                ? Container()
+                : _bottomSheetButton(
+                    label: "Task Completed",
+                    onTap: () {
+                      _taskController.markTaskCompleted(task.id!);
+                      Get.back();
+                    },
+                    clr: color1,
+                    context: context,
+                  ),
+            _bottomSheetButton(
+              label: "Delete Task",
+              onTap: () {
+                _taskController.delete(task);
+                Get.back();
+              },
+              clr: Colors.red[300]!,
+              context: context,
+            ),
+            const SizedBox(height: 20),
+            _bottomSheetButton(
+              label: "Close",
+              onTap: () {
+                Get.back();
+              },
+              clr: Colors.red[300]!,
+              isClose: true,
+              context: context,
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _bottomSheetButton(
+      {required String label,
+      required Function()? onTap,
+      required Color clr,
+      bool isClose = false,
+      required BuildContext context}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        height: 55,
+        width: MediaQuery.of(context).size.width * 0.9,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: isClose == true
+                ? Get.isDarkMode
+                    ? color1
+                    : color2
+                : appbarcolor,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          color: isClose == true ? Colors.transparent : appbarcolor,
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style:
+                isClose ? titleStyle : titleStyle.copyWith(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
   // custom function returns DatePicker widget within a Container
-  __addDateBar() {
+  _addDateBar() {
     return Container(
       margin: const EdgeInsets.only(
         top: 20,
@@ -261,14 +395,16 @@ class _HomePageState extends State<HomePage> {
         ),
         // logic for handling selected dates
         onDateChange: (date) {
-          __selectedDate = date;
+          setState(() {
+            _selectedDate = date;
+          });
         },
       ),
     );
   }
 
   // container including current date and the task button
-  __addTaskBar() {
+  _addTaskBar() {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 5),
       child: Row(
@@ -315,8 +451,10 @@ class _HomePageState extends State<HomePage> {
           ),
           CreateTaskButton(
             label: "+ Add Task",
-            onTap: () => Get.to(
-                AddTaskPage()), // on tap, opens new page defined in /lib/ui/widgets/add_task_page.dart
+            onTap: () async {
+              await Get.to(() => AddTaskPage());
+              _taskController.getTasks();
+            }, // on tap, opens new page defined in /lib/ui/widgets/add_task_page.dart
           )
         ],
       ),
@@ -324,7 +462,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 // returns an AppBar widget containing dark/light mode button, and a sample user avatar
-  __addAppBar() {
+  _addAppBar() {
     return AppBar(
       leading: GestureDetector(
         // refreshes the page state on tap, so pages react dynamically
