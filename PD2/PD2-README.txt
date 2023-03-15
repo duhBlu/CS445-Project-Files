@@ -58,11 +58,11 @@ I. Refine Use Case Model from PD1
                 - Ask if you want to keep tasks in the deleted task list,
                   if yes, user prompted to select from the list of tasks in that list[checkbox],  
             4.4 Export Task List 
-            5.3 Exported Files Encryption 
-            4.5 Import Task List  
-            5.4 Imported Files Decryption
+            4.5 Exported Files Encryption 
+            4.6 Import Task List  
+            4.7 Imported Files Decryption
                 - Pick from a list of task lists[checkboxes?]
-            4.6 Password Protected Task Lists
+            4.8 Password Protected Task Lists
              
                 
 ===================================================================================================================================================================
