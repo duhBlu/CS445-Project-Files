@@ -9,7 +9,7 @@ Recurrence Pattern,String,The recurrence pattern of the task (daily, weekly, mon
 Task Color,String,The color assigned to the task
 Priority,Integer,The priority level of the task
 Task List ID,Integer,The unique identifier of the task list to which the task belongs
-
+\\\\\\\\\\\\\\\\\\
 Task Viewing
 Field,Data Type,Description
 Task ID,Integer,Unique identifier of task
@@ -17,7 +17,7 @@ Task Name,String,Short text description of task
 Due Date,Date and time,The due date and time of the task
 Task List ID,Integer,The unique identifier of the task list to which the task belongs
 Priority,Integer,The priority level of the task
-
+\\\\\\\\\\\\\\\\\
 Task Lists
 Field,Data Type,Description
 Task List ID,Integer,Unique identifier of task list
