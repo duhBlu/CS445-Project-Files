@@ -34,41 +34,37 @@ I. Refine Use Case Model from PD1
     Finalize Outline for use case descritpions 
 
         1. Task Management
-            1.1 Create Task ---
-            1.2 Modify Task ---
-            1.3 Delete Task ---
-            1.4 Categorize Task ---
-            1.5 Set due date ---
-            1.6 Set reminder ---
-            1.7 Mark as Complete ---
-            1.8 Set Priority ---
-            1.9 Set Recurrence ---
-        2. Category Management
-            2.1 Create Category ---
-            2.2 Modify Category ---
-            2.3 Delete Category ---
-            2.4 Assign Color ---
+            1.1 Create Task 
+            1.2 Modify Task 
+            1.3 Delete Task 
+            1.4 Mark as Complete 
+            1.5 Set due date 
+            1.6 Set reminder
+            1.7 Notification Options 
+            1.8 Assign Color             
+            1.9 Set Priority 
+            1.10 Set Recurrence 
         3. Task Viewing
-            3.1 Weekly View ---
-            3.2 Calendar View ---
-            3.3 Merged View -??
-            3.4 Filter Tasks by Category ---
-            3.5 Filter Tasks by Priority ---
+            3.1 Weekly View 
+            3.2 Calendar View --? 
+                - how select the tasks from calendarView. Tap on day to open some form with the tasks for that day? 
+            3.3 Task List Manager"Viewer"
+            3.4 Filter Task Lists 
+            3.5 Filter Tasks by Priority 
         4. Task Lists 
-            4.1 Export Task List --?
-            4.2 Import Task List --?
-            4.3 View Task List ???
-            4.4 Manage Task Lists --?
-        5. Merged View
-            5.1 Combine Task Lists ???      
-            5.2 View Merged Task List ???     
-            5.3 Filter Merged Task List ???  
-            5.4 Save Merged Task List ???
-        6. Security
-            6.1 User Data Encryption ---
-            6.2 Exported Files Password Protection ---
-            6.3 Exported Files Encryption ---
-            6.4 Password Protected Task List ---
+            4.1 Add Task List
+            4.2 Edit Task List
+            4.3 Delete Task List
+                - Ask if you want to keep tasks in the deleted task list,
+                  if yes, user prompted to select from the list of tasks in that list[checkbox],  
+            4.4 Export Task List 
+            4.5 Import Task List  
+                - Pick from a list of task lists[checkboxes?]
+            4.6 Password Protected Task Lists
+        5. Security
+            5.1 User Data Encryption
+            5.3 Exported Files Encryption 
+            5.4 Imported Files Decryption 
                 
 ===================================================================================================================================================================
 
