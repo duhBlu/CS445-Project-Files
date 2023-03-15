@@ -44,25 +44,25 @@ I. Refine Use Case Model from PD1
             1.8 Assign Color             
             1.9 Set Priority 
             1.10 Set Recurrence 
-        3. Task Viewing
-            3.1 Weekly View 
-            3.2 Calendar View --? 
+        2. Task Viewing
+            2.1 Weekly View 
+            2.2 Calendar View --? 
                 - how select the tasks from calendarView. Tap on day to open some form with the tasks for that day? 
-            3.3 Task List Manager"Viewer"
-            3.4 Filter Task Lists 
-            3.5 Filter Tasks by Priority 
-        4. Task Lists 
-            4.1 Add Task List
-            4.2 Edit Task List
-            4.3 Delete Task List
+            2.3 Task List Manager"Viewer"
+            2.4 Filter Task Lists 
+            2.5 Filter Tasks by Priority 
+        3. Task Lists 
+            3.1 Add Task List
+            3.2 Edit Task List
+            3.3 Delete Task List
                 - Ask if you want to keep tasks in the deleted task list,
                   if yes, user prompted to select from the list of tasks in that list[checkbox],  
-            4.4 Export Task List 
-            4.5 Exported Files Encryption 
-            4.6 Import Task List  
-            4.7 Imported Files Decryption
+            3.4 Export Task List 
+            3.5 Exported Files Encryption 
+            3.6 Import Task List  
+            3.7 Imported Files Decryption
                 - Pick from a list of task lists[checkboxes?]
-            4.8 Password Protected Task Lists
+            3.8 Password Protected Task Lists
              
                 
 ===================================================================================================================================================================
