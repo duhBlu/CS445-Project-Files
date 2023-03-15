@@ -1,0 +1,31 @@
+﻿Task Management
+Field,Data Type,Description
+Task ID,Integer,Unique identifier of task
+Task Name,String,Short text description of task
+Task Description,String,Longer text description of task
+Due Date,Date and time,The due date and time of the task
+Reminder Date,Date and time/String,The date and time of the reminders, and the method of delivery (email, SMS, or pop-up)
+Recurrence Pattern,String,The recurrence pattern of the task (daily, weekly, monthly, yearly)
+Task Color,String,The color assigned to the task
+Priority,Integer,The priority level of the task
+Task List ID,Integer,The unique identifier of the task list to which the task belongs
+
+Task Viewing
+Field,Data Type,Description
+Task ID,Integer,Unique identifier of task
+Task Name,String,Short text description of task
+Due Date,Date and time,The due date and time of the task
+Task List ID,Integer,The unique identifier of the task list to which the task belongs
+Priority,Integer,The priority level of the task
+
+Task Lists
+Field,Data Type,Description
+Task List ID,Integer,Unique identifier of task list
+Task List Name,String,Short text description of task list
+Task List Description,String,Longer text description of task list
+Task List,Array of tasks,The tasks contained in the task list
+Exported Task List,Array of tasks,The tasks to be exported
+Export Encryption Key,String,The encryption key used to encrypt exported task list
+Imported Task List,Array of tasks,The tasks to be imported
+Import Decryption Key,String,The decryption key used to decrypt imported task list
+Password Protection,String,The password used to protect access to the task list
