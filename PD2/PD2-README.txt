@@ -31,38 +31,45 @@ I. Refine Use Case Model from PD1
             - The entire document was kinda quickly thrown together without too much thought into anything other than a rough outline.
             - The more detail the better!
     
-    Finalize Outline for use caes descritpions 
+    Finalize Outline for use case descritpions 
 
         1. Task Management
-            1.1 Create Task
-            1.2 Modify Task
-            1.3 Delete Task
-            1.4 Categorize Task
-            1.5 Set due date for Task
-            1.6 Set reminder for Task
-            1.7 Mark task as Complete
-            1.8 Assign Color to Category
-            1.9 Set Priority of Task
-            1.10 Create Category
-            1.11 Modify Category
-            1.12 Delete Category
-            1.13 Set Recurrence for Task
-        2. Task Viewing
-            2.1 Weekly View
-            2.2 Calendar View
-            2.3 Filter Tasks by Category
-            2.4 Filter Tasks by Priority
-        3. Calendar Objects
-            3.1 Export Calendar
-            3.2 Import Calendar
-            3.3 Merge Calendar
-            3.4 Manage Calendar List
-        4. Security
-            4.1 User Data Encryption
-            4.2 Exported Files Password Protection
-            4.3 Exported Files Encryption
-            4.4 Password Protected Task List  1. Task Management
-                 
+            1.1 Create Task ---
+            1.2 Modify Task ---
+            1.3 Delete Task ---
+            1.4 Categorize Task ---
+            1.5 Set due date ---
+            1.6 Set reminder ---
+            1.7 Mark as Complete ---
+            1.8 Set Priority ---
+            1.9 Set Recurrence ---
+        2. Category Management
+            2.1 Create Category ---
+            2.2 Modify Category ---
+            2.3 Delete Category ---
+            2.4 Assign Color ---
+        3. Task Viewing
+            3.1 Weekly View ---
+            3.2 Calendar View ---
+            3.3 Merged View -??
+            3.4 Filter Tasks by Category ---
+            3.5 Filter Tasks by Priority ---
+        4. Task Lists 
+            4.1 Export Task List --?
+            4.2 Import Task List --?
+            4.3 View Task List ???
+            4.4 Manage Task Lists --?
+        5. Merged View
+            5.1 Combine Task Lists ???      
+            5.2 View Merged Task List ???     
+            5.3 Filter Merged Task List ???  
+            5.4 Save Merged Task List ???
+        6. Security
+            6.1 User Data Encryption ---
+            6.2 Exported Files Password Protection ---
+            6.3 Exported Files Encryption ---
+            6.4 Password Protected Task List ---
+                
 ===================================================================================================================================================================
 
 II. Build the Conceptual Model 
@@ -77,74 +84,76 @@ II. Build the Conceptual Model
         - He also have some extra material explaining the conceptual model in modules 4 and 5
     3. This is where we will figure out roughly how to structure our code, and various elements of our app.
 
-    Entities:
+    Entity Objects:
         Task
-        User
         Category
-        Calendar Object
+        User
+        Calendar Objects List
     
-    Boundaries:
-        Task Management Interface
-        Task Viewing Interface
-        Calendar Object Management Interface
-        Security Interface
-    Controls:
+    Boundary Objects:
+        Task Management Boundary
+        Category Management Boundary
+        Task Viewing Boundary
+        Merged View Boundary
+        Task Lists Boundary
+        Security Boundary
+    
+    Control Objects:
+        Task Management Control
+        Category Management Control
+        Task Viewing Control
+        Merged View Control
+        Task Lists Control
+        Security Control
 
-    Task Management Controller
-    Task Viewing Controller
-    Calendar Object Management Controller
-    Security Controller
-    To apply the dependency stereotypes, we can use the following guidelines:
-
+    **************
     Entity: Represents a concept or object in the problem domain that has a distinct identity and a state that can be stored and managed.
     Boundary: Represents a point of interaction between the system and its external environment, such as a user interface or an external system.
     Control: Represents a component that coordinates and manages the behavior of other components within the system, such as a controller or a service.
-    
-    Here's an example of what we will need to create(It will need to be made with some chart maker):
-+--------------+         +-------------+
-|     User     |         |  Category   |
-+--------------+         +-------------+
-| - id: int    |         | - name: str |
-| - name: str  |         | - color: str|
-| - email: str |         +-------------+
-| - phone: str |
-+--------------+
+    **************
 
- /\           /\         /\           /\
- ||           ||         ||           ||
- ||           ||         ||           ||
-+--------------+         +-------------+
-|     Task     |         | CalendarObj |
-+--------------+         +-------------+
-| - id: int    |         | - id: int   |
-| - title: str |         | - data: str |
-| - desc: str  |         | - type: str |
-| - start: dt  |         | - owner: int|
-| - end: dt    |         +-------------+
-| - remind: dt |
-| - recur: str |
-| - category: |
-|   str        |
-| - completed |
-+--------------+
+    Here's a Sample diagram of what we will need to create for our project(It will need to be made with some chart maker):
 
-   /\           /\                                 /\           /\
-   ||           ||                                 ||           ||
-   ||           ||                                 ||           ||
-+----------------------------------------+   +---------------------------------+
-|           TaskManagementInterface      |   |     TaskViewingInterface        |
-+----------------------------------------+   +---------------------------------+
-| - controller: TaskManagementController |   | - controller: TaskViewController|
-+----------------------------------------+   +---------------------------------+
 
-   /\           /\                                        /\           /\
-   ||           ||                                        ||           ||
-   ||           ||                                        ||           ||
-+--------------------------------------------------+  +----------------------------------+
-|        CalendarObjectManagementInterface         | |       SecurityInterface           |
-+--------------------------------------------------+  +----------------------------------+
-| - controller: CalendarObjectManagementController |  | - controller: SecurityController |
-+--------------------------------------------------+  +-----------------------------------+
+             <<Entity>>            <<Boundary>>           <<Control>>
+           +---------------+     +-----------------+    +--------------------+
+           |     Task      |     |Task Management  |    |Task Management     |
+           +---------------+     |   Boundary      |    |   Control          |
+           | TaskID        |<--->|                 |<-->|                    |
+           | Title         |     | Task Mgmt UI(s) |    | createTask()       |
+           | Description   |     |                 |    | modifyTask()       |
+           | StartDate     |     |                 |    | deleteTask()       |
+           | EndDate       |     |                 |    | categorizeTask()   |
+           | Reminders     |     |                 |    | setDueDate()       |
+           | Recurrence    |     |                 |    | setReminder()      |
+           | Category      |     |                 |    | markComplete()     |
+           | Completed     |     |                 |    | setPriority()      |
+           +---------------+     +-----------------+    | setRecurrence()    |
+                                                          +------------------+
+
+             <<Entity>>            <<Boundary>>              <<Control>>
+           +---------------+     +-------------------+     +-------------------+
+           |   Category    |     |Category Management|     |Category Management|
+           +---------------+     |    Boundary       |     |      Control      |
+           | CategoryID    |<--->|Category Mgmt UI(s)| <-->|                   |
+           | CategoryName  |     |                   |     | createCategory()  |
+           | CategoryColor |     |                   |     | modifyCategory()  |
+           +---------------+     |                   |     | deleteCategory()  |
+                                 +-------------------+     | assignColor()     |
+                                                            +------------------+
+
+             <<Entity>>            <<Boundary>>           <<Control>>
+           +---------------+     +-----------------+    +-------------------+
+           |      User     |     |   Task Viewing  |    |    Task Viewing   |
+           +---------------+     |    Boundary     |    |      Control      |
+           | UserID        |<--->| Task View UI(s) |<-->|                   |
+           | UserName      |     |                 |    | weeklyView()      |
+           | UserEmail     |     |                 |    | calendarView()    |
+           | UserPhone#    |     |                 |    | mergedView()      |
+           +---------------+     |                 |    | filterByCategory()|
+                                 +-----------------+    | filterByPriority()|
+                                                        +-------------------+
+
 
 
 ===================================================================================================================================================================
@@ -182,9 +191,9 @@ III. Build the Dynamic Model
 
 === Deliverable Elements ===
 
- 1. Final Use Case Model, including Use Case Diagram and Use Case Descriptions using the template from Canvas
- 2. Conceptual Model Class Diagram
- 3. Class Diagram
+ I. Final Use Case Model, including Use Case Diagram and Use Case Descriptions using the template from Canvas
+ II. Conceptual Model Class Diagram
+ II. Class Diagram
  4. Dynamic Model, including Sequence Diagrams for at least three to four use cases and a State Chart Diagram of UIs.
 
     notes:
