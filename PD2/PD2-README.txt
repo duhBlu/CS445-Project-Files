@@ -49,10 +49,9 @@ I. Refine Use Case Model from PD1
             2.2 Calendar View --? 
                 - how select the tasks from calendarView. Tap on day to open some form with the tasks for that day? 
             2.3 Task List Manager"Viewer"
-            2.4 Filter Task Lists 
-            2.5 Filter Tasks by Priority 
-        3. Task Lists 
-            3.1 Add Task List
+            2.4 Filter Tasks by Priority 
+        3. Task List Management
+            3.1 Create Task List
             3.2 Edit Task List
             3.3 Delete Task List
                 - Ask if you want to keep tasks in the deleted task list,
