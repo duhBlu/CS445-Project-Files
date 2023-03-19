@@ -44,6 +44,7 @@ I. Refine Use Case Model from PD1
             1.8 Assign Color             
             1.9 Set Priority 
             1.10 Set Recurrence 
+            1.11 Add Task To Task List
         2. Task Viewing
             2.1 Weekly View 
             2.2 Calendar View --? 
