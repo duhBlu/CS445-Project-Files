@@ -186,9 +186,11 @@ III. Build the Dynamic Model
 
 === Deliverable Elements ===
 
- I. Final Use Case Model, including Use Case Diagram and Use Case Descriptions using the template from Canvas
- II.a Conceptual Model Class Diagram
- II.b Class Diagram
- III. Dynamic Model, including Sequence Diagrams for at least three to four use cases and a State Chart Diagram of UIs.
-
-    notes:
+Use Case Model (Final)
+    Use Case Diagram - Jacob Thieret
+    Use Case Descriptions - Jacob Thieret and Adam Bowles
+Conceptual Model Class Diagram - Sam Gullett
+Class Diagram - ?
+Dynamic Model
+    Sequence Diagrams - Sam Gullett
+    State Chart Diagram - Sam Gullett
