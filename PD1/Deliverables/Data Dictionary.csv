@@ -1,0 +1,23 @@
+﻿Variable,Type,Description
+Task ID,Integer,unique identifier of event
+Title,String,a short text description
+Description,String,a longer text description
+Start Date,Date and time,the start date and time of the event
+End Date,Date and time,the end date and time of the event
+Reminders,Date and time/String,"the date and time of the reminders, and the method of delivery (email, SMS, or pop-up)"
+Recurrence,String,"the recurrence pattern of the event (daily, weekly, monthly, yearly)"
+Category,String,"the category or categories that the event belongs to (personal, work, etc)"
+Completed,Boolean,a flag indicating whether the event has been completed
+User ID,Integer,unique identifier of user
+User Name,String,the name of the user
+User Email,String,the email of the user
+User Phone #,String,"the phone number of the user, if applicable"
+Export Format,String,"the format used to export event data (CSV, Excel, etc.)."
+Import File,File,the file containing events to be imported into the system
+Import File Format,String,"the format of the imported file (CSV, Excel, etc.)"
+Calendar Objects List,List,list of calendar objects available to the user
+True/False settings,Boolean,settings that have only one or two options
+Calendar Objects,File,"file containing task data(CSV, Excel, etc)"
+Category Color,Hex,hex value for task colors
+Calendar Object ID,Integer,unique identifier for calendar objects
+Multi-option settings,Integer,settings that have more than one possible selections
