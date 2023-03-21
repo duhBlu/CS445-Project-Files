@@ -79,27 +79,6 @@ II. Build the Conceptual Model
         - He also have some extra material explaining the conceptual model in modules 4 and 5
     3. This is where we will figure out roughly how to structure our code, and various elements of our app.
 
-    Entity Objects:
-        Task
-        Category
-        User
-        Calendar Objects List
-    
-    Boundary Objects:
-        Task Management Boundary
-        Category Management Boundary
-        Task Viewing Boundary
-        Merged View Boundary
-        Task Lists Boundary
-        Security Boundary
-    
-    Control Objects:
-        Task Management Control
-        Category Management Control
-        Task Viewing Control
-        Merged View Control
-        Task Lists Control
-        Security Control
 
     **************
     Entity: Represents a concept or object in the problem domain that has a distinct identity and a state that can be stored and managed.
