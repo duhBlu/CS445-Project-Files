@@ -1,3 +1,8 @@
+### Hello, thanks for reading me.
+
+note to team: I need to completely refactor the use case scenarios. There are currently much too many, 
+              so I will need to spend some time consolidating the current use cases into maybe 4-5 scenarios.
+
 # List of Tasks:
 
 ## Complete Design Model:
@@ -14,6 +19,8 @@
     3. State Chart Diagram:
         a. Update the state chart diagram to reflect user interface states
         b. Ensure the state chart diagram represents the application's user interface throughout
+        c. Consider all possible user interactions and transitions between states
+        d. Validate the state chart diagram with user scenarios or walkthroughs to ensure it represents the intended user experience
 
 ## System Architecture Justification:
 
@@ -21,6 +28,9 @@
     2. Justify the chosen architecture over alternatives
     3. Discuss chosen technologies and their justification
     4. Address any interesting technology choices made
+    5. Analyze application requirements and constraints to make informed decisions about the architecture
+    6. Consider scalability, maintainability, and performance when choosing the architecture
+    7. Evaluate trade-offs and potential risks of chosen technologies
 
 ## Application Skeleton Code:
 
