@@ -2,7 +2,7 @@
 
 ## Complete Design Model:
 
-### 1. Class Diagram:
+    1. Class Diagram:
         a. Map important classes from Analysis Model to Design Model
         b. Organize classes and their relationships
 
