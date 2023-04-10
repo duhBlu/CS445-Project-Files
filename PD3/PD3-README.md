@@ -35,6 +35,7 @@ note to team: I need to completely refactor the use case scenarios. There are cu
 ## Application Skeleton Code:
 
     1. Generate classes in the programming language based on the class diagram
-    2. Organize classes into different packages based on their roles
+        - Start by creating a skeleton code with the overall structure of the program, including classes and methods
+    2. Organize classes into packages or modules based on their roles and responsibilities
     3. Create skeleton methods reflecting messages from the sequence diagrams
     4. Document classes and methods using appropriate documentation tools (e.g., JavaDoc)
