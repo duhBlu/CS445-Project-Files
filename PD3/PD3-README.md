@@ -39,3 +39,48 @@ note to team: I need to completely refactor the use case scenarios. There are cu
     2. Organize classes into packages or modules based on their roles and responsibilities
     3. Create skeleton methods reflecting messages from the sequence diagrams
     4. Document classes and methods using appropriate documentation tools (e.g., JavaDoc)
+
+
+# Updated Use Case Descriptions outline:
+1. Manage Tasks
+    - User can:
+        - Create Tasks
+        - Modify Tasks
+        - Delete Task 
+        - Mark as Complete 
+        - Set due date
+        - Assign Color             
+        - Set Priority 
+        - Set Recurrence 
+        - Add Task To Task List
+
+2. Task List Management
+    - User can:
+        - Create Task List
+        - Edit Task List
+        - Delete Task List
+        - Set password
+
+3. Task Viewing
+    - User can:
+        - Weekly View 
+        - Calendar View
+        - Task List Manager"Viewer"
+        - Filter Tasks by Priority 
+
+4. Password Protecting Task Lists
+    - User can: 
+        - Set pin number or password for task list
+            - Prompted to re-enter the password to confirm
+        - change password
+            - Prompted to enter old password, then enter new password twice to confirm change
+        - Remove password protection
+            - Prompted to enter password to remove password
+
+5. Importing and Exporting Task Lists
+    - User can:
+        - Import a task list
+        - Export a task list
+
+
+
