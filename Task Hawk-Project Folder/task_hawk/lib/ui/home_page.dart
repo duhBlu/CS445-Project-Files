@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // Need to add the calendar widget to it's own widget outside of the main page code
   // Home Page contents
   @override
   Widget build(BuildContext context) {

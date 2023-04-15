@@ -8,6 +8,7 @@ note to team: I need to completely refactor the use case scenarios. There are cu
 ## 1. Complete Class Diagram:
         a. Map important classes from Analysis Model to Design Model
         b. Organize classes and their relationships
+        
 ## 2. Complete Dynamic Model
     2. Complete Sequence Diagrams (Include remaining use cases):
         a. Update existing sequence diagrams based on additional analysis
@@ -22,9 +23,10 @@ note to team: I need to completely refactor the use case scenarios. There are cu
 
 
 ## 3. Complete User Interface (UI) Design
-
+    ? - not sure if needed
 
 ## 4. System Architecture Justification:
+    Finished = JT
 
 ## 5. Application Skeleton Code:
     1. Generate classes in the programming language based on the class diagram
