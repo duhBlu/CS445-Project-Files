@@ -20,11 +20,13 @@ import 'package:task_hawk/table_calendar.dart';
 import 'dart:developer' as developer;
 
 // hacky calendar utils
-import 'package:task_hawk/src/shared/utils2.dart';
+import 'package:task_hawk/calendar_src/shared/utils2.dart';
 
+/// A page widget that displays a list of tasks and allows the user to add or delete tasks.
 class HomePage extends StatefulWidget {
+  /// Creates a new instance of [HomePage] with the given [key].
   const HomePage({super.key});
-
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   DateTime _selectedDate = DateTime.now();
   var notifyHelper;
 
-  // Initialize the Notification services
+  /// Initializes the notification services and requests iOS permissions.
   @override
   void initState() {
     super.initState();
@@ -57,10 +59,12 @@ class _HomePageState extends State<HomePage> {
 
   late PageController _pageController;
 
+  /// Returns a list of [Event] objects for the given [day].
   List<Event> _getEventsForDay(DateTime day) {
     return (kEvents[day] ?? []) as List<Event>;
   }
-
+  
+  /// Handles the day selection event by updating the selected day and focused day.
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
@@ -72,8 +76,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Need to add the calendar widget to it's own widget outside of the main page code
-  // Home Page contents
+
+  /// Builds the home page widget.
+  ///
+  /// This widget displays a list of tasks and a calendar view that allows the user
+  /// to select and view tasks by date.
+  ///
+  /// Returns a [Scaffold] widget containing the page contents.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -212,7 +221,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
+  /// Displays the list of tasks using an [Obx] widget that listens for changes in the
+  /// task list and rebuilds the UI accordingly.
+  ///
+  /// Returns an [Expanded] widget containing the task list.
   _showTasks() {
     return Expanded(
       flex: 50,
@@ -227,7 +239,7 @@ class _HomePageState extends State<HomePage> {
               if (task.repeat == 'Daily') {
                 DateTime date =
                     DateFormat.jm().parse(task.startTime.toString());
-                var myTime = DateFormat("HH:MM").format(date);
+                var myTime = DateFormat("HH:mm").format(date);
                 notifyHelper.scheduledNotification(
                   int.parse(myTime.toString().split(":")[0]),
                   int.parse(myTime.toString().split(":")[1]),
@@ -334,7 +346,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
+  /// Displays a bottom sheet with options to complete, delete, or close a task.
+  ///
+  /// The bottom sheet contains buttons for each option and displays different content
+  /// based on whether the task is completed or not.
+  ///
+  /// [context] - The build context.
+  /// [task] - The task to display options for.
   _bottomSheetButton(
       {required String label,
       required Function()? onTap,
@@ -412,7 +430,13 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // container including current date and the task button
+  /// Returns a [Container] widget containing a custom [DatePicker] widget.
+  ///
+  /// The [DatePicker] widget displays a date picker with the current date selected by default.
+  /// It allows users to select a date and updates the selected date when the user makes a selection.
+  ///
+  /// Returns a [Container] widget that displays the date picker with custom styles.
+
   _addTaskBar() {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20, top: 5),
@@ -470,7 +494,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-// returns an AppBar widget containing dark/light mode button, and a sample user avatar
+/// Returns an [AppBar] widget with a dark/light mode button and a sample user avatar.
+///
+/// The [AppBar] widget contains a [GestureDetector] that allows users to switch between
+/// dark and light mode.
+/// The [AppBar] widget also contains a user avatar to represent the current user.
+///
+/// Returns an [AppBar] widget with a dark/light mode button and a sample user avatar.
+
   _addAppBar() {
     return AppBar(
       leading: GestureDetector(
@@ -507,7 +538,34 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// calendar widget
+/// A custom widget that displays a calendar header with navigation buttons.
+///
+/// The [_CalendarHeader] widget displays the month and year of the selected date
+/// in a format of "MMM yyyy". It also provides buttons to navigate to the previous
+/// and next month, go to today's date, clear the selected date, and switch between
+/// month and week formats.
+///
+/// Required parameters:
+/// * [focusedDay]: A [DateTime] object representing the currently focused day.
+/// * [onLeftArrowTap]: A [VoidCallback] function that is called when the left arrow
+///   button is pressed.
+/// * [onRightArrowTap]: A [VoidCallback] function that is called when the right arrow
+///   button is pressed.
+/// * [onTodayButtonTap]: A [VoidCallback] function that is called when the "Today" button
+///   is pressed.
+/// * [onClearButtonTap]: A [VoidCallback] function that is called when the "Clear" button
+///   is pressed.
+/// * [onFormatButtonTap]: A [VoidCallback] function that is called when the "Month/Week"
+///   button is pressed.
+/// * [onAddEventTap]: A [VoidCallback] function that is called when the "Add Event" button
+///   is pressed.
+/// * [clearButtonVisible]: A boolean value that determines whether the "Clear" button should
+///   be visible.
+/// * [format]: A [CalendarFormat] enum value that determines the current format of the calendar.
+///
+/// Returns a [_CalendarHeader] widget that displays the month and year of the selected date
+/// and provides buttons to navigate the calendar and switch between formats.
+
 class _CalendarHeader extends StatelessWidget {
   final DateTime focusedDay;
   final VoidCallback onLeftArrowTap;

@@ -1,5 +1,4 @@
-// This class created the contructor for a Task Object, where we can store the tasks info from the users entries in the task create page
-
+/// A class representing a task object with information about the task created by the user.
 class Task {
   int? id;
   String? title;
@@ -11,7 +10,9 @@ class Task {
   int? color;
   int? remind;
   String? repeat;
+  int? taskListId;
 
+  /// Constructor for a Task object.
   Task({
     this.id,
     this.title,
@@ -23,7 +24,10 @@ class Task {
     this.color,
     this.remind,
     this.repeat,
+    this.taskListId,
   });
+
+  /// A named constructor to create a Task object from a JSON map.
   Task.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
@@ -35,8 +39,10 @@ class Task {
     color = json['color'];
     remind = json['remind'];
     repeat = json['repeat'];
+    taskListId = json['taskListID'];
   }
 
+  /// Returns a JSON map representation of the Task object.
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = id;
@@ -49,6 +55,7 @@ class Task {
     data['color'] = color;
     data['remind'] = remind;
     data['repeat'] = repeat;
+    data['taskListID'] = taskListId;
     return data;
   }
 }

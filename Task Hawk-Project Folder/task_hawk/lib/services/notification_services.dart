@@ -61,6 +61,7 @@ class NotifyHelper {
         );
   }
 
+
   displayNotification({required String title, required String body}) async {
     // ignore: prefer_const_constructors
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
@@ -84,18 +85,24 @@ class NotifyHelper {
 
   scheduledNotification(int hour, int minutes, Task task) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
-        task.id!.toInt(),
-        task.title,
-        task.note,
-        _convertTime(hour, minutes),
-        //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails('your channel id',
-                'your channel name', 'your channel description')),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time);
+      task.id!.toInt(),
+      task.title,
+      task.note,
+      _convertTime(hour, minutes),
+      //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'your channel id',
+          'your channel name',
+          'your channel description',
+        ),
+      ),
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+      payload: "${task.title}|+${task.note}|",
+    );
   }
 
   tz.TZDateTime _convertTime(int hour, int minutes) {

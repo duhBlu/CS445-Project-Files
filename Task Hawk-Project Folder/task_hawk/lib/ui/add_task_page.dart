@@ -10,6 +10,7 @@ import 'package:task_hawk/ui/widgets/input_field.dart';
 import '../services/notification_services.dart';
 import '../services/theme_services.dart';
 
+/// A page for adding a new task to the app.
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({super.key});
 
@@ -17,8 +18,9 @@ class AddTaskPage extends StatefulWidget {
   State<AddTaskPage> createState() => _AddTaskPageState();
 }
 
+/// The private state class for the AddTaskPage.
 class _AddTaskPageState extends State<AddTaskPage> {
-  // Initialize the text field controllers, for data storage/update/n'stuff
+  /// Initialize the text field controllers, for data storage/update/n'stuff
   final TaskController _taskController = Get.put(TaskController());
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
@@ -46,6 +48,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   int _selectedColor = 0;
 
+  /// Builds the AddTaskPage widget.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +187,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 
-  // task input data validation
+  /// Validates the input data and adds the task to the database if both the title and note fields are not empty.
   __validateData() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
       //add to database
@@ -201,7 +204,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       );
     }
   }
-
+/// Adds the new task to the database.
   __addTaskToDb() async {
     int value = await _taskController.addTask(
       task: Task(
@@ -217,7 +220,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
     print("My id is " + "$value");
   }
-
+/// Returns a column containing a color palette for the user to select the task color.
   __colorPalette() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,7 +260,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       ],
     );
   }
-
+/// Displays a date picker dialog to allow the user to select a date for the task.
   __getDatefromUser() async {
     DateTime? _pickerDate = await showDatePicker(
       context: context,
@@ -271,7 +274,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       });
     } else {}
   }
-
+/// Displays a time picker dialog to allow the user to select a start or end time for the task.
   __getTimefromUser({required bool isStartTime}) async {
     var pickedTime = await __showTimePicker();
     String _formattedTime = pickedTime.format(context);
@@ -287,7 +290,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       });
     }
   }
-
+/// Shows a time picker dialog for selecting a time.
   __showTimePicker() {
     return showTimePicker(
       initialEntryMode: TimePickerEntryMode.input,
@@ -298,7 +301,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
       ),
     );
   }
-
+  /// Builds and returns the app bar for the task input screen.
+  ///
+  /// The app bar contains a back button and an app icon.
   __addAppBar(BuildContext context) {
     return AppBar(
       leading: GestureDetector(
