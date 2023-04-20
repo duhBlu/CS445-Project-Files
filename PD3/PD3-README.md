@@ -1,38 +1,16 @@
 ### Hello, thanks for reading me.
 
-note to team: I need to completely refactor the use case scenarios. There are currently much too many, 
-              so I will need to spend some time consolidating the current use cases into maybe 4-5 scenarios.
-
-# List of Tasks:
-
 ## 1. Complete Class Diagram:
-        a. Map important classes from Analysis Model to Design Model
-        b. Organize classes and their relationships
+    - Adam Bowles
 
 ## 2. Complete Dynamic Model
-    2. Complete Sequence Diagrams (Include remaining use cases):
-        a. Update existing sequence diagrams based on additional analysis
-        b. Create new sequence diagrams for remaining use cases
-        c. Ensure all sequence diagrams represent the behavior of the application
-
-    3. Complete State Chart Diagram:
-        a. Update the state chart diagram to reflect user interface states
-        b. Ensure the state chart diagram represents the application's user interface throughout
-        c. Consider all possible user interactions and transitions between states
-        d. Validate the state chart diagram with user scenarios or walkthroughs to ensure it represents the intended user experience
-
-
+    - Sam Gullett
 
 ## 3. System Architecture Justification:
-    Finished = JT
+    - Jacob Thieret
 
 ## 4. Application Skeleton Code:
-    1. Generate classes in the programming language based on the class diagram
-        - Start by creating a skeleton code with the overall structure of the program, including classes and methods
-    2. Organize classes into packages or modules based on their roles and responsibilities
-    3. Create skeleton methods reflecting messages from the sequence diagrams
-    4. Document classes and methods using appropriate documentation tools (e.g., JavaDoc)
-
+    - Jacob Thieret
 
 # Updated Use Case Descriptions outline:
 1. Manage Tasks
