@@ -60,7 +60,7 @@ class TaskInputField extends StatelessWidget {
                         ),
                       ),
                       autofocus: false,
-                      cursorColor: Get.isDarkMode ? color1 : color2,
+                      cursorColor: Get.isDarkMode ? lightText : darkText,
                       controller: controller,
                     ),
                   ),

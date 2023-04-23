@@ -1,31 +1,25 @@
 import 'package:flutter/material.dart';
-
 import '../theme.dart';
 
 class CreateTaskButton extends StatelessWidget {
-  final String label;
   final Function()? onTap;
-  const CreateTaskButton({super.key, required this.label, required this.onTap});
+  const CreateTaskButton({Key? key, required this.onTap}) : super(key: key);
 
-  //
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.only(top: 20),
-        width: 120,
-        height: 60,
+        width: 56,
+        height: 56,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          shape: BoxShape.circle,
           color: appbarcolor,
         ),
-        child: Text(
-          label,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
         ),
       ),
     );

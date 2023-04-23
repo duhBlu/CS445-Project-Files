@@ -62,7 +62,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               Text(
                 "Add Task",
                 style: TextStyle(
-                    color: Get.isDarkMode ? color1 : color2,
+                    color: Get.isDarkMode ? lightText : darkText,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
@@ -123,7 +123,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 widget: DropdownButton(
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? color1 : color2,
+                    color: Get.isDarkMode ? lightText : darkText,
                   ),
                   underline: Container(height: 0),
                   iconSize: 30,
@@ -145,7 +145,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 widget: DropdownButton(
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? color1 : color2,
+                    color: Get.isDarkMode ? lightText : darkText,
                   ),
                   underline: Container(height: 0),
                   iconSize: 30,
@@ -174,7 +174,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   children: [
                     __colorPalette(),
                     CreateTaskButton(
-                      label: "Create Task",
                       onTap: () => __validateData(),
                     ),
                   ],
@@ -199,12 +198,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
         "All fields are required!",
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor:
-            Get.isDarkMode ? const Color.fromARGB(255, 39, 39, 39) : color1,
+            Get.isDarkMode ? const Color.fromARGB(255, 39, 39, 39) : lightText,
         icon: const Icon(Icons.warning),
       );
     }
   }
-/// Adds the new task to the database.
+
+  /// Adds the new task to the database.
   __addTaskToDb() async {
     int value = await _taskController.addTask(
       task: Task(
@@ -220,7 +220,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
     print("My id is " + "$value");
   }
-/// Returns a column containing a color palette for the user to select the task color.
+
+  /// Returns a column containing a color palette for the user to select the task color.
   __colorPalette() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,8 +244,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   backgroundColor: index == 0
                       ? appbarcolor
                       : index == 1
-                          ? color1
-                          : color2,
+                          ? lightText
+                          : darkText,
                   child: _selectedColor == index
                       ? const Icon(
                           Icons.done,
@@ -260,7 +261,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
       ],
     );
   }
-/// Displays a date picker dialog to allow the user to select a date for the task.
+
+  /// Displays a date picker dialog to allow the user to select a date for the task.
   __getDatefromUser() async {
     DateTime? _pickerDate = await showDatePicker(
       context: context,
@@ -274,7 +276,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
       });
     } else {}
   }
-/// Displays a time picker dialog to allow the user to select a start or end time for the task.
+
+  /// Displays a time picker dialog to allow the user to select a start or end time for the task.
   __getTimefromUser({required bool isStartTime}) async {
     var pickedTime = await __showTimePicker();
     String _formattedTime = pickedTime.format(context);
@@ -290,7 +293,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
       });
     }
   }
-/// Shows a time picker dialog for selecting a time.
+
+  /// Shows a time picker dialog for selecting a time.
   __showTimePicker() {
     return showTimePicker(
       initialEntryMode: TimePickerEntryMode.input,
@@ -301,6 +305,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       ),
     );
   }
+
   /// Builds and returns the app bar for the task input screen.
   ///
   /// The app bar contains a back button and an app icon.

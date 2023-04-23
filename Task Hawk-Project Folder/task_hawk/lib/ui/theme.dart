@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const Color color1 = Color.fromARGB(255, 196, 196, 196);
-const Color color2 = Color.fromARGB(255, 33, 33, 33);
+const Color lightBackground = Color.fromARGB(255, 240, 240, 240);
+const Color darkBackground = Color.fromARGB(255, 50, 50, 50);
+const Color lightText = Color.fromARGB(255, 33, 33, 33);
+const Color darkText = Color.fromARGB(255, 240, 240, 240);
+const Color lightAccent = Color.fromARGB(255, 255, 105, 105);
+const Color darkAccent = Color.fromARGB(255, 204, 51, 51);
 const Color appbarcolor = Color.fromARGB(255, 114, 20, 20);
 
 class Themes {
@@ -12,16 +16,16 @@ class Themes {
       color: appbarcolor,
     ),
     colorScheme: const ColorScheme(
-      background: color1,
-      onBackground: color2,
-      primary: color1,
-      onPrimary: color2,
-      secondary: color1,
-      onSecondary: color2,
-      surface: color1,
-      onSurface: color2,
-      error: color1,
-      onError: color2,
+      background: lightBackground,
+      onBackground: lightText,
+      primary: lightBackground,
+      onPrimary: lightText,
+      secondary: lightAccent,
+      onSecondary: lightText,
+      surface: lightBackground,
+      onSurface: lightText,
+      error: Colors.red,
+      onError: Colors.white,
       brightness: Brightness.light,
     ),
   );
@@ -31,16 +35,16 @@ class Themes {
       color: appbarcolor,
     ),
     colorScheme: const ColorScheme(
-      background: color2,
-      onBackground: color1,
-      primary: color2,
-      onPrimary: color1,
-      secondary: color2,
-      onSecondary: color1,
-      surface: color2,
-      onSurface: color1,
-      error: color2,
-      onError: color1,
+      background: darkBackground,
+      onBackground: darkText,
+      primary: darkBackground,
+      onPrimary: darkText,
+      secondary: darkAccent,
+      onSecondary: darkText,
+      surface: darkBackground,
+      onSurface: darkText,
+      error: Colors.red,
+      onError: Colors.white,
       brightness: Brightness.dark,
     ),
   );
@@ -52,7 +56,7 @@ TextStyle get subHeadingStyle {
     textStyle: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: Get.isDarkMode ? Colors.black : Colors.white),
+        color: Get.isDarkMode ? darkText : lightText),
   );
 }
 
@@ -61,9 +65,7 @@ TextStyle get headingStyle {
   return GoogleFonts.lato(
     textStyle: TextStyle(
         fontSize: 30,
-        color: Get.isDarkMode
-            ? const Color.fromARGB(255, 61, 0, 0)
-            : const Color.fromARGB(255, 135, 10, 10),
+        color: Get.isDarkMode ? darkAccent : lightAccent,
         fontWeight: FontWeight.bold),
   );
 }
@@ -72,7 +74,7 @@ TextStyle get titleStyle {
   return GoogleFonts.lato(
     textStyle: TextStyle(
         fontSize: 16,
-        color: Get.isDarkMode ? color1 : color2,
+        color: Get.isDarkMode ? darkText : lightText,
         fontWeight: FontWeight.bold),
   );
 }

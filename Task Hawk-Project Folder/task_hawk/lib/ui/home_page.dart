@@ -15,6 +15,7 @@ import '../services/theme_services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 //import 'complex_example.dart';
 import 'package:task_hawk/table_calendar.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 // for debugging
 import 'dart:developer' as developer;
@@ -26,7 +27,7 @@ import 'package:task_hawk/calendar_src/shared/utils2.dart';
 class HomePage extends StatefulWidget {
   /// Creates a new instance of [HomePage] with the given [key].
   const HomePage({super.key});
-  
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   // init calendar vars
   final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
   late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
 
   DateTime? _selectedDay;
 
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   List<Event> _getEventsForDay(DateTime day) {
     return (kEvents[day] ?? []) as List<Event>;
   }
-  
+
   /// Handles the day selection event by updating the selected day and focused day.
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
@@ -75,7 +76,6 @@ class _HomePageState extends State<HomePage> {
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
-
 
   /// Builds the home page widget.
   ///
@@ -197,30 +197,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-
-        /*
-        child: Column(
-          children: [
-            const SizedBox(height: 20.0),
-            const SizedBox(height: 12.0),
-            constr ElevatedButton(
-              child: Text('Sign Up'),
-              onPressed: null,
-            ),
-            const SizedBox(height: 12.0),
-            ElevatedButton(
-              child: Text('Sign In'),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => TableComplexExample()),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-          ],
-        ),*/
       ),
     );
   }
+
   /// Displays the list of tasks using an [Obx] widget that listens for changes in the
   /// task list and rebuilds the UI accordingly.
   ///
@@ -292,7 +272,7 @@ class _HomePageState extends State<HomePage> {
   _showBottomSheet(BuildContext context, Task task) {
     Get.bottomSheet(
       Container(
-        color: Get.isDarkMode ? color2 : color1,
+        color: Get.isDarkMode ? darkText : lightText,
         padding: const EdgeInsets.only(top: 4),
         height: task.isCompleted == 1
             ? MediaQuery.of(context).size.height * 0.26
@@ -318,7 +298,7 @@ class _HomePageState extends State<HomePage> {
                       _taskController.markTaskCompleted(task.id!);
                       Get.back();
                     },
-                    clr: color1,
+                    clr: lightText,
                     context: context,
                   ),
             _bottomSheetButton(
@@ -346,6 +326,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   /// Displays a bottom sheet with options to complete, delete, or close a task.
   ///
   /// The bottom sheet contains buttons for each option and displays different content
@@ -370,8 +351,8 @@ class _HomePageState extends State<HomePage> {
             width: 2,
             color: isClose == true
                 ? Get.isDarkMode
-                    ? color1
-                    : color2
+                    ? lightText
+                    : darkText
                 : appbarcolor,
           ),
           borderRadius: BorderRadius.circular(20),
@@ -452,25 +433,31 @@ class _HomePageState extends State<HomePage> {
                   style: subHeadingStyle,
                 ),
                 Text(
-                  "Upcoming Tasks",
+                  "Upcoming",
                   style: headingStyle,
                 ),
               ],
             ),
           ),
-          // today button
-          TextButton(
-            onPressed: () => {
-              developer.log('Goto Today', name: 'Goto Today'),
-              _selectedDay = DateTime.now(),
-              setState(() => _focusedDay.value = DateTime.now())
+          LiteRollingSwitch(
+            value: true,
+            width: 125,
+            textOn: 'Weekly',
+            textOff: 'Monthly',
+            textOnColor: Colors.white,
+            colorOn:
+                Get.isDarkMode ? Color.fromARGB(255, 170, 46, 46) : appbarcolor,
+            colorOff:
+                Get.isDarkMode ? Color.fromARGB(255, 170, 46, 46) : appbarcolor,
+            iconOn: Icons.view_week_outlined,
+            iconOff: Icons.calendar_view_month_outlined,
+            animationDuration: const Duration(milliseconds: 500),
+            onChanged: (bool state) {
+              print('Moved to ${(state) ? 'weekly view' : 'monthly view'}');
             },
-            child: const Text('today'),
-          ),
-          // month/week display format button
-          TextButton(
-            onPressed: () => {
-              developer.log('Month/Week', name: 'Month/Week'),
+            onDoubleTap: () {},
+            onSwipe: () {},
+            onTap: () => {
               setState(() {
                 if (_calendarFormat == CalendarFormat.month) {
                   _calendarFormat = CalendarFormat.week;
@@ -480,27 +467,26 @@ class _HomePageState extends State<HomePage> {
                 _selectedEvents.value = [];
               })
             },
-            child: Text(_calendarFormat.name),
           ),
           CreateTaskButton(
-            label: "+ Add Task",
             onTap: () async {
               await Get.to(() => AddTaskPage());
               _taskController.getTasks();
-            }, // on tap, opens new page defined in /lib/ui/widgets/add_task_page.dart
+            },
+            // on tap, opens new page defined in /lib/ui/widgets/add_task_page.dart
           )
         ],
       ),
     );
   }
 
-/// Returns an [AppBar] widget with a dark/light mode button and a sample user avatar.
-///
-/// The [AppBar] widget contains a [GestureDetector] that allows users to switch between
-/// dark and light mode.
-/// The [AppBar] widget also contains a user avatar to represent the current user.
-///
-/// Returns an [AppBar] widget with a dark/light mode button and a sample user avatar.
+  /// Returns an [AppBar] widget with a dark/light mode button and a sample user avatar.
+  ///
+  /// The [AppBar] widget contains a [GestureDetector] that allows users to switch between
+  /// dark and light mode.
+  /// The [AppBar] widget also contains a user avatar to represent the current user.
+  ///
+  /// Returns an [AppBar] widget with a dark/light mode button and a sample user avatar.
 
   _addAppBar() {
     return AppBar(
@@ -511,12 +497,12 @@ class _HomePageState extends State<HomePage> {
             ThemeService().switchTheme();
           });
           // initialize notifications, call NotifyHelper defined in /lib/services/notification_services.dart
-          NotifyHelper notifyHelper = NotifyHelper();
-          notifyHelper.displayNotification(
-              title: "Theme Changed",
-              body: Get.isDarkMode
-                  ? "Activated Light Theme"
-                  : "Activated Dark Theme");
+          //NotifyHelper notifyHelper = NotifyHelper();
+          //notifyHelper.displayNotification(
+          //    title: "Theme Changed",
+          //    body: Get.isDarkMode
+          //        ? "Activated Light Theme"
+          //        : "Activated Dark Theme");
         },
 
         // dark/light mode change icon logic
