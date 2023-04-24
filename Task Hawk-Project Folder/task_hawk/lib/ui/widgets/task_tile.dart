@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:task_hawk/ui/theme.dart';
 import '../../models/task.dart';
 
 class TaskTile extends StatelessWidget {
@@ -90,15 +90,11 @@ class TaskTile extends StatelessWidget {
   }
 
   _getBGClr(int no) {
-    switch (no) {
-      case 0:
-        return Colors.blueAccent;
-      case 1:
-        return Colors.yellowAccent;
-      case 2:
-        return Colors.redAccent;
-      default:
-        return Colors.deepOrange;
+    // Return the color from customColors list, and if the index is out of bounds, return a default color
+    if (no >= 0 && no < customColors.length) {
+      return customColors[no];
+    } else {
+      return Colors.deepOrange; // default color if index is out of bounds
     }
   }
 }

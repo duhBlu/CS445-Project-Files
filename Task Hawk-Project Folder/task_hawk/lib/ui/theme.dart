@@ -6,9 +6,17 @@ const Color lightBackground = Color.fromARGB(255, 240, 240, 240);
 const Color darkBackground = Color.fromARGB(255, 50, 50, 50);
 const Color lightText = Color.fromARGB(255, 33, 33, 33);
 const Color darkText = Color.fromARGB(255, 240, 240, 240);
-const Color lightAccent = Color.fromARGB(255, 255, 105, 105);
-const Color darkAccent = Color.fromARGB(255, 204, 51, 51);
+const Color lightAccent = Color.fromARGB(255, 204, 51, 51);
+const Color darkAccent = Color.fromARGB(255, 171, 18, 18);
 const Color appbarcolor = Color.fromARGB(255, 114, 20, 20);
+
+List<Color> customColors = [
+  Color.fromARGB(255, 94, 152, 173),
+  Color.fromARGB(255, 166, 212, 135),
+  Color.fromARGB(255, 232, 121, 87),
+  Color.fromARGB(255, 183, 104, 162),
+  Color.fromARGB(255, 255, 170, 83),
+];
 
 class Themes {
   static final light = ThemeData(

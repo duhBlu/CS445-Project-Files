@@ -14,7 +14,7 @@ class CreateTaskButton extends StatelessWidget {
         height: 56,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: appbarcolor,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         child: Icon(
           Icons.add,

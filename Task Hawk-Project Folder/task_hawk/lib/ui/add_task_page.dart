@@ -6,7 +6,6 @@ import 'package:task_hawk/models/task.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/add_task_button.dart';
 import 'package:task_hawk/ui/widgets/input_field.dart';
-
 import '../services/notification_services.dart';
 import '../services/theme_services.dart';
 
@@ -62,7 +61,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               Text(
                 "Add Task",
                 style: TextStyle(
-                    color: Get.isDarkMode ? lightText : darkText,
+                    color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
               ),
@@ -73,7 +72,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),
               TaskInputField(
                 title: "Note",
-                hint: "Enter notes for task",
+                hint: "Enter details of task",
                 controller: _noteController,
               ),
               TaskInputField(
@@ -172,7 +171,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    __colorPalette(),
+                    _colorPalette(),
                     CreateTaskButton(
                       onTap: () => __validateData(),
                     ),
@@ -222,7 +221,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   /// Returns a column containing a color palette for the user to select the task color.
-  __colorPalette() {
+  _colorPalette() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -230,7 +229,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
           "Color",
         ),
         Wrap(
-          children: List<Widget>.generate(3, (int index) {
+          children: List<Widget>.generate(customColors.length, (int index) {
             return GestureDetector(
               onTap: () {
                 setState(() {
@@ -241,11 +240,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 padding: const EdgeInsets.only(right: 8.0, bottom: 8.0, top: 5),
                 child: CircleAvatar(
                   radius: 14,
-                  backgroundColor: index == 0
-                      ? appbarcolor
-                      : index == 1
-                          ? lightText
-                          : darkText,
+                  backgroundColor: customColors[index],
                   child: _selectedColor == index
                       ? const Icon(
                           Icons.done,
