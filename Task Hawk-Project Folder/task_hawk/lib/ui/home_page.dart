@@ -62,7 +62,13 @@ class _HomePageState extends State<HomePage> {
 
   /// Returns a list of [Event] objects for the given [day].
   List<Event> _getEventsForDay(DateTime day) {
-    return (kEvents[day] ?? []) as List<Event>;
+    List<Event> events = [];
+    for (var task in _taskController.taskList) {
+      if (task.date == DateFormat.yMd().format(day) || task.repeat == 'Daily') {
+        events.add(Event(task.title, task)); // Use the new constructor
+      }
+    }
+    return events;
   }
 
   /// Handles the day selection event by updating the selected day and focused day.

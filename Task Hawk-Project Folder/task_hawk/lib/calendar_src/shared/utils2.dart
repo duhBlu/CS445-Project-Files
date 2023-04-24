@@ -1,4 +1,3 @@
-
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
@@ -7,52 +6,22 @@ import 'dart:io';
 import 'package:table_calendar/table_calendar.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-
+import 'package:task_hawk/models/task.dart';
 import 'package:flutter/material.dart';
 
 /// Example event class.
 class Event {
-  final String title;
+  final String? title;
+  final Task task; // Add a Task field
 
-  const Event(this.title);
+  // Add a constructor that takes a Task object as an argument
+  Event.fromTask({required this.task, required this.title});
 
-  @override
-  String toString() => title;
+  const Event(this.title, this.task);
 }
 
 /// Example events.
 ///
-/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
-
-final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
-    // load and save from file
-
-    value: (item) => List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}')))
-  ..addAll({
-    kToday: [
-      Event('5:00 am     Wake Up.'),
-      Event('2:00 pm     Sell blood for eggs.'),
-    ],
-  });
-
-int getHashCode(DateTime key) {
-  return key.day * 1000000 + key.month * 10000 + key.year;
-}
-
-/// Returns a list of [DateTime] objects from [first] to [last], inclusive.
-List<DateTime> daysInRange(DateTime first, DateTime last) {
-  final dayCount = last.difference(first).inDays + 1;
-  return List.generate(
-    dayCount,
-    (index) => DateTime.utc(first.year, first.month, first.day + index),
-  );
-}
 
 final kToday = DateTime.now();
 final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
