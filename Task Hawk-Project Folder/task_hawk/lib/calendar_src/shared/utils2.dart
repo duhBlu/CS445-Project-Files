@@ -11,13 +11,10 @@ import 'package:flutter/material.dart';
 
 /// Example event class.
 class Event {
-  final String? title;
   final Task task; // Add a Task field
-
   // Add a constructor that takes a Task object as an argument
-  Event.fromTask({required this.task, required this.title});
-
-  const Event(this.title, this.task);
+  Event.fromTask({required this.task});
+  const Event(this.task);
 }
 
 /// Example events.

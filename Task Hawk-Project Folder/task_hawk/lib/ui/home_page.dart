@@ -61,13 +61,33 @@ class _HomePageState extends State<HomePage> {
   late PageController _pageController;
 
   /// Returns a list of [Event] objects for the given [day].
-  List<Event> _getEventsForDay(DateTime day) {
+  List<Event> _getEventsForDay(DateTime date) {
     List<Event> events = [];
-    for (var task in _taskController.taskList) {
-      if (task.date == DateFormat.yMd().format(day) || task.repeat == 'Daily') {
-        events.add(Event(task.title, task)); // Use the new constructor
+
+    for (Task task in _taskController.taskList) {
+      bool shouldAddEvent = false;
+
+      if (task.repeat == 'Daily') {
+        shouldAddEvent = true;
+      } else if (task.repeat == 'Weekly') {
+        DateTime taskDate = DateFormat.yMd().parse(task.date!);
+        if (taskDate.weekday == date.weekday) {
+          shouldAddEvent = true;
+        }
+      } else if (task.repeat == 'Monthly') {
+        DateTime taskDate = DateFormat.yMd().parse(task.date!);
+        if (taskDate.day == date.day) {
+          shouldAddEvent = true;
+        }
+      } else if (task.date == DateFormat.yMd().format(date)) {
+        shouldAddEvent = true;
+      }
+
+      if (shouldAddEvent) {
+        events.add(Event.fromTask(task: task));
       }
     }
+
     return events;
   }
 
@@ -110,6 +130,78 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  _showTasks() {
+    return Expanded(
+      flex: 50,
+      child: Obx(
+        () {
+          int displayedTasks = 0;
+          List<Widget> taskWidgets = [];
+
+          for (int index = 0;
+              index < _taskController.taskList.length;
+              index++) {
+            Task task = _taskController.taskList[index];
+            bool shouldDisplayTask = false;
+
+            if (task.repeat == 'Daily') {
+              shouldDisplayTask = true;
+            } else if (task.repeat == 'Weekly') {
+              DateTime taskDate = DateFormat.yMd().parse(task.date!);
+              if (taskDate.weekday == _selectedDate.weekday) {
+                shouldDisplayTask = true;
+              }
+            } else if (task.repeat == 'Monthly') {
+              DateTime taskDate = DateFormat.yMd().parse(task.date!);
+              if (taskDate.day == _selectedDate.day) {
+                shouldDisplayTask = true;
+              }
+            } else if (task.date == DateFormat.yMd().format(_selectedDate)) {
+              shouldDisplayTask = true;
+            }
+
+            if (shouldDisplayTask) {
+              displayedTasks++;
+              taskWidgets.add(
+                AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+          }
+
+          if (displayedTasks == 0) {
+            return Center(
+              child: Text(
+                'No tasks to display.',
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+              ),
+            );
+          }
+
+          return ListView(
+            children: taskWidgets,
+          );
+        },
+      ),
+    );
+  }
+
+/*
   /// Displays the list of tasks using an [Obx] widget that listens for changes in the
   /// task list and rebuilds the UI accordingly.
   ///
@@ -119,6 +211,14 @@ class _HomePageState extends State<HomePage> {
       flex: 50,
       child: Obx(
         () {
+          if (_taskController.taskList.isEmpty) {
+            return const Center(
+              child: Text(
+                'No tasks to display.',
+                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
+              ),
+            );
+          }
           return ListView.builder(
             itemCount: _taskController.taskList.length,
             //itemCount: 9,
@@ -177,7 +277,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
+*/
   _showBottomSheet(BuildContext context, Task task) {
     Get.bottomSheet(
       Container(
@@ -518,21 +618,42 @@ class _HomePageState extends State<HomePage> {
             child: ValueListenableBuilder<List<Event>>(
               valueListenable: _selectedEvents,
               builder: (context, value, _) {
+                if (value.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No tasks to display for today !',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontStyle: FontStyle.italic,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onBackground
+                              .withOpacity(.5)),
+                    ),
+                  );
+                }
                 return ListView.builder(
                   itemCount: value.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        onTap: () => print('${value[index]}'),
-                        title: Text('${value[index]}'),
+                    Task task =
+                        value[index].task; // Get the task from the event
+                    if (task == null) {
+                      return Container();
+                    }
+                    return AnimationConfiguration.staggeredList(
+                      position: index,
+                      child: SlideAnimation(
+                        child: FadeInAnimation(
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    _showBottomSheet(context, task);
+                                  },
+                                  child: TaskTile(task)),
+                            ],
+                          ),
+                        ),
                       ),
                     );
                   },
