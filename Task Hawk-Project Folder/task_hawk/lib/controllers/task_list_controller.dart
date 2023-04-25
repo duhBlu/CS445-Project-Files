@@ -13,29 +13,23 @@ class TaskListController extends GetxController with GetxServiceMixin {
     super.onReady();
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    DBHelper.initDb();
+  }
+
   /// The list of [TaskList]s that this controller manages.
-  var taskLists_List = <TaskList>[].obs;
+  var tasklists_List = <TaskList>[].obs;
 
   /// Adds a new [TaskList] to the database.
   ///
   /// Returns the ID of the inserted [TaskList] as an [int].
-  Future<int?> addTaskList({
-    required int id,
-    required String title,
-    required bool selected,
-    required bool isPasswordProtected,
-    String? password,
-    required List<Task> tasks,
-  }) async {
-    TaskList taskListInstance = TaskList(
-      id: id,
-      title: title,
-      selected: selected,
-      isPasswordProtected: isPasswordProtected,
-      password: password,
-      tasks: tasks,
-    );
-    //return await DBHelper.insertTaskList(taskList);
+  Future<int> addTaskList({TaskList? taskList}) async {
+    print("insert function called");
+    getTaskLists();
+    int id = await DBHelper.insertTaskList(taskList);
+    return id;
   }
 
   void isSelectedTaskList(TaskList taskListInstance) {
@@ -46,7 +40,7 @@ class TaskListController extends GetxController with GetxServiceMixin {
   /// Gets all the [TaskList]s from the database and assigns them to [taskLists].
   void getTaskLists() async {
     List<Map<String, dynamic>> taskListsData = await DBHelper.queryTaskLists();
-    taskLists_List.assignAll(
+    tasklists_List.assignAll(
         taskListsData.map((data) => new TaskList.fromJson(data)).toList());
   }
 
@@ -56,7 +50,6 @@ class TaskListController extends GetxController with GetxServiceMixin {
   }
 
   void toggleTaskListSelection(TaskList taskList) {
-    taskList.selected = !taskList.selected;
     DBHelper.updateTaskListSelection(taskList);
     getTaskLists();
   }

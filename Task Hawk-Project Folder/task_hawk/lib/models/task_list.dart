@@ -24,7 +24,7 @@ class TaskList {
 
   /// Creates a new instance of the [TaskList] class from a JSON map.
   factory TaskList.fromJson(Map<String, dynamic> json) {
-    List<dynamic> taskJsonList = json['tasks'];
+    List<dynamic> taskJsonList = jsonDecode(json['tasks']);
     List<Task> taskList =
         taskJsonList.map((task) => Task.fromJson(task)).toList();
 
@@ -32,8 +32,8 @@ class TaskList {
     return TaskList(
       id: json['id'],
       title: json['title'],
-      selected: json['selected'],
-      isPasswordProtected: json['isPasswordProtected'],
+      selected: json['selected'] == 1,
+      isPasswordProtected: json['isPasswordProtected'] == 1,
       password: json['password'],
       tasks: (jsonDecode(json['tasks']) as List)
           .map((taskJson) => Task.fromJson(taskJson))

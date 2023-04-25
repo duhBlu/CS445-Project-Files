@@ -19,13 +19,17 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
   late AnimationController _controller;
   final _taskController = Get.find<TaskController>();
   final _taskListController = Get.put(TaskListController());
+
   @override
   void initState() {
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
-    initializeDefaultTaskList();
+    if (_taskListController.tasklists_List.isEmpty) {
+      initializeDefaultTaskList();
+    }
+
     super.initState();
   }
 
@@ -37,17 +41,26 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
     }
   }
 
-  void initializeDefaultTaskList() {
-    if (_taskListController.taskLists_List.isEmpty) {
-      List<Task> currentTasks = _taskController.taskList;
-      _taskListController.addTaskList(
-        id: 1,
-        title: 'Default',
-        selected: true,
-        isPasswordProtected: false,
-        password: null,
-        tasks: currentTasks,
-      );
+  Future<void> initializeDefaultTaskList() async {
+    print(_taskListController.tasklists_List.length);
+    if (_taskListController.tasklists_List.isEmpty) {
+      List<Task> currentTasks = [];
+
+      for (int index = 0; index < _taskController.taskList.length; index++) {
+        Task task = _taskController.taskList[index];
+        currentTasks.add(task);
+        print(task.toString());
+      }
+
+      TaskList defaultTaskList = TaskList(
+          id: 1,
+          title: 'default',
+          selected: true,
+          isPasswordProtected: false,
+          tasks: currentTasks);
+      int value =
+          await _taskListController.addTaskList(taskList: defaultTaskList);
+      print("Task List: id = " + "$value");
     }
   }
 
@@ -97,15 +110,13 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                 Expanded(
                   child: Obx(
                     () => ListView.builder(
-                      itemCount: _taskListController.taskLists_List.length,
+                      itemCount: _taskListController.tasklists_List.length,
                       itemBuilder: (context, index) {
                         return TaskListTile(
-                          taskList: _taskListController.taskLists_List[index],
+                          taskList: _taskListController.tasklists_List[index],
                           onChanged: (bool? value) {
-                            _taskListController.taskLists_List[index].selected =
-                                value!;
                             _taskListController.toggleTaskListSelection(
-                                _taskListController.taskLists_List[index]);
+                                _taskListController.tasklists_List[index]);
                           },
                         );
                       },

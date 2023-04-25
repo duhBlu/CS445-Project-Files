@@ -5,9 +5,9 @@ import '../../models/task_list.dart';
 
 class DBHelper {
   static Database? _db;
-  static final int _version = 1;
-  static final String _taskTableName = "tasks";
-  static final String _taskListTableName = "task_lists";
+  static const int _version = 2;
+  static const String _taskTableName = "tasks";
+  static const String _taskListTableName = "task_lists";
 
   static Future<void> initDb() async {
     if (_db != null) {
@@ -19,7 +19,7 @@ class DBHelper {
         _path,
         version: _version,
         onCreate: (db, version) {
-          print("creating a new one");
+          print("Creating Task table");
           db.execute(
             "CREATE TABLE $_taskTableName("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -30,15 +30,20 @@ class DBHelper {
             "isCompleted INTEGER,"
             "taskListd INTEGER)",
           );
-          db.execute(
-            "CREATE TABLE $_taskListTableName("
-            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-            "title STRING, "
-            "selected INTEGER, "
-            "isPasswordProtected INTEGER, "
-            "password STRING, "
-            "tasks TEXT)",
-          );
+        },
+        onUpgrade: (db, oldVersion, newVersion) async {
+          if (oldVersion < 2) {
+            print("Creating Task_List table");
+            await db.execute(
+              "CREATE TABLE IF NOT EXISTS $_taskListTableName("
+              "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+              "title STRING, "
+              "selected INTEGER, "
+              "isPasswordProtected INTEGER, "
+              "password STRING, "
+              "tasks TEXT)",
+            );
+          }
         },
       );
     } catch (e) {
@@ -70,7 +75,7 @@ class DBHelper {
 
   static Future<int> insertTaskList(TaskList? taskList) async {
     print("insert function called");
-    return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 0;
+    return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 69;
   }
 
   static Future<List<Map<String, dynamic>>> queryTaskLists() async {
