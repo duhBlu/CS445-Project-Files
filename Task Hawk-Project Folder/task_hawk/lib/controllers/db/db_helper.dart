@@ -20,7 +20,7 @@ class DBHelper {
         version: _version,
         onCreate: (db, version) {
           print("creating a new one");
-          return db.execute(
+          db.execute(
             "CREATE TABLE $_taskTableName("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "title STRING, note TEXT, date STRING, "
@@ -29,6 +29,15 @@ class DBHelper {
             "color INTEGER, "
             "isCompleted INTEGER,"
             "taskListd INTEGER)",
+          );
+          db.execute(
+            "CREATE TABLE $_taskListTableName("
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "title STRING, "
+            "selected INTEGER, "
+            "isPasswordProtected INTEGER, "
+            "password STRING, "
+            "tasks TEXT)",
           );
         },
       );
@@ -59,26 +68,40 @@ class DBHelper {
     ''', [1, id]);
   }
 
-  
   static Future<int> insertTaskList(TaskList? taskList) async {
-    // TODO: Implement the insert logic for task lists
-    return 0;
+    print("insert function called");
+    return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 0;
   }
 
   static Future<List<Map<String, dynamic>>> queryTaskLists() async {
-    // TODO: Implement the query logic for task lists
-    return [];
+    print("querry function called");
+    return await _db!.query(_taskListTableName);
   }
 
   static Future<void> deleteTaskList(TaskList taskList) async {
-    // TODO: Implement the delete logic for task lists
+    print("delete function called");
+    await _db!
+        .delete(_taskListTableName, where: 'id=?', whereArgs: [taskList.id]);
   }
 
   static Future<void> updateTaskListSelection(TaskList taskList) async {
-    // TODO: Implement the update logic for task list selection
+    print("update function called");
+    await _db!.update(
+        _taskListTableName, {'selected': taskList.selected ? 1 : 0},
+        where: 'id=?', whereArgs: [taskList.id]);
   }
 
-  static Future<void> updatePasswordProtection(TaskList taskList, bool isPasswordProtected, String? password) async {
-    // TODO: Implement the update logic for task list password protection
+  static Future<void> updatePasswordProtection(
+      TaskList taskList, bool isPasswordProtected, String? password) async {
+    print("update password function called");
+    await _db!.update(
+      _taskListTableName,
+      {
+        'isPasswordProtected': isPasswordProtected ? 1 : 0,
+        'password': password,
+      },
+      where: 'id=?',
+      whereArgs: [taskList.id],
+    );
   }
 }

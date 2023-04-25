@@ -10,7 +10,8 @@ class Task {
   int? color;
   int? remind;
   String? repeat;
-  //int? taskListId;
+  int? taskListID;
+  bool? isShown;
 
   /// Constructor for a Task object.
   Task({
@@ -24,7 +25,8 @@ class Task {
     this.color,
     this.remind,
     this.repeat,
-    //this.taskListId,
+    this.taskListID,
+    this.isShown,
   });
 
   /// A named constructor to create a Task object from a JSON map.
@@ -39,7 +41,8 @@ class Task {
     color = json['color'];
     remind = json['remind'];
     repeat = json['repeat'];
-    //taskListId = json['taskListID'];
+    taskListID = json['taskListID'];
+    isShown = json['isShown'];
   }
 
   /// Returns a JSON map representation of the Task object.
@@ -55,7 +58,8 @@ class Task {
     data['color'] = color;
     data['remind'] = remind;
     data['repeat'] = repeat;
-    //data['taskListID'] = taskListId;
+    data['taskListID'] = taskListID;
+    data['isShown'] = isShown;
     return data;
   }
 }

@@ -7,14 +7,14 @@ import 'db/db_helper.dart';
 /// The [TaskListController] class is responsible for managing task lists.
 ///
 /// It extends the [GetxController] class to allow for reactive programming.
-class TaskListController extends GetxController {
+class TaskListController extends GetxController with GetxServiceMixin {
   @override
   void onReady() {
     super.onReady();
   }
 
   /// The list of [TaskList]s that this controller manages.
-  var taskLists = <TaskList>[].obs;
+  var taskLists_List = <TaskList>[].obs;
 
   /// Adds a new [TaskList] to the database.
   ///
@@ -27,7 +27,7 @@ class TaskListController extends GetxController {
     String? password,
     required List<Task> tasks,
   }) async {
-    TaskList taskList = TaskList(
+    TaskList taskListInstance = TaskList(
       id: id,
       title: title,
       selected: selected,
@@ -37,23 +37,30 @@ class TaskListController extends GetxController {
     );
     //return await DBHelper.insertTaskList(taskList);
   }
+
+  void isSelectedTaskList(TaskList taskListInstance) {
+    DBHelper.updateTaskListSelection(taskListInstance);
+    getTaskLists();
+  }
+
   /// Gets all the [TaskList]s from the database and assigns them to [taskLists].
   void getTaskLists() async {
     List<Map<String, dynamic>> taskListsData = await DBHelper.queryTaskLists();
-    taskLists.assignAll(
+    taskLists_List.assignAll(
         taskListsData.map((data) => new TaskList.fromJson(data)).toList());
   }
-  /// Deletes a [TaskList] from the database.
+
   void deleteTaskList(TaskList taskList) {
     DBHelper.deleteTaskList(taskList);
     getTaskLists();
   }
-  /// Toggles the [selected] attribute of a [TaskList].
+
   void toggleTaskListSelection(TaskList taskList) {
+    taskList.selected = !taskList.selected;
     DBHelper.updateTaskListSelection(taskList);
     getTaskLists();
   }
-  /// Sets the [isPasswordProtected] and [password] attributes of a [TaskList].
+
   void setPasswordProtection(
       TaskList taskList, bool isPasswordProtected, String? password) {
     DBHelper.updatePasswordProtection(taskList, isPasswordProtected, password);

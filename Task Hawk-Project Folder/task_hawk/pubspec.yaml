@@ -53,6 +53,7 @@ dependencies:
   lite_rolling_switch: ^1.0.0
   sliding_switch: ^1.1.0
   expandable_menu: ^0.0.5
+  rive: ^0.10.4
   
 dev_dependencies:
   flutter_test:

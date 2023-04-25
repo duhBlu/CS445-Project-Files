@@ -5,11 +5,12 @@ import 'package:task_hawk/controllers/db/db_helper.dart';
 import 'package:task_hawk/services/theme_services.dart';
 import 'package:task_hawk/ui/home_page.dart';
 import 'package:task_hawk/ui/theme.dart';
+import 'controllers/task_controller.dart';
+import 'controllers/task_list_controller.dart';
 
 Future<void> main() async {
   // Error checking
   WidgetsFlutterBinding.ensureInitialized();
-
   // Database Initialization
   await DBHelper.initDb();
   await GetStorage.init();

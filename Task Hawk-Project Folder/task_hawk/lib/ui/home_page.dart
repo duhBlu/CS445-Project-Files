@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:task_hawk/controllers/task_controller.dart';
+import 'package:task_hawk/controllers/task_list_controller.dart';
 import 'package:task_hawk/models/task.dart';
 import 'package:task_hawk/services/notification_services.dart';
 import 'package:task_hawk/ui/add_task_page.dart';
+import 'package:task_hawk/ui/side_menu.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/add_task_button.dart';
 import 'package:task_hawk/ui/widgets/task_tile.dart';
@@ -16,12 +18,14 @@ import 'package:intl/date_symbol_data_local.dart';
 //import 'complex_example.dart';
 import 'package:task_hawk/table_calendar.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-import 'package:sliding_switch/sliding_switch.dart';
+import 'package:rive/rive.dart';
 // for debugging
 import 'dart:developer' as developer;
 
 // hacky calendar utils
 import 'package:task_hawk/calendar_src/shared/utils2.dart';
+
+import 'widgets/task_list_tile.dart';
 
 /// A page widget that displays a list of tasks and allows the user to add or delete tasks.
 class HomePage extends StatefulWidget {
@@ -34,9 +38,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // ignore: prefer_typing_uninitialized_variables
+  GlobalKey<SideMenuState> _sideMenuKey = GlobalKey();
   final _taskController = Get.put(TaskController());
+  final _taskListController = Get.put(TaskListController());
   DateTime _selectedDate = DateTime.now();
   var notifyHelper;
+  SideMenu menu(BuildContext context) {
+    return SideMenu(
+      key: _sideMenuKey,
+    );
+  }
 
   /// Initializes the notification services and requests iOS permissions.
   @override
@@ -103,30 +114,36 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  /// Builds the home page widget.
-  ///
-  /// This widget displays a list of tasks and a calendar view that allows the user
-  /// to select and view tasks by date.
-  ///
-  /// Returns a [Scaffold] widget containing the page contents.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _addAppBar(), // custom app bar
-      body: Column(
+      appBar: _addAppBar(),
+      body: Stack(
         children: [
-          _addTaskBar(), // custom header bar
-
-          //_addDateBar(), // custom widget that adds the sliding calendar
-
-          // hiding datebar when in calendar mode
-          if (_calendarFormat == CalendarFormat.week) (_addDateBar()),
-          if (_calendarFormat == CalendarFormat.week) (_showTasks()),
-          if (_calendarFormat == CalendarFormat.month) (_showCalendar()),
-
-          // calendar junk
+          Column(
+            children: [
+              _addTaskBar(),
+              if (_calendarFormat == CalendarFormat.week) (_addDateBar()),
+              if (_calendarFormat == CalendarFormat.week) (_showTasks()),
+              if (_calendarFormat == CalendarFormat.month) (_showCalendar()),
+            ],
+          ),
+          menu(context), // Add the side menu to the Stack
         ],
       ),
+      floatingActionButton: Builder(
+        builder: (BuildContext context) {
+          return FloatingActionButton(
+            onPressed: () {
+              _sideMenuKey.currentState!.toggleMenu();
+            },
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            child: Icon(Icons.menu,
+                color: Theme.of(context).colorScheme.background),
+          );
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -201,83 +218,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-/*
-  /// Displays the list of tasks using an [Obx] widget that listens for changes in the
-  /// task list and rebuilds the UI accordingly.
-  ///
-  /// Returns an [Expanded] widget containing the task list.
-  _showTasks() {
-    return Expanded(
-      flex: 50,
-      child: Obx(
-        () {
-          if (_taskController.taskList.isEmpty) {
-            return const Center(
-              child: Text(
-                'No tasks to display.',
-                style: TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-              ),
-            );
-          }
-          return ListView.builder(
-            itemCount: _taskController.taskList.length,
-            //itemCount: 9,
-            itemBuilder: (_, index) {
-              print(_taskController.taskList.length);
-              Task task = _taskController.taskList[index];
-              if (task.repeat == 'Daily') {
-                DateTime date =
-                    DateFormat.jm().parse(task.startTime.toString());
-                var myTime = DateFormat("HH:mm").format(date);
-                notifyHelper.scheduledNotification(
-                  int.parse(myTime.toString().split(":")[0]),
-                  int.parse(myTime.toString().split(":")[1]),
-                  task,
-                );
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  child: SlideAnimation(
-                    child: FadeInAnimation(
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                _showBottomSheet(context, task);
-                              },
-                              child: TaskTile(task)),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-              if (task.date == DateFormat.yMd().format(_selectedDate)) {
-                return AnimationConfiguration.staggeredList(
-                  position: index,
-                  child: SlideAnimation(
-                    child: FadeInAnimation(
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                _showBottomSheet(context, task);
-                              },
-                              child: TaskTile(task)),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              } else {
-                return Container();
-              }
-            },
-          );
-        },
-      ),
-    );
-  }
-*/
   _showBottomSheet(BuildContext context, Task task) {
     Get.bottomSheet(
       Container(

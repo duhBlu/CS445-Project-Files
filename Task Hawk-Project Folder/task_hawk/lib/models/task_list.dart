@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'task.dart';
 
 /// A class representing a task list object with information about the list created by the user.
-/// 
+///
 class TaskList {
   int id;
   String title;
@@ -25,7 +27,7 @@ class TaskList {
     List<dynamic> taskJsonList = json['tasks'];
     List<Task> taskList =
         taskJsonList.map((task) => Task.fromJson(task)).toList();
-    
+
     /// Creates a new instance of the [TaskList] class from a JSON map.
     return TaskList(
       id: json['id'],
@@ -33,9 +35,12 @@ class TaskList {
       selected: json['selected'],
       isPasswordProtected: json['isPasswordProtected'],
       password: json['password'],
-      tasks: taskList,
+      tasks: (jsonDecode(json['tasks']) as List)
+          .map((taskJson) => Task.fromJson(taskJson))
+          .toList(),
     );
   }
+
   /// Returns a JSON representation of the [TaskList] instance.
   Map<String, dynamic> toJson() {
     return {
@@ -43,7 +48,7 @@ class TaskList {
       'selected': selected,
       'isPasswordProtected': isPasswordProtected,
       'password': password,
-      'tasks': tasks.map((task) => task.toJson()).toList(),
+      'tasks': json.encode(tasks.map((task) => task.toJson()).toList()),
     };
   }
 }
