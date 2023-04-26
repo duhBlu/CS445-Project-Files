@@ -16,7 +16,6 @@ class TaskListController extends GetxController with GetxServiceMixin {
   @override
   void onInit() {
     super.onInit();
-    DBHelper.initDb();
   }
 
   /// The list of [TaskList]s that this controller manages.
@@ -25,10 +24,10 @@ class TaskListController extends GetxController with GetxServiceMixin {
   /// Adds a new [TaskList] to the database.
   ///
   /// Returns the ID of the inserted [TaskList] as an [int].
-  Future<int> addTaskList({TaskList? taskList}) async {
+  Future<int?> addTaskList({TaskList? taskList}) async {
     print("insert function called");
+    int? id = await DBHelper.insertTaskList(taskList);
     getTaskLists();
-    int id = await DBHelper.insertTaskList(taskList);
     return id;
   }
 

@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
 
     for (Task task in _taskController.taskList) {
       bool shouldAddEvent = false;
-
+      // Logic for showing the recurring tasks on the correct day
       if (task.repeat == 'Daily') {
         shouldAddEvent = true;
       } else if (task.repeat == 'Weekly') {
@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage> {
       } else if (task.date == DateFormat.yMd().format(date)) {
         shouldAddEvent = true;
       }
-
       if (shouldAddEvent) {
         events.add(Event.fromTask(task: task));
       }
@@ -128,7 +127,8 @@ class _HomePageState extends State<HomePage> {
               if (_calendarFormat == CalendarFormat.month) (_showCalendar()),
             ],
           ),
-          menu(context), // Add the side menu to the Stack
+          menu(context), 
+          // Add the side menu to the Stack
         ],
       ),
       floatingActionButton: Builder(
@@ -138,13 +138,16 @@ class _HomePageState extends State<HomePage> {
               _sideMenuKey.currentState!.toggleMenu();
             },
             backgroundColor: Theme.of(context).colorScheme.secondary,
-            child: Icon(Icons.menu,
-                color: Theme.of(context).colorScheme.background),
+            child: const Icon(Icons.menu, color: darkText),
           );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  _showTaskListManagerButtons(){
+    
   }
 
   _showTasks() {
@@ -209,7 +212,6 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           }
-
           return ListView(
             children: taskWidgets,
           );

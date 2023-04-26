@@ -73,7 +73,7 @@ class DBHelper {
     ''', [1, id]);
   }
 
-  static Future<int> insertTaskList(TaskList? taskList) async {
+  static Future<int?> insertTaskList(TaskList? taskList) async {
     print("insert function called");
     return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 69;
   }
@@ -90,11 +90,13 @@ class DBHelper {
   }
 
   static Future<void> updateTaskListSelection(TaskList taskList) async {
-    print("update function called");
-    await _db!.update(
-        _taskListTableName, {'selected': taskList.selected ? 1 : 0},
-        where: 'id=?', whereArgs: [taskList.id]);
-  }
+  print("update function called");
+  await _db!.rawUpdate('''
+    UPDATE $_taskListTableName
+    SET selected = ?
+    WHERE id = ?
+  ''', [taskList.selected ? 1 : 0, taskList.id]);
+}
 
   static Future<void> updatePasswordProtection(
       TaskList taskList, bool isPasswordProtected, String? password) async {
