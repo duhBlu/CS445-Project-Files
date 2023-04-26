@@ -146,6 +146,7 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
     );
   }
 
+  /// BUG: This code is a backup build that doesn't have the [CustomFloatingActionButton]. For some reason the button code shifts the main menu to the left
 //  @override
 //  Widget build(BuildContext context) {
 //    return Align(
