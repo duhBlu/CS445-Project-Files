@@ -20,6 +20,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           right: 10 + 70,
           bottom: 15,
           child: FloatingActionButton(
+            heroTag: "trashBtn",
             onPressed: onPressedFirst,
             child: Icon(Icons.delete_rounded),
           ),
@@ -28,6 +29,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           right: 10 + 70 * 2,
           bottom: 15,
           child: FloatingActionButton(
+            heroTag: "editBtn",
             onPressed: onPressedSecond,
             child: Icon(Icons.edit_attributes_outlined),
           ),
@@ -36,6 +38,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           right: 10 + 70 * 3,
           bottom: 15,
           child: FloatingActionButton(
+            heroTag: "createBtn",
             onPressed: onPressedThird,
             child: Icon(Icons.add_task),
           ),

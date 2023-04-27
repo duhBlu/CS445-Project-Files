@@ -75,14 +75,14 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
           begin: Offset(1, 0),
           end: Offset(0, 0),
         ).animate(_controller),
-        child: Stack(
-          children: [
-            Container(
-              width: 288,
-              height: double.infinity,
-              color: appbarcolor,
-              child: SafeArea(
-                child: Column(
+        child: Container(
+          width: 288,
+          height: double.infinity,
+          color: appbarcolor,
+          child: SafeArea(
+            child: Stack(
+              children: [
+                Column(
                   children: [
                     ListTile(
                       title: Center(
@@ -127,24 +127,103 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
-              ),
+                CustomFloatingActionButton(
+                  onPressedFirst: () {
+                    // Handle the action of the first button
+                  },
+                  onPressedSecond: () {
+                    // Handle the action of the second button
+                  },
+                  onPressedThird: () {
+                    // Handle the action of the third button
+                  },
+                ),
+              ],
             ),
-            CustomFloatingActionButton(
-              onPressedFirst: () {
-                // Handle the action of the first button
-              },
-              onPressedSecond: () {
-                // Handle the action of the second button
-              },
-              onPressedThird: () {
-                // Handle the action of the third button
-              },
-            ),
-          ],
+          ),
         ),
       ),
     );
   }
+
+  //Widget build(BuildContext context) {
+  //  return Align(
+  //    alignment: Alignment.centerRight,
+  //    child: SlideTransition(
+  //      position: Tween<Offset>(
+  //        begin: Offset(1, 0),
+  //        end: Offset(0, 0),
+  //      ).animate(_controller),
+  //      child: Stack(
+  //        children: [
+  //          Container(
+  //            width: 288,
+  //            height: double.infinity,
+  //            color: appbarcolor,
+  //            child: SafeArea(
+  //              child: Column(
+  //                children: [
+  //                  ListTile(
+  //                    title: Center(
+  //                      child: Padding(
+  //                        padding: const EdgeInsets.all(8.0),
+  //                        child: Text(
+  //                          "Task List Manager",
+  //                          style: headingStyle.copyWith(color: darkText),
+  //                        ),
+  //                      ),
+  //                    ),
+  //                    subtitle: const Center(
+  //                      child: Text(
+  //                        "Select Task Lists to be displayed",
+  //                        style: TextStyle(color: darkText),
+  //                      ),
+  //                    ),
+  //                  ),
+  //                  const Padding(
+  //                    padding: EdgeInsets.only(right: 24, top: 32, bottom: 16),
+  //                    child: Text(
+  //                      "Task Lists",
+  //                      style: TextStyle(
+  //                          fontStyle: FontStyle.normal,
+  //                          fontSize: 16,
+  //                          color: darkText),
+  //                    ),
+  //                  ),
+  //                  Expanded(
+  //                    child: Obx(
+  //                      () => ListView.builder(
+  //                        itemCount: _taskListController.tasklists_List.length,
+  //                        itemBuilder: (context, index) {
+  //                          return TaskListTile(
+  //                            taskListController: _taskListController,
+  //                            taskList:
+  //                                _taskListController.tasklists_List[index],
+  //                          );
+  //                        },
+  //                      ),
+  //                    ),
+  //                  ),
+  //                ],
+  //              ),
+  //            ),
+  //          ),
+  //          CustomFloatingActionButton(
+  //            onPressedFirst: () {
+  //              // Handle the action of the first button
+  //            },
+  //            onPressedSecond: () {
+  //              // Handle the action of the second button
+  //            },
+  //            onPressedThird: () {
+  //              // Handle the action of the third button
+  //            },
+  //          ),
+  //        ],
+  //      ),
+  //    ),
+  //  );
+  //}
 
   /// BUG: This code is a backup build that doesn't have the [CustomFloatingActionButton]. For some reason the button code shifts the main menu to the left
 //  @override

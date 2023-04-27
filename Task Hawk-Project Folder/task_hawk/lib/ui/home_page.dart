@@ -74,7 +74,6 @@ class _HomePageState extends State<HomePage> {
   /// Returns a list of [Event] objects for the given [day].
   List<Event> _getEventsForDay(DateTime date) {
     List<Event> events = [];
-
     for (Task task in _taskController.taskList) {
       bool shouldAddEvent = false;
       // Logic for showing the recurring tasks on the correct day
@@ -127,7 +126,7 @@ class _HomePageState extends State<HomePage> {
               if (_calendarFormat == CalendarFormat.month) (_showCalendar()),
             ],
           ),
-          menu(context), 
+          menu(context),
           // Add the side menu to the Stack
         ],
       ),
@@ -146,9 +145,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _showTaskListManagerButtons(){
-    
-  }
+  _showTaskListManagerButtons() {}
 
   _showTasks() {
     return Expanded(
