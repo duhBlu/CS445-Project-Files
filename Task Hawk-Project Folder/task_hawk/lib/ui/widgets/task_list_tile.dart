@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_hawk/controllers/task_list_controller.dart';
 import 'package:task_hawk/models/task_list.dart';
+import 'package:task_hawk/ui/theme.dart';
 
 class TaskListTile extends StatefulWidget {
   final TaskList taskList;
@@ -40,7 +41,11 @@ class _TaskListTileState extends State<TaskListTile> {
       ),
       title: Text(
         "${widget.taskList.id} ${widget.taskList.title} | Count: ${widget.taskListController.tasklists_List.length}",
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: darkText,
+        ),
       ),
     );
   }

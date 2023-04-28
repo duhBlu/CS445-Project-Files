@@ -56,7 +56,6 @@ class _HomePageState extends State<HomePage> {
     notifyHelper = NotifyHelper();
     notifyHelper.initializeNotification();
     notifyHelper.requestIOSPermissions();
-
     // calendar day and events display
     _selectedDay = _focusedDay.value;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
@@ -66,9 +65,7 @@ class _HomePageState extends State<HomePage> {
   final ValueNotifier<DateTime> _focusedDay = ValueNotifier(DateTime.now());
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.week;
-
   DateTime? _selectedDay;
-
   late PageController _pageController;
 
   /// Returns a list of [Event] objects for the given [day].

@@ -59,7 +59,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Add Task",
+                "New Task",
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 30,

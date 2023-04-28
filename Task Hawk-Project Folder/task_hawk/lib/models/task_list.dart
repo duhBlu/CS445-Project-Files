@@ -5,17 +5,17 @@ import 'task.dart';
 /// A class representing a task list object with information about the list created by the user.
 ///
 class TaskList {
-  int id;
-  String title;
+  int? id;
+  String? title;
   bool selected;
-  bool isPasswordProtected;
+  bool? isPasswordProtected;
   String? password;
   List<Task> tasks;
 
   /// Creates a new instance of the [TaskList] class.
   TaskList({
-    required this.id,
-    required this.title,
+    this.id,
+    this.title,
     required this.selected,
     required this.isPasswordProtected,
     this.password,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_hawk/models/task_list.dart';
+import 'package:task_hawk/ui/add_tasklist_page.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/task_list_options_buttons.dart';
 import 'package:task_hawk/ui/widgets/task_list_tile.dart';
@@ -129,13 +130,15 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                 ),
                 CustomFloatingActionButton(
                   onPressedFirst: () {
-                    // Handle the action of the first button
+                    // Handle the action of the Delete task list button
                   },
                   onPressedSecond: () {
                     // Handle the action of the second button
                   },
-                  onPressedThird: () {
+                  onPressedThird: () async {
                     // Handle the action of the third button
+                    await Get.to(() => AddTaskListPage());
+                    _taskListController.getTaskLists();
                   },
                 ),
               ],
