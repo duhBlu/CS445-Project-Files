@@ -247,6 +247,14 @@ class _HomePageState extends State<HomePage> {
                     context: context,
                   ),
             _bottomSheetButton(
+              label: "Edit Task",
+              onTap: () {
+                //_taskController.modify(task);
+              },
+              textColor: Theme.of(context).colorScheme.onBackground,
+              context: context,
+            ),
+            _bottomSheetButton(
               label: "Delete Task",
               onTap: () {
                 _taskController.delete(task);
@@ -255,7 +263,7 @@ class _HomePageState extends State<HomePage> {
               textColor: Theme.of(context).colorScheme.onBackground,
               context: context,
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
             _bottomSheetButton(
               label: "Close",
               onTap: () {
@@ -289,8 +297,8 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4),
-        height: 55,
+        margin: const EdgeInsets.symmetric(vertical: 3),
+        height: 50,
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
           border: Border.all(
@@ -315,7 +323,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-    
   }
 
   // custom function returns DatePicker widget within a Container
