@@ -42,7 +42,7 @@ class TaskListController extends GetxController with GetxServiceMixin {
     tasklists_List.assignAll(
         taskListsData.map((data) => new TaskList.fromJson(data)).toList());
   }
-  
+
   void deleteTaskList(TaskList taskList) {
     DBHelper.deleteTaskList(taskList);
     getTaskLists();
@@ -56,6 +56,11 @@ class TaskListController extends GetxController with GetxServiceMixin {
   void setPasswordProtection(
       TaskList taskList, bool isPasswordProtected, String? password) {
     DBHelper.updatePasswordProtection(taskList, isPasswordProtected, password);
+    getTaskLists();
+  }
+
+  Future<void> updateTaskList(TaskList taskList) async {
+    await DBHelper.updateTaskList(taskList);
     getTaskLists();
   }
 }

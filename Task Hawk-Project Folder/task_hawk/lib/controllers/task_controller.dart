@@ -36,5 +36,8 @@ class TaskController extends GetxController {
     getTasks();
   }
 
-  
+  Future<void> updateTask(Task task) async {
+    await DBHelper.updateTask(task);
+    getTasks();
+  }
 }

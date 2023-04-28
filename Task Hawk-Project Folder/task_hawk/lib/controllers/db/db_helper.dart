@@ -83,6 +83,15 @@ class DBHelper {
     ''', [1, id]);
   }
 
+  static Future<int> updateTask(Task task) async {
+    return await _db!.update(
+      _taskTableName,
+      task.toJson(),
+      where: 'id = ?',
+      whereArgs: [task.id],
+    );
+  }
+
   static Future<int?> insertTaskList(TaskList? taskList) async {
     print("insert function called");
     return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 69;
@@ -118,6 +127,15 @@ class DBHelper {
         'password': password,
       },
       where: 'id=?',
+      whereArgs: [taskList.id],
+    );
+  }
+
+  static Future<int> updateTaskList(TaskList taskList) async {
+    return await _db!.update(
+      _taskListTableName,
+      taskList.toJson(),
+      where: 'id = ?',
       whereArgs: [taskList.id],
     );
   }
