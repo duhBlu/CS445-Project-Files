@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:task_hawk/controllers/task_controller.dart';
+import 'package:task_hawk/controllers/task_list_controller.dart';
 import 'package:task_hawk/models/task.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/add_task_button.dart';
 import 'package:task_hawk/ui/widgets/input_field.dart';
+import '../models/task_list.dart';
 import '../services/notification_services.dart';
 import '../services/theme_services.dart';
 
@@ -21,8 +23,17 @@ class AddTaskPage extends StatefulWidget {
 class _AddTaskPageState extends State<AddTaskPage> {
   /// Initialize the text field controllers, for data storage/update/n'stuff
   final TaskController _taskController = Get.put(TaskController());
+  final TaskListController _taskListController = Get.find<TaskListController>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
+  TaskList? _selectedTaskList;
+  @override
+  void initState() {
+    super.initState();
+    if (_taskListController.tasklists_List.isNotEmpty) {
+      _selectedTaskList = _taskListController.tasklists_List.first;
+    }
+  }
 
   // initialize private variables
   DateTime _selectedDate = DateTime.now();
@@ -76,12 +87,66 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 controller: _noteController,
               ),
               TaskInputField(
+                title: "Task List",
+                hint: _selectedTaskList!.title,
+                widget: DropdownButton<TaskList>(
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Get.isDarkMode ? lightText : darkText,
+                  ),
+                  underline: Container(height: 0),
+                  iconSize: 30,
+                  elevation: 4,
+                  items: _taskListController.tasklists_List
+                      .map<DropdownMenuItem<TaskList>>((TaskList value) {
+                    return DropdownMenuItem<TaskList>(
+                      value: value,
+                      child: Text(
+                        value.title!,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (TaskList? newValue) {
+                    setState(() {
+                      _selectedTaskList = newValue;
+                    });
+                  },
+                ),
+              ),
+              TaskInputField(
                 title: "Date",
                 hint: DateFormat.yMd().format(_selectedDate),
                 widget: IconButton(
                   icon: const Icon(Icons.calendar_today_outlined),
                   onPressed: () {
                     __getDatefromUser();
+                  },
+                ),
+              ),
+              TaskInputField(
+                title: "Repeat",
+                hint: "$_selectedRepeat",
+                widget: DropdownButton(
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Get.isDarkMode ? lightText : darkText,
+                  ),
+                  underline: Container(height: 0),
+                  iconSize: 30,
+                  elevation: 4,
+                  items:
+                      repeatList.map<DropdownMenuItem<String>>((String? value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value!,
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedRepeat = newValue!;
+                    });
                   },
                 ),
               ),

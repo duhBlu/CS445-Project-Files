@@ -6,7 +6,7 @@ import 'task.dart';
 ///
 class TaskList {
   int? id;
-  String? title;
+  String title;
   bool selected;
   bool? isPasswordProtected;
   String? password;
@@ -15,7 +15,7 @@ class TaskList {
   /// Creates a new instance of the [TaskList] class.
   TaskList({
     this.id,
-    this.title,
+    required this.title,
     required this.selected,
     required this.isPasswordProtected,
     this.password,

@@ -42,7 +42,7 @@ class TaskListController extends GetxController with GetxServiceMixin {
     tasklists_List.assignAll(
         taskListsData.map((data) => new TaskList.fromJson(data)).toList());
   }
-
+  
   void deleteTaskList(TaskList taskList) {
     DBHelper.deleteTaskList(taskList);
     getTaskLists();
