@@ -280,9 +280,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
         repeat: _selectedRepeat,
         color: _selectedColor,
         isCompleted: 0,
+        taskListID: _selectedTaskList!.id,
       ),
     );
-    print("My id is " + "$value");
+    print("My id is $value\nMy task list is ${_selectedTaskList!.id}");
   }
 
   /// Returns a column containing a color palette for the user to select the task color.

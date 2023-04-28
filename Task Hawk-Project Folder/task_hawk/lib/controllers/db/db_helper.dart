@@ -5,7 +5,7 @@ import '../../models/task_list.dart';
 
 class DBHelper {
   static Database? _db;
-  static const int _version = 2;
+  static const int _version = 3; // Update the version to 3
   static const String _taskTableName = "tasks";
   static const String _taskListTableName = "task_lists";
 
@@ -27,8 +27,7 @@ class DBHelper {
             "startTime STRING, endTime STRING, "
             "remind INTEGER, repeat STRING, "
             "color INTEGER, "
-            "isCompleted INTEGER,"
-            "taskListd INTEGER)",
+            "isCompleted INTEGER,)",
           );
         },
         onUpgrade: (db, oldVersion, newVersion) async {
@@ -42,6 +41,17 @@ class DBHelper {
               "isPasswordProtected INTEGER, "
               "password STRING, "
               "tasks TEXT)",
+            );
+          }
+
+          // Add the new upgrade condition here
+          if (oldVersion < 3) {
+            print("Adding isShown and taskListId columns to Task table");
+            await db.execute(
+              "ALTER TABLE $_taskTableName ADD COLUMN isShown INTEGER",
+            );
+            await db.execute(
+              "ALTER TABLE $_taskTableName ADD COLUMN taskListId INTEGER",
             );
           }
         },
@@ -90,13 +100,13 @@ class DBHelper {
   }
 
   static Future<void> updateTaskListSelection(TaskList taskList) async {
-  print("update function called");
-  await _db!.rawUpdate('''
+    print("update function called");
+    await _db!.rawUpdate('''
     UPDATE $_taskListTableName
     SET selected = ?
     WHERE id = ?
   ''', [taskList.selected ? 1 : 0, taskList.id]);
-}
+  }
 
   static Future<void> updatePasswordProtection(
       TaskList taskList, bool isPasswordProtected, String? password) async {
