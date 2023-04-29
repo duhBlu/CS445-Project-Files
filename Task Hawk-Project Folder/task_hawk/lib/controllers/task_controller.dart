@@ -13,6 +13,9 @@ class TaskController extends GetxController {
   /// A list of tasks, wrapped in an [RxList] for observability.
   var taskList = <Task>[].obs;
 
+  /// var to hold selected task through diffrent pages
+  var selectedTask;
+
   /// Adds a task to the database and returns its ID.
   Future<int> addTask({Task? task}) async {
     return await DBHelper.insert(task);

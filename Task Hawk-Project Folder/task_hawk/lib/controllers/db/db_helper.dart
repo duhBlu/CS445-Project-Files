@@ -149,6 +149,12 @@ class DBHelper {
     return await _db!.query(_taskTableName);
   }
 
+  static getTask(Task task) async {
+    print("getTask function called");
+    return await _db!
+        .query(_taskTableName, where: 'id=?', whereArgs: [task.id]);
+  }
+
   static delete(Task task) async {
     await _db!.delete(_taskTableName, where: 'id=?', whereArgs: [task.id]);
   }

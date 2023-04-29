@@ -9,6 +9,7 @@ import 'package:task_hawk/controllers/task_list_controller.dart';
 import 'package:task_hawk/models/task.dart';
 import 'package:task_hawk/services/notification_services.dart';
 import 'package:task_hawk/ui/add_task_page.dart';
+import 'package:task_hawk/ui/edit_task_page.dart';
 import 'package:task_hawk/ui/side_menu.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/add_task_button.dart';
@@ -250,7 +251,11 @@ class _HomePageState extends State<HomePage> {
                   ),
             _bottomSheetButton(
               label: "Edit Task",
-              onTap: () {
+              onTap: () async {
+                _taskController.selectedTask = task;
+                await Get.to(() => EditTaskPage());
+                _taskController.getTasks();
+
                 //_taskController.modify(task);
               },
               textColor: Theme.of(context).colorScheme.onBackground,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:task_hawk/controllers/task_controller.dart';
 import 'package:task_hawk/controllers/task_list_controller.dart';
@@ -11,28 +12,45 @@ import '../models/task_list.dart';
 import '../services/notification_services.dart';
 import '../services/theme_services.dart';
 
-/// A page for adding a new task to the app.
-class AddTaskPage extends StatefulWidget {
-  const AddTaskPage({super.key});
+/// A page for editing an existing task.
+class EditTaskPage extends StatefulWidget {
+  const EditTaskPage({super.key});
 
   @override
-  State<AddTaskPage> createState() => _AddTaskPageState();
+  State<EditTaskPage> createState() => _EditTaskPageState();
 }
 
-/// The private state class for the AddTaskPage.
-class _AddTaskPageState extends State<AddTaskPage> {
+/// The private state class for the EditTaskPage.
+class _EditTaskPageState extends State<EditTaskPage> {
   /// Initialize the text field controllers, for data storage/update/n'stuff
   final TaskController _taskController = Get.put(TaskController());
   final TaskListController _taskListController = Get.find<TaskListController>();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
   TaskList? _selectedTaskList;
+  Task? _selectedTask;
   @override
   void initState() {
     super.initState();
     if (_taskListController.tasklists_List.isNotEmpty) {
       _selectedTaskList = _taskListController.tasklists_List.first;
     }
+
+    //if (_taskController.selectedTask) {
+    _selectedTask = _taskController.selectedTask!;
+    _titleController.text = _selectedTask?.title ?? "";
+    _noteController.text = _selectedTask?.note ?? "";
+    _selectedDate = DateFormat('MM/dd/yy').parse(_selectedTask?.date ?? "");
+//    DateTime.parse(_selectedTask?.date ?? DateTime.now().toString());
+    _endTime = _selectedTask?.endTime ?? "9:30 PM";
+    _startTime = _selectedTask?.startTime ??
+        DateFormat("hh:mm a").format(DateTime.now()).toString();
+    _selectedRemind = _selectedTask?.remind ?? 5;
+    _selectedRepeat = _selectedTask?.repeat ?? "None";
+    _selectedColor = _selectedTask?.color ?? 0;
+    _selectedTaskList =
+        _taskListController.tasklists_List[_selectedTask?.taskListID ?? 0];
+    //}
   }
 
   // initialize private variables
@@ -58,7 +76,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   int _selectedColor = 0;
 
-  /// Builds the AddTaskPage widget.
+  /// Builds the EditTaskPage widget.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +88,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "New Task",
+                "Change Task",
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 30,
@@ -254,7 +272,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   __validateData() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
       //add to database
-      __addTaskToDb();
+      __updateTaskToDb();
       Get.back();
     } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
       Get.snackbar(
@@ -268,22 +286,20 @@ class _AddTaskPageState extends State<AddTaskPage> {
     }
   }
 
-  /// Adds the new task to the database.
-  __addTaskToDb() async {
-    int value = await _taskController.addTask(
-      task: Task(
-        note: _noteController.text,
-        title: _titleController.text,
-        date: DateFormat.yMd().format(_selectedDate),
-        startTime: _startTime,
-        remind: _selectedRemind,
-        repeat: _selectedRepeat,
-        color: _selectedColor,
-        isCompleted: 0,
-        taskListID: _selectedTaskList!.id,
-      ),
-    );
-    print("My id is $value\nMy task list is ${_selectedTaskList!.id}");
+  /// updates task in the database.
+  __updateTaskToDb() async {
+    _selectedTask?.note = _noteController.text;
+    _selectedTask?.title = _titleController.text;
+    _selectedTask?.date = DateFormat.yMd().format(_selectedDate);
+    _selectedTask?.startTime = _startTime;
+    _selectedTask?.endTime = _endTime;
+    _selectedTask?.remind = _selectedRemind;
+    _selectedTask?.repeat = _selectedRepeat;
+    _selectedTask?.color = _selectedColor;
+    _selectedTask?.isCompleted = 0;
+    _selectedTask?.taskListID = _selectedTaskList!.id;
+
+    _taskController.updateTask(_selectedTask!);
   }
 
   /// Returns a column containing a color palette for the user to select the task color.

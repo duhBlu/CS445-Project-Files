@@ -140,7 +140,7 @@ class _AddTaskListPageState extends State<AddTaskListPage> {
             title: _titleController.text,
             selected: true,
             isPasswordProtected: false,
-            tasks: tasks));
+            canDelete: true));
     print("task list $value was created");
   }
 }
