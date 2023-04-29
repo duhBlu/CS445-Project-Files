@@ -107,7 +107,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     );
                   }).toList(),
                   onChanged: (TaskList? newValue) {
+                    print(_selectedTaskList!.id.toString());
                     setState(() {
+                      ;
                       _selectedTaskList = newValue;
                     });
                   },
@@ -283,7 +285,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
         taskListID: _selectedTaskList!.id,
       ),
     );
-    print("My id is $value\nMy task list is ${_selectedTaskList!.id}");
+    print("My id is $value\n");
   }
 
   /// Returns a column containing a color palette for the user to select the task color.

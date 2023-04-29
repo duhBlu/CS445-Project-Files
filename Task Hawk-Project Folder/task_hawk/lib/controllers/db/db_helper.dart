@@ -53,6 +53,45 @@ class DBHelper {
     }
   }
 
+  static Future<void> resetDatabase() async {
+    if (_db == null) {
+      print('Database is not initialized');
+      return;
+    }
+
+    try {
+      // Drop existing tables
+      await _db!.execute("DROP TABLE IF EXISTS $_taskTableName");
+      await _db!.execute("DROP TABLE IF EXISTS $_taskListTableName");
+
+      // Recreate tables
+      await _db!.execute(
+        "CREATE TABLE $_taskTableName("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "title STRING, note TEXT, date STRING, "
+        "startTime STRING, endTime STRING, "
+        "remind INTEGER, repeat STRING, "
+        "color INTEGER, "
+        "isCompleted INTEGER, "
+        "isShown INTEGER, "
+        "taskListId INTEGER)",
+      );
+
+      await _db!.execute(
+        "CREATE TABLE $_taskListTableName("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "title STRING, "
+        "selected INTEGER, "
+        "isPasswordProtected INTEGER, "
+        "password STRING, "
+        "canDelete INTEGER)",
+      );
+
+      print("Tables reset successfully");
+    } catch (e) {
+      print("Error resetting tables: $e");
+    }
+  }
   //static Future<void> initDb() async {
   //  if (_db != null) {
   //    return;
