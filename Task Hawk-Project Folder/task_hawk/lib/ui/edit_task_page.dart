@@ -12,15 +12,15 @@ import '../services/notification_services.dart';
 import '../services/theme_services.dart';
 
 /// A page for adding a new task to the app.
-class AddTaskPage extends StatefulWidget {
-  const AddTaskPage({super.key});
+class EditTaskPage extends StatefulWidget {
+  const EditTaskPage({super.key});
 
   @override
-  State<AddTaskPage> createState() => _AddTaskPageState();
+  State<EditTaskPage> createState() => _EditTaskPage();
 }
 
 /// The private state class for the AddTaskPage.
-class _AddTaskPageState extends State<AddTaskPage> {
+class _EditTaskPage extends State<EditTaskPage> {
   /// Initialize the text field controllers, for data storage/update/n'stuff
   final TaskController _taskController = Get.put(TaskController());
   final TaskListController _taskListController = Get.find<TaskListController>();

@@ -25,6 +25,7 @@ import 'dart:developer' as developer;
 // hacky calendar utils
 import 'package:task_hawk/calendar_src/shared/utils2.dart';
 
+import 'edit_task_page.dart';
 import 'widgets/task_list_tile.dart';
 
 /// A page widget that displays a list of tasks and allows the user to add or delete tasks.
@@ -142,8 +143,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _showTaskListManagerButtons() {}
-
   _showTasks() {
     return Expanded(
       flex: 50,
@@ -151,7 +150,6 @@ class _HomePageState extends State<HomePage> {
         () {
           int displayedTasks = 0;
           List<Widget> taskWidgets = [];
-
           for (int index = 0;
               index < _taskController.taskList.length;
               index++) {
@@ -250,8 +248,9 @@ class _HomePageState extends State<HomePage> {
                   ),
             _bottomSheetButton(
               label: "Edit Task",
-              onTap: () {
-                //_taskController.modify(task);
+              onTap: () async {
+                await Get.to(() => EditTaskPage());
+                _taskController.getTasks();
               },
               textColor: Theme.of(context).colorScheme.onBackground,
               context: context,
