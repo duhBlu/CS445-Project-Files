@@ -92,7 +92,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 widget: DropdownButton<TaskList>(
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? lightText : darkText,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   underline: Container(height: 0),
                   iconSize: 30,
@@ -131,7 +131,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 widget: DropdownButton(
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? lightText : darkText,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   underline: Container(height: 0),
                   iconSize: 30,
@@ -189,7 +189,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 widget: DropdownButton(
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? lightText : darkText,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   underline: Container(height: 0),
                   iconSize: 30,
@@ -211,7 +211,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 widget: DropdownButton(
                   icon: Icon(
                     Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? lightText : darkText,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                   underline: Container(height: 0),
                   iconSize: 30,
@@ -340,25 +340,46 @@ class _AddTaskPageState extends State<AddTaskPage> {
     } else {}
   }
 
-  /// Displays a time picker dialog to allow the user to select a start or end time for the task.
   __getTimefromUser({required bool isStartTime}) async {
     var pickedTime = await __showTimePicker();
-    String _formattedTime = pickedTime.format(context);
+
     if (pickedTime == null) {
       print("Time Canceled");
-    } else if (isStartTime == true) {
-      setState(() {
-        _startTime = _formattedTime;
-      });
-    } else if (isStartTime == false) {
-      setState(() {
-        _endTime = _formattedTime;
-      });
+    } else {
+      String formattedTime = pickedTime.format(context);
+      if (isStartTime == true) {
+        setState(() {
+          _startTime = formattedTime;
+        });
+      } else if (isStartTime == false) {
+        setState(() {
+          _endTime = formattedTime;
+        });
+      }
     }
   }
 
+  /// Displays a time picker dialog to allow the user to select a start or end time for the task.
+  //__getTimefromUser({required bool isStartTime}) async {
+  //  var pickedTime = await __showTimePicker();
+  //  String? formattedTime = pickedTime.format(context);
+  //  if (pickedTime == null) {
+  //    print("Time Canceled");
+  //  } else if (isStartTime == true) {
+  //    setState(() {
+  //      _startTime = formattedTime!;
+  //    });
+  //  } else if (isStartTime == false) {
+  //    setState(() {
+  //      _endTime = formattedTime!;
+  //    });
+  //  }
+  //}
+
   /// Shows a time picker dialog for selecting a time.
   __showTimePicker() {
+    Color backgroundColor = Theme.of(context).scaffoldBackgroundColor;
+
     return showTimePicker(
       initialEntryMode: TimePickerEntryMode.input,
       context: context,
@@ -366,6 +387,35 @@ class _AddTaskPageState extends State<AddTaskPage> {
         hour: int.parse(_startTime.split(":")[0]),
         minute: int.parse(_startTime.split(":")[1].split(" ")[0]),
       ),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Theme.of(context)
+                  .colorScheme
+                  .secondary, // Modify this to change the primary color
+              onPrimary: Theme.of(context)
+                  .colorScheme
+                  .secondary, // Modify this to change the text color on primary color
+              surface: Theme.of(context)
+                  .colorScheme
+                  .secondary, // Set the surface color to the current context's background color
+            ),
+            dialogBackgroundColor:
+                backgroundColor, // Set the dialog background color to the current context's background color
+            buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+            textTheme: TextTheme(
+              bodyText1: TextStyle(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onBackground), // Modify this to change the text color of time picker
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
   }
 

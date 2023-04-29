@@ -364,6 +364,28 @@ class _EditTaskPage extends State<EditTaskPage> {
         hour: int.parse(_startTime.split(":")[0]),
         minute: int.parse(_startTime.split(":")[1].split(" ")[0]),
       ),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            dialogBackgroundColor: Theme.of(context).colorScheme.background,
+            colorScheme: ColorScheme.light(
+              primary: Theme.of(context)
+                  .colorScheme
+                  .secondary, // Modify this to change the primary color
+              onPrimary: Theme.of(context).colorScheme.background,
+            ),
+            buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+            textTheme: TextTheme(
+              bodyText1: TextStyle(
+                  color: Colors
+                      .black), // Modify this to change the text color of time picker
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
   }
 
