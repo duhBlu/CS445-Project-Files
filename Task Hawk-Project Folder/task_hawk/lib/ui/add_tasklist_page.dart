@@ -117,7 +117,8 @@ class _AddTaskListPageState extends State<AddTaskListPage> {
   }
 
   __validateData() {
-    if (_titleController.text.isNotEmpty) {
+    if (_titleController.text.isNotEmpty &&
+        _titleController.text != 'default') {
       //add to database
       _addTaskListToDb();
       Get.back();
@@ -140,7 +141,7 @@ class _AddTaskListPageState extends State<AddTaskListPage> {
             title: _titleController.text,
             selected: true,
             isPasswordProtected: false,
-            tasks: tasks));
+            canDelete: true));
     print("task list $value was created");
   }
 }

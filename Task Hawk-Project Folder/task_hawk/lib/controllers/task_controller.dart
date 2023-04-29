@@ -40,4 +40,9 @@ class TaskController extends GetxController {
     await DBHelper.updateTask(task);
     getTasks();
   }
+
+  Future<void> updateTaskListID(int? taskId, int? taskListId) async {
+    await DBHelper.updateTaskListId(taskId, taskListId);
+    getTasks();
+  }
 }

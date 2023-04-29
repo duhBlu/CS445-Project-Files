@@ -185,6 +185,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           GestureDetector(
                             onTap: () {
+                              print("My task list ID is:" +
+                                  task.taskListID.toString());
                               _showBottomSheet(context, task);
                             },
                             child: TaskTile(task),

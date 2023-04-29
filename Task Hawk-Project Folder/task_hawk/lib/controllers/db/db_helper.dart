@@ -5,7 +5,7 @@ import '../../models/task_list.dart';
 
 class DBHelper {
   static Database? _db;
-  static const int _version = 3; // Update the version to 3
+  static const int _version = 5;
   static const String _taskTableName = "tasks";
   static const String _taskListTableName = "task_lists";
 
@@ -43,15 +43,10 @@ class DBHelper {
               "tasks TEXT)",
             );
           }
-
-          // Add the new upgrade condition here
-          if (oldVersion < 3) {
-            print("Adding isShown and taskListId columns to Task table");
+          if (oldVersion < 5) {
+            print("Adding canDelete column to Task_List table");
             await db.execute(
-              "ALTER TABLE $_taskTableName ADD COLUMN isShown INTEGER",
-            );
-            await db.execute(
-              "ALTER TABLE $_taskTableName ADD COLUMN taskListId INTEGER",
+              "ALTER TABLE $_taskListTableName ADD COLUMN canDelete INTEGER",
             );
           }
         },
@@ -92,6 +87,15 @@ class DBHelper {
     );
   }
 
+  static Future<void> updateTaskListId(int? taskId, int? taskListId) async {
+    print("updateTaskListId function called");
+    await _db!.rawUpdate('''
+      UPDATE $_taskTableName
+      SET taskListId = ?
+      WHERE id = ?
+    ''', [taskListId, taskId]);
+  }
+
   static Future<int?> insertTaskList(TaskList? taskList) async {
     print("insert function called");
     return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 69;
@@ -104,8 +108,21 @@ class DBHelper {
 
   static Future<void> deleteTaskList(TaskList taskList) async {
     print("delete function called");
-    await _db!
-        .delete(_taskListTableName, where: 'id=?', whereArgs: [taskList.id]);
+
+    // Check if the task list can be deleted
+    List<Map<String, dynamic>> result = await _db!.query(
+      _taskListTableName,
+      where: 'id=? AND canDelete=?',
+      whereArgs: [taskList.id, 1],
+    );
+
+    // If the task list exists and can be deleted, proceed with the deletion
+    if (result.isNotEmpty) {
+      await _db!
+          .delete(_taskListTableName, where: 'id=?', whereArgs: [taskList.id]);
+    } else {
+      print("Task list with ID ${taskList.id} cannot be deleted");
+    }
   }
 
   static Future<void> updateTaskListSelection(TaskList taskList) async {

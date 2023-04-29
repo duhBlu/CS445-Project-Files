@@ -10,7 +10,7 @@ class TaskList {
   bool selected;
   bool? isPasswordProtected;
   String? password;
-  List<Task> tasks;
+  bool canDelete;
 
   /// Creates a new instance of the [TaskList] class.
   TaskList({
@@ -19,15 +19,11 @@ class TaskList {
     required this.selected,
     required this.isPasswordProtected,
     this.password,
-    required this.tasks,
+    required this.canDelete,
   });
 
   /// Creates a new instance of the [TaskList] class from a JSON map.
   factory TaskList.fromJson(Map<String, dynamic> json) {
-    List<dynamic> taskJsonList = jsonDecode(json['tasks']);
-    List<Task> taskList =
-        taskJsonList.map((task) => Task.fromJson(task)).toList();
-
     /// Creates a new instance of the [TaskList] class from a JSON map.
     return TaskList(
       id: json['id'],
@@ -35,9 +31,7 @@ class TaskList {
       selected: json['selected'] == 1,
       isPasswordProtected: json['isPasswordProtected'] == 1,
       password: json['password'],
-      tasks: (jsonDecode(json['tasks']) as List)
-          .map((taskJson) => Task.fromJson(taskJson))
-          .toList(),
+      canDelete: json['canDelete'] == 1,
     );
   }
 
@@ -48,7 +42,7 @@ class TaskList {
       'selected': selected,
       'isPasswordProtected': isPasswordProtected,
       'password': password,
-      'tasks': json.encode(tasks.map((task) => task.toJson()).toList()),
+      'canDelete': canDelete,
     };
   }
 }

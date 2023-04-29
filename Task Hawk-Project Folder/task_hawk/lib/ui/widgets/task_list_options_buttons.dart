@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:task_hawk/ui/theme.dart';
 
 class CustomFloatingActionButton extends StatelessWidget {
-  final VoidCallback? onPressedFirst;
-  final VoidCallback? onPressedSecond;
-  final VoidCallback? onPressedThird;
+  final VoidCallback? onPressedDelete;
+  final VoidCallback? onPressedEdit;
+  final VoidCallback? onPressedCreate;
 
   CustomFloatingActionButton({
-    this.onPressedFirst,
-    this.onPressedSecond,
-    this.onPressedThird,
+    this.onPressedDelete,
+    this.onPressedEdit,
+    this.onPressedCreate,
   });
 
   @override
@@ -22,7 +22,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           bottom: 15,
           child: FloatingActionButton(
             heroTag: "trashBtn",
-            onPressed: onPressedFirst,
+            onPressed: onPressedDelete,
             child: Icon(
               Icons.delete_rounded,
               color: darkText,
@@ -34,7 +34,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           bottom: 15,
           child: FloatingActionButton(
             heroTag: "editBtn",
-            onPressed: onPressedSecond,
+            onPressed: onPressedEdit,
             child: Icon(
               Icons.edit_attributes_outlined,
               color: darkText,
@@ -46,7 +46,7 @@ class CustomFloatingActionButton extends StatelessWidget {
           bottom: 15,
           child: FloatingActionButton(
             heroTag: "createBtn",
-            onPressed: onPressedThird,
+            onPressed: onPressedCreate,
             child: Icon(
               Icons.add_task,
               color: darkText,
