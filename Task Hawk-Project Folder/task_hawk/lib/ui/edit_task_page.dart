@@ -142,33 +142,6 @@ class _EditTaskPage extends State<EditTaskPage> {
                   },
                 ),
               ),
-              TaskInputField(
-                title: "Repeat",
-                hint: "$_selectedRepeat",
-                widget: DropdownButton(
-                  icon: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Get.isDarkMode ? lightText : darkText,
-                  ),
-                  underline: Container(height: 0),
-                  iconSize: 30,
-                  elevation: 4,
-                  items:
-                      repeatList.map<DropdownMenuItem<String>>((String? value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value!,
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedRepeat = newValue!;
-                    });
-                  },
-                ),
-              ),
               Row(
                 children: [
                   Expanded(

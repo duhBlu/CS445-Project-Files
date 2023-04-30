@@ -126,33 +126,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   },
                 ),
               ),
-              TaskInputField(
-                title: "Repeat",
-                hint: "$_selectedRepeat",
-                widget: DropdownButton(
-                  icon: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
-                  underline: Container(height: 0),
-                  iconSize: 30,
-                  elevation: 4,
-                  items:
-                      repeatList.map<DropdownMenuItem<String>>((String? value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value!,
-                      ),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedRepeat = newValue!;
-                    });
-                  },
-                ),
-              ),
               Row(
                 children: [
                   Expanded(
