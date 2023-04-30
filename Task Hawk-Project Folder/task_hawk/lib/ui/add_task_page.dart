@@ -6,6 +6,7 @@ import 'package:task_hawk/controllers/task_list_controller.dart';
 import 'package:task_hawk/models/task.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/add_task_button.dart';
+import 'package:task_hawk/ui/widgets/custom_date_picker_ui.dart';
 import 'package:task_hawk/ui/widgets/input_field.dart';
 import '../models/task_list.dart';
 import '../services/notification_services.dart';
@@ -332,12 +333,25 @@ class _AddTaskPageState extends State<AddTaskPage> {
       initialDate: DateTime.now(),
       firstDate: DateTime(2015),
       lastDate: DateTime(2123),
+      builder: (BuildContext context, Widget? child) {
+        return CustomDatePickerDialog(
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2015),
+          lastDate: DateTime(2123),
+          currentDate: DateTime.now(),
+          initialEntryMode: DatePickerEntryMode.calendar,
+          helpText: 'Select a date',
+          cancelText: 'Cancel',
+          confirmText: 'OK',
+        );
+      },
     );
+
     if (_pickerDate != null) {
       setState(() {
         _selectedDate = _pickerDate;
       });
-    } else {}
+    }
   }
 
   __getTimefromUser({required bool isStartTime}) async {

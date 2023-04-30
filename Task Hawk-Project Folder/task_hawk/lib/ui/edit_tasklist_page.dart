@@ -6,22 +6,33 @@ import 'package:task_hawk/models/task_list.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/input_field.dart';
 
-class AddTaskListPage extends StatefulWidget {
-  const AddTaskListPage({Key? key}) : super(key: key);
+class EditTaskListPage extends StatefulWidget {
+  final TaskList selectedTaskList;
+  const EditTaskListPage({Key? key, required this.selectedTaskList})
+      : super(key: key);
 
   @override
-  _AddTaskListPageState createState() => _AddTaskListPageState();
+  _EditTaskListPage createState() => _EditTaskListPage();
 }
 
-class _AddTaskListPageState extends State<AddTaskListPage> {
+class _EditTaskListPage extends State<EditTaskListPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TaskListController _taskListController = Get.find<TaskListController>();
   final TextEditingController _passwordConfirmationController =
       TextEditingController();
   bool _passwordProtection = false;
+  TaskList? _selectedTaskList;
 
   @override
+  void initState() {
+    super.initState();
+    _selectedTaskList = widget.selectedTaskList;
+    _titleController.text = _selectedTaskList?.title ?? "";
+    _passwordController.text = _selectedTaskList?.password ?? "";
+    _passwordProtection = _selectedTaskList?.password != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +44,7 @@ class _AddTaskListPageState extends State<AddTaskListPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "New Task List",
+                "Edit Task List",
                 style: TextStyle(
                     color: Theme.of(context).colorScheme.onBackground,
                     fontSize: 30,
@@ -119,7 +130,7 @@ class _AddTaskListPageState extends State<AddTaskListPage> {
   __validateData() {
     if (_titleController.text.isNotEmpty) {
       //add to database
-      _addTaskListToDb();
+      _updateTaskListToDb();
       Get.back();
     } else if (_titleController.text.isEmpty) {
       Get.snackbar(
@@ -133,14 +144,10 @@ class _AddTaskListPageState extends State<AddTaskListPage> {
     }
   }
 
-  _addTaskListToDb() async {
-    List<Task> tasks = [];
-    int? value = await _taskListController.addTaskList(
-        taskList: TaskList(
-            title: _titleController.text,
-            selected: true,
-            isPasswordProtected: false,
-            canDelete: true));
-    print("task list $value was created");
+  _updateTaskListToDb() async {
+    _selectedTaskList!.title = _titleController.text;
+    _selectedTaskList!.password = _passwordController.text;
+    _selectedTaskList!.isPasswordProtected = _passwordProtection;
+    _taskListController.updateTaskList(_selectedTaskList!);
   }
 }

@@ -9,6 +9,7 @@ import 'package:task_hawk/ui/widgets/task_list_tile.dart';
 import '../controllers/task_controller.dart';
 import '../controllers/task_list_controller.dart';
 import '../models/task.dart';
+import 'edit_tasklist_page.dart';
 
 class SideMenu extends StatefulWidget {
   SideMenu({Key? key}) : super(key: key);
@@ -136,8 +137,13 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                     }
                   },
                   onPressedEdit: () async {
-                    //await Get.to(() => EditTaskListPage());
-                    _taskListController.getTaskLists();
+                    TaskList? selectedTaskList = await _taskListController
+                        .showEditTaskListDialog(context);
+                    if (selectedTaskList != null) {
+                      await Get.to(() =>
+                          EditTaskListPage(selectedTaskList: selectedTaskList));
+                      _taskListController.getTaskLists();
+                    }
                   },
                   onPressedCreate: () async {
                     // Handle the action of the third button

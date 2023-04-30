@@ -23,6 +23,7 @@ class TaskListController extends GetxController with GetxServiceMixin {
 
   /// The list of [TaskList]s that this controller manages.
   var tasklists_List = <TaskList>[].obs;
+  var selectedTaskList;
 
   /// Adds a new [TaskList] to the database.
   ///
@@ -66,6 +67,46 @@ class TaskListController extends GetxController with GetxServiceMixin {
   Future<void> updateTaskList(TaskList taskList) async {
     await DBHelper.updateTaskList(taskList);
     getTaskLists();
+  }
+
+  Future<TaskList?> showEditTaskListDialog(BuildContext context) async {
+    return await showDialog<TaskList>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select a Task List to Edit'),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: tasklists_List.length,
+              itemBuilder: (BuildContext context, int index) {
+                TaskList taskList = tasklists_List[index];
+                return ListTile(
+                  title: Text(taskList.title),
+                  onTap: () {
+                    Get.back(
+                        result:
+                            taskList); // Close the dialog and return the selected task list
+                  },
+                );
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () =>
+                  Get.back(result: null), // Close the dialog and return null
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onBackground),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<bool?> showDeleteTaskListDialog(BuildContext context) async {

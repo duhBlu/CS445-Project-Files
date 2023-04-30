@@ -251,7 +251,7 @@ class _HomePageState extends State<HomePage> {
               label: "Edit Task",
               onTap: () async {
                 _taskController.selectedTask = task;
-                await Get.to(() => EditTaskPage());
+                await Get.to(() => const EditTaskPage());
                 _taskController.getTasks();
 
                 //_taskController.modify(task);
