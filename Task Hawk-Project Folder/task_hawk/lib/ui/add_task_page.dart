@@ -399,7 +399,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   .secondary, // Modify this to change the text color on primary color
               surface: Theme.of(context)
                   .colorScheme
-                  .secondary, // Set the surface color to the current context's background color
+                  .background, // Set the surface color to the current context's background color
             ),
             dialogBackgroundColor:
                 backgroundColor, // Set the dialog background color to the current context's background color
