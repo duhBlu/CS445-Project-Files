@@ -13,7 +13,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Database Initialization
   await DBHelper.initDb();
-  await DBHelper.resetDatabase(); /// ENABLE ONLY IF YOU NEED TO CLEAR THE DATABASE
+  //await DBHelper.resetDatabase(); /// ENABLE ONLY IF YOU NEED TO CLEAR THE DATABASE
 
  
   await GetStorage.init();
