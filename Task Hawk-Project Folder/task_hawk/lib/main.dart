@@ -15,7 +15,6 @@ Future<void> main() async {
   await DBHelper.initDb();
   //await DBHelper.resetDatabase(); /// ENABLE ONLY IF YOU NEED TO CLEAR THE DATABASE
 
- 
   await GetStorage.init();
 
   // App Initialization

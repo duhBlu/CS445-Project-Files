@@ -32,7 +32,7 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
     _taskListController.getTaskLists();
     if (_taskListController.tasklists_List.isEmpty) {
       /// Enable only if there are no task lists
-      //initializeDefaultTaskList();
+      initializeDefaultTaskList();
     }
 
     super.initState();

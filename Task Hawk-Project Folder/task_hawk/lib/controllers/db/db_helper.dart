@@ -92,56 +92,10 @@ class DBHelper {
       print("Error resetting tables: $e");
     }
   }
-  //static Future<void> initDb() async {
-  //  if (_db != null) {
-  //    return;
-  //  }
-  //  try {
-  //    String _path = await getDatabasesPath() + 'tasks.db';
-  //    _db = await openDatabase(
-  //      _path,
-  //      version: _version,
-  //      onCreate: (db, version) {
-  //        print("Creating Task table");
-  //        db.execute(
-  //          "CREATE TABLE $_taskTableName("
-  //          "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-  //          "title STRING, note TEXT, date STRING, "
-  //          "startTime STRING, endTime STRING, "
-  //          "remind INTEGER, repeat STRING, "
-  //          "color INTEGER, "
-  //          "isCompleted INTEGER,)",
-  //        );
-  //      },
-  //      onUpgrade: (db, oldVersion, newVersion) async {
-  //        if (oldVersion < 5) {
-  //          print("Creating Task_List table");
-  //          await db.execute(
-  //            "CREATE TABLE IF NOT EXISTS $_taskListTableName("
-  //            "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-  //            "title STRING, "
-  //            "selected INTEGER, "
-  //            "isPasswordProtected INTEGER, "
-  //            "password STRING, "
-  //            "tasks TEXT)",
-  //          );
-  //        }
-  //        if (oldVersion < 5) {
-  //          print("Adding canDelete column to Task_List table");
-  //          await db.execute(
-  //            "ALTER TABLE $_taskListTableName ADD COLUMN canDelete INTEGER",
-  //          );
-  //        }
-  //      },
-  //    );
-  //  } catch (e) {
-  //    print(e);
-  //  }
-  //}
 
   static Future<int> insert(Task? task) async {
     print("insert function called");
-    return await _db?.insert(_taskTableName, task!.toJson()) ?? 69;
+    return await _db?.insert(_taskTableName, task!.toJson()) ?? 2345678;
   }
 
   static Future<List<Map<String, dynamic>>> query() async {
