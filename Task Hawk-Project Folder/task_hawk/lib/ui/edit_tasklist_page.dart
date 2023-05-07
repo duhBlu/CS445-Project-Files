@@ -6,8 +6,16 @@ import 'package:task_hawk/models/task_list.dart';
 import 'package:task_hawk/ui/theme.dart';
 import 'package:task_hawk/ui/widgets/input_field.dart';
 
+/// A StatefulWidget representing the Edit Task List page.
+///
+/// Takes a [selectedTaskList] as a required parameter.
+/// Displays a form for the user to edit the selected task list's information.
 class EditTaskListPage extends StatefulWidget {
+  /// The task list to be edited.
   final TaskList selectedTaskList;
+  /// Creates a new [EditTaskListPage] instance.
+  ///
+  /// [selectedTaskList] is a required parameter.
   const EditTaskListPage({Key? key, required this.selectedTaskList})
       : super(key: key);
 
@@ -15,6 +23,9 @@ class EditTaskListPage extends StatefulWidget {
   _EditTaskListPage createState() => _EditTaskListPage();
 }
 
+/// The private State class for [EditTaskListPage] StatefulWidget.
+///
+/// Implements the UI and logic for editing a task list.
 class _EditTaskListPage extends State<EditTaskListPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -33,6 +44,7 @@ class _EditTaskListPage extends State<EditTaskListPage> {
     _passwordProtection = _selectedTaskList?.password != null;
   }
 
+  // Builds the UI of the Edit Task List page.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +115,10 @@ class _EditTaskListPage extends State<EditTaskListPage> {
       ),
     );
   }
-
+  /// Creates an AppBar for the Edit Task List page.
+  ///
+  /// [context] is the [BuildContext] in which the AppBar is being built.
+  /// Has back button to navigate to the previous page
   __addAppBar(BuildContext context) {
     return AppBar(
       leading: GestureDetector(
@@ -126,7 +141,10 @@ class _EditTaskListPage extends State<EditTaskListPage> {
       ],
     );
   }
-
+  /// Validates the user input and updates the task list.
+  ///
+  /// Ensures that the title, password, and password confirmation are valid.
+  /// Updates the task list in the [_taskListController] and navigates back 
   __validateData() {
     if (_titleController.text.isNotEmpty) {
       //add to database
@@ -143,7 +161,11 @@ class _EditTaskListPage extends State<EditTaskListPage> {
       );
     }
   }
-
+  
+  /// Updates the task list in the database.
+  ///
+  /// Sets the new values for the task list's title, password, and password protection status,
+  /// and updates the task list in the [_taskListController].
   _updateTaskListToDb() async {
     _selectedTaskList!.title = _titleController.text;
     _selectedTaskList!.password = _passwordController.text;

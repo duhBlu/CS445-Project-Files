@@ -8,19 +8,21 @@ import 'package:task_hawk/ui/theme.dart';
 import 'controllers/task_controller.dart';
 import 'controllers/task_list_controller.dart';
 
+/// This is the main entry point of the Flutter application.
+/// It initializes the database, GetStorage and the application's root widget.
 Future<void> main() async {
-  // Error checking
   WidgetsFlutterBinding.ensureInitialized();
-  // Database Initialization
   await DBHelper.initDb();
-  //await DBHelper.resetDatabase(); /// ENABLE ONLY IF YOU NEED TO CLEAR THE DATABASE
-
+  //await DBHelper.resetDatabase(); // UNCOMMENT ONLY IF YOU NEED TO CLEAR THE DATABASE
   await GetStorage.init();
-
-  // App Initialization
   runApp(const MyApp());
 }
 
+/// The root widget of the application.
+///
+/// This StatelessWidget initializes and sets the application's theme,
+/// dark theme, and theme mode using the [ThemeService].
+/// It also sets the application's home screen as [HomePage].
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

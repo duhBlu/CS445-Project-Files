@@ -11,6 +11,11 @@ import '../controllers/task_list_controller.dart';
 import '../models/task.dart';
 import 'edit_tasklist_page.dart';
 
+/// A StatefulWidget that displays a sliding side menu with task list management options.
+///
+/// The side menu slides in from the right side of the screen when activated.
+/// It provides options to create, edit, and delete task lists, as well as
+/// manage the visibility of task lists in the main view.
 class SideMenu extends StatefulWidget {
   SideMenu({Key? key}) : super(key: key);
 
@@ -19,10 +24,15 @@ class SideMenu extends StatefulWidget {
 }
 
 class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
+  /// GetX package to get the task list controllers. No database calls necessary.
+  /// Also inits the animation controller
   late AnimationController _controller;
   final _taskController = Get.find<TaskController>();
   final _taskListController = Get.find<TaskListController>();
 
+    
+  /// Initializes the animation controller and task list controllers, then
+  /// checks if there are any task lists. If not, initializes the default task list.
   @override
   void initState() {
     _controller = AnimationController(
@@ -37,7 +47,8 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
 
     super.initState();
   }
-
+  
+  /// Toggles the side menu visibility by animating the menu in or out.
   void toggleMenu() {
     if (_controller.isDismissed) {
       _controller.forward();
@@ -47,6 +58,8 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
   }
 
   /// Enable only if there are no task lists
+  /// Force creates a default task list. If enabled, every time you reset
+  /// you will add another default task list.  
   Future<void> initializeDefaultTaskList() async {
     for (int index = 0; index < _taskController.taskList.length; index++) {
       _taskController.getTasks();
@@ -67,6 +80,8 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
     print("Task List: id = " + "$value");
   }
 
+  /// Builds the side menu with a slide transition, displays the task list manager header,
+  /// and renders the list of task lists.
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
@@ -127,6 +142,7 @@ class SideMenuState extends State<SideMenu> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
+                /// A custom floating action button with three actions: delete, edit, and create task lists.
                 CustomFloatingActionButton(
                   onPressedDelete: () async {
                     bool? result = await _taskListController

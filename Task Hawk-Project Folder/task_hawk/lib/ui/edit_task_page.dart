@@ -30,6 +30,9 @@ class _EditTaskPage extends State<EditTaskPage> {
   final TextEditingController _noteController = TextEditingController();
   TaskList? _selectedTaskList;
   Task? _selectedTask;
+
+  /// This method is called when the state object is created.
+  /// It initializes the task data, controllers, and other necessary variables.
   @override
   void initState() {
     super.initState();
@@ -77,10 +80,13 @@ class _EditTaskPage extends State<EditTaskPage> {
 
   int _selectedColor = 0;
 
-  /// Builds the EditTaskPage widget.
+  /// This method builds the EditTaskPage widget tree.
+  /// It creates a Scaffold containing an AppBar and a body with a series of input fields and buttons for editing a task.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /// This private method creates the AppBar for the EditTaskPage.
+      /// It includes a title and a close button.
       appBar: __addAppBar(context),
       body: Container(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
