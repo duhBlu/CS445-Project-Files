@@ -346,24 +346,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     }
   }
 
-  /// Displays a time picker dialog to allow the user to select a start or end time for the task.
-  //__getTimefromUser({required bool isStartTime}) async {
-  //  var pickedTime = await __showTimePicker();
-  //  String? formattedTime = pickedTime.format(context);
-  //  if (pickedTime == null) {
-  //    print("Time Canceled");
-  //  } else if (isStartTime == true) {
-  //    setState(() {
-  //      _startTime = formattedTime!;
-  //    });
-  //  } else if (isStartTime == false) {
-  //    setState(() {
-  //      _endTime = formattedTime!;
-  //    });
-  //  }
-  //}
 
-  /// Shows a time picker dialog for selecting a time.
   __showTimePicker() {
     Color backgroundColor = Theme.of(context).scaffoldBackgroundColor;
 

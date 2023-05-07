@@ -6,16 +6,17 @@ import '../models/task_list.dart';
 import 'db/db_helper.dart';
 
 /// The [TaskListController] class is responsible for managing task lists.
-///
 /// It extends the [GetxController] class to allow for reactive programming.
 class TaskListController extends GetxController with GetxServiceMixin {
   var taskListDeleted = false.obs;
 
+  /// Overrides the onReady method of GetxController.
   @override
   void onReady() {
     super.onReady();
   }
 
+  /// Overrides the onInit method of GetxController.
   @override
   void onInit() {
     super.onInit();
@@ -26,7 +27,6 @@ class TaskListController extends GetxController with GetxServiceMixin {
   var selectedTaskList;
 
   /// Adds a new [TaskList] to the database.
-  ///
   /// Returns the ID of the inserted [TaskList] as an [int].
   Future<int?> addTaskList({TaskList? taskList}) async {
     print("insert function called");
@@ -35,6 +35,7 @@ class TaskListController extends GetxController with GetxServiceMixin {
     return id;
   }
 
+  /// Updates the isSelected field of the given [TaskList] in the database.
   void isSelectedTaskList(TaskList taskListInstance) {
     DBHelper.updateTaskListSelection(taskListInstance);
     getTaskLists();
@@ -47,28 +48,32 @@ class TaskListController extends GetxController with GetxServiceMixin {
         taskListsData.map((data) => new TaskList.fromJson(data)).toList());
   }
 
+  /// Deletes the given [TaskList] from the database.
   void deleteTaskList(TaskList taskList) async {
     print("delete function called");
     await DBHelper.deleteTaskList(taskList);
     taskListDeleted.value = true;
   }
 
+  /// Toggles the isSelected field of the given [TaskList] in the database.
   void toggleTaskListSelection(TaskList taskList) {
     DBHelper.updateTaskListSelection(taskList);
     getTaskLists();
   }
 
+  /// Sets the password protection of the given [TaskList] in the database.
   void setPasswordProtection(
       TaskList taskList, bool isPasswordProtected, String? password) {
     DBHelper.updatePasswordProtection(taskList, isPasswordProtected, password);
     getTaskLists();
   }
 
+  /// Updates the given [TaskList] in the database.
   Future<void> updateTaskList(TaskList taskList) async {
     await DBHelper.updateTaskList(taskList);
     getTaskLists();
   }
-
+  /// Displays a dialog to select a task list for editing and returns the selected [TaskList].
   Future<TaskList?> showEditTaskListDialog(BuildContext context) async {
     return await showDialog<TaskList>(
       context: context,
@@ -109,6 +114,7 @@ class TaskListController extends GetxController with GetxServiceMixin {
     );
   }
 
+  /// Displays a dialog to select a task list for deletion and returns a [bool] indicating if a task list was deleted.
   Future<bool?> showDeleteTaskListDialog(BuildContext context) async {
     return await showDialog<bool>(
       context: context,
