@@ -9,6 +9,9 @@ class DBHelper {
   static const String _taskTableName = "tasks";
   static const String _taskListTableName = "task_lists";
 
+  /// Initializes the database by creating [_taskTableName] and [_taskListTableName] tables.
+  /// If the database is already initialized, it returns immediately.
+  /// It creates the tables with the specified columns and data types.
   static Future<void> initDb() async {
     if (_db != null) {
       return;
@@ -53,6 +56,9 @@ class DBHelper {
     }
   }
 
+  /// Resets the database by dropping and recreating [_taskTableName] and [_taskListTableName] tables.
+  /// It first drops the existing tables and then recreates them with the same schema.
+  /// This function is useful for resetting the database to its initial state.
   static Future<void> resetDatabase() async {
     if (_db == null) {
       print('Database is not initialized');
@@ -93,26 +99,37 @@ class DBHelper {
     }
   }
 
+  /// Inserts a [Task] into the [_taskTableName] table.
+  /// It takes a [Task] object, converts it to a JSON format, and inserts it into the database.
+  /// Returns the generated primary key value for the inserted row.
   static Future<int> insert(Task? task) async {
     print("insert function called");
     return await _db?.insert(_taskTableName, task!.toJson()) ?? 2345678;
   }
 
+  /// Queries all rows from the [_taskTableName] table.
+  /// It retrieves all the records in the table and returns them as a list of maps.
+  /// Each map represents a row with column names as keys and column values
   static Future<List<Map<String, dynamic>>> query() async {
     print("querry function called");
     return await _db!.query(_taskTableName);
   }
 
+  /// Retrieves a single [Task] from the [_taskTableName] table using the task's [id].
+  /// Returns the task as a map with column names as keys and column values as map values.
   static getTask(Task task) async {
     print("getTask function called");
     return await _db!
         .query(_taskTableName, where: 'id=?', whereArgs: [task.id]);
   }
 
+  /// Deletes a [Task] from the [_taskTableName] table using the task's [id].
   static delete(Task task) async {
     await _db!.delete(_taskTableName, where: 'id=?', whereArgs: [task.id]);
   }
 
+  /// Updates the [isCompleted] field of a task in the [_taskTableName] table.
+  /// Takes the [id] of the task and sets [isCompleted] to 1.
   static update(int id) async {
     return await _db!.rawUpdate('''
       UPDATE tasks
@@ -121,6 +138,9 @@ class DBHelper {
     ''', [1, id]);
   }
 
+  /// Updates a [Task] in the [_taskTableName] table.
+  /// Takes a [Task] object, converts it to a JSON format, and updates the corresponding row in the database.
+  /// Returns the number of rows affected by the update.
   static Future<int> updateTask(Task task) async {
     return await _db!.update(
       _taskTableName,
@@ -130,6 +150,8 @@ class DBHelper {
     );
   }
 
+  /// Updates the [taskListId] field of a task in the [_taskTableName] table.
+  /// Takes the [taskId] and the [taskListId] to update the task's associated task list.
   static Future<void> updateTaskListId(int? taskId, int? taskListId) async {
     print("updateTaskListId function called");
     await _db!.rawUpdate('''
@@ -139,11 +161,17 @@ class DBHelper {
     ''', [taskListId, taskId]);
   }
 
+  /// Inserts a [TaskList] into the [_taskListTableName] table.
+  /// It takes a [TaskList] object, converts it to a JSON format, and inserts it into the database.
+  /// Returns the generated primary key value for the inserted row.
   static Future<int?> insertTaskList(TaskList? taskList) async {
     print("insert function called");
     return await _db?.insert(_taskListTableName, taskList!.toJson()) ?? 69;
   }
 
+  /// Queries all rows from the [_taskListTableName] table.
+  /// It retrieves all the records in the table and returns them as a list of maps.
+  /// Each map represents a row with column names as keys and column values as map values.
   static Future<List<Map<String, dynamic>>> queryTaskLists() async {
     print("querry function called");
     return await _db!.query(_taskListTableName);
@@ -168,6 +196,8 @@ class DBHelper {
     }
   }
 
+  /// Updates the [selected] field of a [TaskList] in the [_taskListTableName] table.
+  /// Takes a [TaskList] object and updates the [selected] field in the corresponding row in the database.
   static Future<void> updateTaskListSelection(TaskList taskList) async {
     print("update function called");
     await _db!.rawUpdate('''
@@ -177,6 +207,10 @@ class DBHelper {
   ''', [taskList.selected ? 1 : 0, taskList.id]);
   }
 
+  /// Updates the password protection of a [TaskList] in the [_taskListTableName] table.
+  /// Takes a [TaskList] object, a [bool] value indicating whether the task list should be password protected,
+  /// and a [String] representing the password if the task list is password protected.
+  /// It updates the [isPasswordProtected] and [password] fields in the corresponding row in the database.-
   static Future<void> updatePasswordProtection(
       TaskList taskList, bool isPasswordProtected, String? password) async {
     print("update password function called");
@@ -191,6 +225,9 @@ class DBHelper {
     );
   }
 
+  /// Updates a [TaskList] in the [_taskListTableName] table.
+  /// Takes a [TaskList] object, converts it to a JSON format, and updates the corresponding row in the database.
+  /// Returns the number of rows affected by the update.
   static Future<int> updateTaskList(TaskList taskList) async {
     return await _db!.update(
       _taskListTableName,
